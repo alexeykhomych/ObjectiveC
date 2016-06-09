@@ -1,16 +1,15 @@
 //
-//  AKICreaturesMale.h
+//  AKICreatureMale.h
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 05.06.16.
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
-#import "AKICreatures.h"
+#import "AKICreature.h"
 
-@interface AKICreaturesMale : AKICreatures
+@interface AKICreatureMale : AKICreature
 
-- (void)createCreatureMale;
 - (void)goingToFigth;
 
 @end
