@@ -10,7 +10,6 @@
 
 @interface AKICreatureMale : AKICreature
 
-- (void)createCreatureMale;
 - (void)goingToFigth;
 
 @end

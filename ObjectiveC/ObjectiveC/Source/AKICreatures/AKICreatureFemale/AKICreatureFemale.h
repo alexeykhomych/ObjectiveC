@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AKICreatureFemale : NSObject
+#import "AKICreature.h"
+
+@interface AKICreatureFemale : AKICreature
+
+- (AKICreature *)giveBirthChild;
 
 @end
