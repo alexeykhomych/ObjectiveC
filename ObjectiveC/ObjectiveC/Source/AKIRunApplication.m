@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKICreaturesMale.h"
-#include "AKIRunApplication.h"
+#import "AKIRunApplication.h"
+#import "AKICreatureTest.h"
 
 void AKIRunApplication() {
-    createCreatureMale();
+    id test = [[AKICreatureTest alloc] init];
+    [test AKICreatureTestCreate];
 }

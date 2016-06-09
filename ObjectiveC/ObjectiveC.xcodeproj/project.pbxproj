@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		8453D6751D03102000C61D72 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453D6741D03102000C61D72 /* main.m */; };
-		8453D6851D0316EE00C61D72 /* AKISyntax.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453D6841D0316EE00C61D72 /* AKISyntax.m */; };
-		8453D6891D031D3100C61D72 /* AKISyntaxObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453D6881D031D3100C61D72 /* AKISyntaxObject.m */; };
-		84EF2C8F1D03570500CBC2A1 /* AKICreatures.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C8E1D03570500CBC2A1 /* AKICreatures.m */; };
+		84EF2C8F1D03570500CBC2A1 /* AKICreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C8E1D03570500CBC2A1 /* AKICreature.m */; };
 		84EF2C911D03598E00CBC2A1 /* AKIRunApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C901D03598E00CBC2A1 /* AKIRunApplication.m */; };
-		84EF2C961D049C9000CBC2A1 /* AKICreaturesMale.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C951D049C9000CBC2A1 /* AKICreaturesMale.m */; };
+		84EF2C9C1D0964C800CBC2A1 /* AKICreatureMale.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C9B1D0964C800CBC2A1 /* AKICreatureMale.m */; };
+		84EF2C9F1D09650000CBC2A1 /* AKICreatureFemale.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C9E1D09650000CBC2A1 /* AKICreatureFemale.m */; };
+		84EF2CA61D0975BF00CBC2A1 /* AKICreatureTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CA51D0975BF00CBC2A1 /* AKICreatureTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,16 +30,16 @@
 /* Begin PBXFileReference section */
 		8453D6711D03102000C61D72 /* ObjectiveC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ObjectiveC; sourceTree = BUILT_PRODUCTS_DIR; };
 		8453D6741D03102000C61D72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8453D6841D0316EE00C61D72 /* AKISyntax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKISyntax.m; sourceTree = "<group>"; };
-		8453D6861D0316F900C61D72 /* AKISyntax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKISyntax.h; sourceTree = "<group>"; };
-		8453D6871D031D3100C61D72 /* AKISyntaxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKISyntaxObject.h; sourceTree = "<group>"; };
-		8453D6881D031D3100C61D72 /* AKISyntaxObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKISyntaxObject.m; sourceTree = "<group>"; };
-		84EF2C8D1D03570500CBC2A1 /* AKICreatures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICreatures.h; sourceTree = "<group>"; };
-		84EF2C8E1D03570500CBC2A1 /* AKICreatures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreatures.m; sourceTree = "<group>"; };
+		84EF2C8D1D03570500CBC2A1 /* AKICreature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICreature.h; sourceTree = "<group>"; };
+		84EF2C8E1D03570500CBC2A1 /* AKICreature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreature.m; sourceTree = "<group>"; };
 		84EF2C901D03598E00CBC2A1 /* AKIRunApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIRunApplication.m; sourceTree = "<group>"; };
 		84EF2C931D0359EB00CBC2A1 /* AKIRunApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIRunApplication.h; sourceTree = "<group>"; };
-		84EF2C951D049C9000CBC2A1 /* AKICreaturesMale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreaturesMale.m; sourceTree = "<group>"; };
-		84EF2C981D049D2C00CBC2A1 /* AKICreaturesMale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICreaturesMale.h; sourceTree = "<group>"; };
+		84EF2C9A1D0964C800CBC2A1 /* AKICreatureMale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKICreatureMale.h; path = ObjectiveC/Source/AKICreatures/AKICreatureMale/AKICreatureMale.h; sourceTree = SOURCE_ROOT; };
+		84EF2C9B1D0964C800CBC2A1 /* AKICreatureMale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKICreatureMale.m; path = ObjectiveC/Source/AKICreatures/AKICreatureMale/AKICreatureMale.m; sourceTree = SOURCE_ROOT; };
+		84EF2C9D1D09650000CBC2A1 /* AKICreatureFemale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICreatureFemale.h; sourceTree = "<group>"; };
+		84EF2C9E1D09650000CBC2A1 /* AKICreatureFemale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreatureFemale.m; sourceTree = "<group>"; };
+		84EF2CA41D0975BF00CBC2A1 /* AKICreatureTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICreatureTest.h; sourceTree = "<group>"; };
+		84EF2CA51D0975BF00CBC2A1 /* AKICreatureTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreatureTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,39 +92,48 @@
 		8453D67C1D03164700C61D72 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				8453D6831D0316C300C61D72 /* AKISyntax */,
+				84EF2CA01D09757E00CBC2A1 /* AKICreatureTest */,
 			);
 			path = Test;
-			sourceTree = "<group>";
-		};
-		8453D6831D0316C300C61D72 /* AKISyntax */ = {
-			isa = PBXGroup;
-			children = (
-				8453D6841D0316EE00C61D72 /* AKISyntax.m */,
-				8453D6861D0316F900C61D72 /* AKISyntax.h */,
-				8453D6871D031D3100C61D72 /* AKISyntaxObject.h */,
-				8453D6881D031D3100C61D72 /* AKISyntaxObject.m */,
-			);
-			path = AKISyntax;
 			sourceTree = "<group>";
 		};
 		84EF2C8C1D0356D400CBC2A1 /* AKICreatures */ = {
 			isa = PBXGroup;
 			children = (
-				84EF2C941D049C5800CBC2A1 /* AKICreaturesMale */,
-				84EF2C8E1D03570500CBC2A1 /* AKICreatures.m */,
-				84EF2C8D1D03570500CBC2A1 /* AKICreatures.h */,
+				84EF2C991D09647400CBC2A1 /* AKICreatureFemale */,
+				84EF2C941D049C5800CBC2A1 /* AKICreatureMale */,
+				84EF2C8D1D03570500CBC2A1 /* AKICreature.h */,
+				84EF2C8E1D03570500CBC2A1 /* AKICreature.m */,
 			);
 			path = AKICreatures;
 			sourceTree = "<group>";
 		};
-		84EF2C941D049C5800CBC2A1 /* AKICreaturesMale */ = {
+		84EF2C941D049C5800CBC2A1 /* AKICreatureMale */ = {
 			isa = PBXGroup;
 			children = (
-				84EF2C951D049C9000CBC2A1 /* AKICreaturesMale.m */,
-				84EF2C981D049D2C00CBC2A1 /* AKICreaturesMale.h */,
+				84EF2C9A1D0964C800CBC2A1 /* AKICreatureMale.h */,
+				84EF2C9B1D0964C800CBC2A1 /* AKICreatureMale.m */,
 			);
+			name = AKICreatureMale;
 			path = AKICreaturesMale;
+			sourceTree = "<group>";
+		};
+		84EF2C991D09647400CBC2A1 /* AKICreatureFemale */ = {
+			isa = PBXGroup;
+			children = (
+				84EF2C9D1D09650000CBC2A1 /* AKICreatureFemale.h */,
+				84EF2C9E1D09650000CBC2A1 /* AKICreatureFemale.m */,
+			);
+			path = AKICreatureFemale;
+			sourceTree = "<group>";
+		};
+		84EF2CA01D09757E00CBC2A1 /* AKICreatureTest */ = {
+			isa = PBXGroup;
+			children = (
+				84EF2CA41D0975BF00CBC2A1 /* AKICreatureTest.h */,
+				84EF2CA51D0975BF00CBC2A1 /* AKICreatureTest.m */,
+			);
+			path = AKICreatureTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,10 +192,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84EF2C8F1D03570500CBC2A1 /* AKICreatures.m in Sources */,
-				84EF2C961D049C9000CBC2A1 /* AKICreaturesMale.m in Sources */,
-				8453D6891D031D3100C61D72 /* AKISyntaxObject.m in Sources */,
-				8453D6851D0316EE00C61D72 /* AKISyntax.m in Sources */,
+				84EF2C8F1D03570500CBC2A1 /* AKICreature.m in Sources */,
+				84EF2C9C1D0964C800CBC2A1 /* AKICreatureMale.m in Sources */,
+				84EF2C9F1D09650000CBC2A1 /* AKICreatureFemale.m in Sources */,
+				84EF2CA61D0975BF00CBC2A1 /* AKICreatureTest.m in Sources */,
 				84EF2C911D03598E00CBC2A1 /* AKIRunApplication.m in Sources */,
 				8453D6751D03102000C61D72 /* main.m in Sources */,
 			);

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
-#import "AKICreatures.h"
+#import "AKICreature.h"
 
 @interface AKICreaturesMale : AKICreatures
 

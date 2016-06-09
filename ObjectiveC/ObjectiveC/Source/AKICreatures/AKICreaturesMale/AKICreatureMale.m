@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "AKICreaturesMale.h"
-#import "AKICreatures.h"
+#import "AKICreature.h"
 
 @implementation AKICreaturesMale
 
