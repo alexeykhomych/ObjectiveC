@@ -14,24 +14,15 @@
 @implementation AKICreatureMale
 
 - (instancetype)initCreature {
-    return [super initCreature];
-}
-
-- (void)setName:(NSString *)name {
-    self.name = name;
-    [name release];
-}
-
-- (void)setAge:(NSUInteger)age {
-    self.age = age;
-}
-
-- (void)setWeight:(NSUInteger)weight {
-    self.weight = weight;
+    return [super init];
 }
 
 - (void)goingToFigth {
-    NSLog(@"I'm %@ goint to fight", self);
+    self.gender == AKIGenderMale ? NSLog(@"I'm %@ and I go to drink", self) : nil;
+}
+
+- (void)performGenderSpecificOperation {
+    self.gender == AKIGenderMale ? [self goingToFigth] : nil;
 }
 
 @end
