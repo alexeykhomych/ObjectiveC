@@ -1,5 +1,5 @@
 //
-//  AKICreatures.m
+//  AKICreature.m
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 04.06.16.
@@ -8,39 +8,60 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKICreatures.h"
+#import "AKICreature.h"
 
-@implementation AKICreatures
+@interface AKICreature()
+
+@property (nonatomic, retain) NSMutableArray *mutableChildren;
+
+@end
+
+@implementation AKICreature
 
 - (void)dealloc {
-    self.name = nil;
-    self.children = nil;
+    self.mutableChildren = nil;
     
     [super dealloc];
 }
 
-- (instancetype)createCreature {
-    id creature = [super init];
-    if (creature) {
-        self.children =
+- (instancetype)initCreature {
+    AKICreature *creature = [super init];
+    _mutableChildren = [[NSMutableArray alloc] init];
+
+    return creature;
+}
+
+- (void)setName:(NSString *)name {
+    self.name = name;
+    [name release];
+}
+
+- (void)setAge:(NSUInteger)age {
+    self.age = age;
+}
+
+- (void)setWeight:(NSUInteger)weight {
+    self.weight = weight;
+}
+
+- (void)sayAnything:(NSString *)sentence {
+    NSLog(@"%@ say: %@", self, sentence);
+    
+    for (AKICreature *child in _mutableChildren) {
+        NSLog(@"%@ say: %@", child, sentence);
     }
 }
 
-- (void)sayHi {
-    [self sayWithString:@"HI"];
+- (NSArray *)children {
+    return [[self.mutableChildren copy] autorelease];
 }
 
-- (void)sayWithString:(NSString *)string {
-    NSLog(@"Creature %@ say %@", self, string);
+- (void)addChildToArray:(AKICreature *)creature {
+    [_mutableChildren addObject:self];
 }
 
-- (void)birthChild {
-    
-}
-- (void)addCreaturesToArray:(NSArray *)creaturesArray {
-    
+- (void)removeChildFromArray:(AKICreature *)creature {
+    [_mutableChildren removeObject:creature];
 }
 
 @end
-
-
