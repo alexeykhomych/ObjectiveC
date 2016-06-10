@@ -19,25 +19,23 @@
 @implementation AKICreature
 
 - (void)dealloc {
-    self.mutableChildren = nil;
+    [self setMutableChildren:nil];
+    [self setName:nil];
     
     [super dealloc];
 }
 
-- (instancetype)initCreature {
-    AKICreature *creature = [super init];
-    _mutableChildren = [NSMutableArray array];
+- (instancetype)creature {
+    self = [super init];
+    self.mutableChildren = [NSMutableArray object];
     
-    return creature;
+    return self;
 }
 
 - (void)setName:(NSString *)name {
     if (_name != name) {
         [_name release];
-        
-        _name = name;
-        
-        [_name retain];
+        _name = [name copy];
     }
 }
 
@@ -62,11 +60,17 @@
 }
 
 - (void)addChild:(AKICreature *)creature {
-    [self.mutableChildren addObject:creature];
+    if (![_mutableChildren containsObject:creature]) {
+        [_mutableChildren addObject:creature];
+    }
 }
 
 - (void)removeChild:(AKICreature *)creature {
     [self.mutableChildren removeObject:creature];
+}
+
+- (void)performGenderSpecificOperation {
+    NSLog(@"ti popal");
 }
 
 @end

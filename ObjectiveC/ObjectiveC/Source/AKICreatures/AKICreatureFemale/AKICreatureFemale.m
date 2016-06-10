@@ -13,7 +13,7 @@
 - (AKICreature *)giveBirthChild {
     NSLog(@"%@ gives birth", self);
 
-    return [[AKICreature alloc] initCreature];
+    return [AKICreature object];
 }
 
 - (void)performGenderSpecificOperation {

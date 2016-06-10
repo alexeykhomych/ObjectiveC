@@ -13,6 +13,7 @@
 		84EF2C9C1D0964C800CBC2A1 /* AKICreatureMale.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C9B1D0964C800CBC2A1 /* AKICreatureMale.m */; };
 		84EF2C9F1D09650000CBC2A1 /* AKICreatureFemale.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C9E1D09650000CBC2A1 /* AKICreatureFemale.m */; };
 		84EF2CA61D0975BF00CBC2A1 /* AKICreatureTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CA51D0975BF00CBC2A1 /* AKICreatureTest.m */; };
+		84EF2CA91D0B02DE00CBC2A1 /* NSObject+AKICategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CA81D0B02DE00CBC2A1 /* NSObject+AKICategory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,8 @@
 		84EF2C9E1D09650000CBC2A1 /* AKICreatureFemale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreatureFemale.m; sourceTree = "<group>"; };
 		84EF2CA41D0975BF00CBC2A1 /* AKICreatureTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICreatureTest.h; sourceTree = "<group>"; };
 		84EF2CA51D0975BF00CBC2A1 /* AKICreatureTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreatureTest.m; sourceTree = "<group>"; };
+		84EF2CA71D0B02DE00CBC2A1 /* NSObject+AKICategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AKICategory.h"; sourceTree = "<group>"; };
+		84EF2CA81D0B02DE00CBC2A1 /* NSObject+AKICategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AKICategory.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,8 @@
 				84EF2C941D049C5800CBC2A1 /* AKICreatureMale */,
 				84EF2C8D1D03570500CBC2A1 /* AKICreature.h */,
 				84EF2C8E1D03570500CBC2A1 /* AKICreature.m */,
+				84EF2CA71D0B02DE00CBC2A1 /* NSObject+AKICategory.h */,
+				84EF2CA81D0B02DE00CBC2A1 /* NSObject+AKICategory.m */,
 			);
 			path = AKICreatures;
 			sourceTree = "<group>";
@@ -198,6 +203,7 @@
 				84EF2CA61D0975BF00CBC2A1 /* AKICreatureTest.m in Sources */,
 				84EF2C911D03598E00CBC2A1 /* AKIRunApplication.m in Sources */,
 				8453D6751D03102000C61D72 /* main.m in Sources */,
+				84EF2CA91D0B02DE00CBC2A1 /* NSObject+AKICategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
