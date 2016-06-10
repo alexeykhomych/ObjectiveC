@@ -14,6 +14,14 @@
 		84EF2C9F1D09650000CBC2A1 /* AKICreatureFemale.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2C9E1D09650000CBC2A1 /* AKICreatureFemale.m */; };
 		84EF2CA61D0975BF00CBC2A1 /* AKICreatureTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CA51D0975BF00CBC2A1 /* AKICreatureTest.m */; };
 		84EF2CA91D0B02DE00CBC2A1 /* NSObject+AKICategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CA81D0B02DE00CBC2A1 /* NSObject+AKICategory.m */; };
+		84EF2CAC1D0B0FF600CBC2A1 /* AKICarWashTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CAB1D0B0FF600CBC2A1 /* AKICarWashTest.m */; };
+		84EF2CAF1D0B105600CBC2A1 /* AKICarWashBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CAE1D0B105600CBC2A1 /* AKICarWashBuilding.m */; };
+		84EF2CB31D0B108A00CBC2A1 /* AKICarWash.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CB21D0B108A00CBC2A1 /* AKICarWash.m */; };
+		84EF2CB81D0B10B800CBC2A1 /* AKICarWashWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CB71D0B10B800CBC2A1 /* AKICarWashWorker.m */; };
+		84EF2CBB1D0B10C900CBC2A1 /* AKICarWashBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CBA1D0B10C900CBC2A1 /* AKICarWashBuilding.m */; };
+		84EF2CC01D0B1AB900CBC2A1 /* AKCarWashWorkerAccountant.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CBF1D0B1AB900CBC2A1 /* AKCarWashWorkerAccountant.m */; };
+		84EF2CC31D0B1ACD00CBC2A1 /* AKCarWashWorkerWasher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CC21D0B1ACD00CBC2A1 /* AKCarWashWorkerWasher.m */; };
+		84EF2CC61D0B1AED00CBC2A1 /* AKCarWashWorkerDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF2CC51D0B1AED00CBC2A1 /* AKCarWashWorkerDirector.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +51,21 @@
 		84EF2CA51D0975BF00CBC2A1 /* AKICreatureTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreatureTest.m; sourceTree = "<group>"; };
 		84EF2CA71D0B02DE00CBC2A1 /* NSObject+AKICategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AKICategory.h"; sourceTree = "<group>"; };
 		84EF2CA81D0B02DE00CBC2A1 /* NSObject+AKICategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AKICategory.m"; sourceTree = "<group>"; };
+		84EF2CAB1D0B0FF600CBC2A1 /* AKICarWashTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICarWashTest.m; sourceTree = "<group>"; };
+		84EF2CAD1D0B105600CBC2A1 /* AKICarWashBuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICarWashBuilding.h; sourceTree = "<group>"; };
+		84EF2CAE1D0B105600CBC2A1 /* AKICarWashBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICarWashBuilding.m; sourceTree = "<group>"; };
+		84EF2CB11D0B108A00CBC2A1 /* AKICarWash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICarWash.h; sourceTree = "<group>"; };
+		84EF2CB21D0B108A00CBC2A1 /* AKICarWash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICarWash.m; sourceTree = "<group>"; };
+		84EF2CB61D0B10B800CBC2A1 /* AKICarWashWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICarWashWorker.h; sourceTree = "<group>"; };
+		84EF2CB71D0B10B800CBC2A1 /* AKICarWashWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICarWashWorker.m; sourceTree = "<group>"; };
+		84EF2CB91D0B10C900CBC2A1 /* AKICarWashBuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICarWashBuilding.h; sourceTree = "<group>"; };
+		84EF2CBA1D0B10C900CBC2A1 /* AKICarWashBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICarWashBuilding.m; sourceTree = "<group>"; };
+		84EF2CBE1D0B1AB900CBC2A1 /* AKCarWashWorkerAccountant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCarWashWorkerAccountant.h; sourceTree = "<group>"; };
+		84EF2CBF1D0B1AB900CBC2A1 /* AKCarWashWorkerAccountant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCarWashWorkerAccountant.m; sourceTree = "<group>"; };
+		84EF2CC11D0B1ACD00CBC2A1 /* AKCarWashWorkerWasher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCarWashWorkerWasher.h; sourceTree = "<group>"; };
+		84EF2CC21D0B1ACD00CBC2A1 /* AKCarWashWorkerWasher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCarWashWorkerWasher.m; sourceTree = "<group>"; };
+		84EF2CC41D0B1AED00CBC2A1 /* AKCarWashWorkerDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCarWashWorkerDirector.h; sourceTree = "<group>"; };
+		84EF2CC51D0B1AED00CBC2A1 /* AKCarWashWorkerDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCarWashWorkerDirector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +107,7 @@
 		8453D67B1D0315A100C61D72 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				84EF2CB01D0B107000CBC2A1 /* AKICarWash */,
 				84EF2C8C1D0356D400CBC2A1 /* AKICreatures */,
 				8453D67C1D03164700C61D72 /* Test */,
 				84EF2C901D03598E00CBC2A1 /* AKIRunApplication.m */,
@@ -95,6 +119,7 @@
 		8453D67C1D03164700C61D72 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				84EF2CAA1D0B0F9B00CBC2A1 /* AKICarWashTest */,
 				84EF2CA01D09757E00CBC2A1 /* AKICreatureTest */,
 			);
 			path = Test;
@@ -139,6 +164,67 @@
 				84EF2CA51D0975BF00CBC2A1 /* AKICreatureTest.m */,
 			);
 			path = AKICreatureTest;
+			sourceTree = "<group>";
+		};
+		84EF2CAA1D0B0F9B00CBC2A1 /* AKICarWashTest */ = {
+			isa = PBXGroup;
+			children = (
+				84EF2CAB1D0B0FF600CBC2A1 /* AKICarWashTest.m */,
+				84EF2CAD1D0B105600CBC2A1 /* AKICarWashBuilding.h */,
+				84EF2CAE1D0B105600CBC2A1 /* AKICarWashBuilding.m */,
+			);
+			path = AKICarWashTest;
+			sourceTree = "<group>";
+		};
+		84EF2CB01D0B107000CBC2A1 /* AKICarWash */ = {
+			isa = PBXGroup;
+			children = (
+				84EF2CB51D0B10A300CBC2A1 /* AKICarWashWorker */,
+				84EF2CB41D0B108E00CBC2A1 /* AKICarWashBuilding */,
+				84EF2CB11D0B108A00CBC2A1 /* AKICarWash.h */,
+				84EF2CB21D0B108A00CBC2A1 /* AKICarWash.m */,
+			);
+			path = AKICarWash;
+			sourceTree = "<group>";
+		};
+		84EF2CB41D0B108E00CBC2A1 /* AKICarWashBuilding */ = {
+			isa = PBXGroup;
+			children = (
+				84EF2CBC1D0B10E500CBC2A1 /* AKICarWashBuildingRoom */,
+				84EF2CB91D0B10C900CBC2A1 /* AKICarWashBuilding.h */,
+				84EF2CBA1D0B10C900CBC2A1 /* AKICarWashBuilding.m */,
+			);
+			path = AKICarWashBuilding;
+			sourceTree = "<group>";
+		};
+		84EF2CB51D0B10A300CBC2A1 /* AKICarWashWorker */ = {
+			isa = PBXGroup;
+			children = (
+				84EF2CBD1D0B1A3D00CBC2A1 /* AKCarWashWorkerSpecialty */,
+				84EF2CB61D0B10B800CBC2A1 /* AKICarWashWorker.h */,
+				84EF2CB71D0B10B800CBC2A1 /* AKICarWashWorker.m */,
+			);
+			path = AKICarWashWorker;
+			sourceTree = "<group>";
+		};
+		84EF2CBC1D0B10E500CBC2A1 /* AKICarWashBuildingRoom */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AKICarWashBuildingRoom;
+			sourceTree = "<group>";
+		};
+		84EF2CBD1D0B1A3D00CBC2A1 /* AKCarWashWorkerSpecialty */ = {
+			isa = PBXGroup;
+			children = (
+				84EF2CBE1D0B1AB900CBC2A1 /* AKCarWashWorkerAccountant.h */,
+				84EF2CBF1D0B1AB900CBC2A1 /* AKCarWashWorkerAccountant.m */,
+				84EF2CC11D0B1ACD00CBC2A1 /* AKCarWashWorkerWasher.h */,
+				84EF2CC21D0B1ACD00CBC2A1 /* AKCarWashWorkerWasher.m */,
+				84EF2CC41D0B1AED00CBC2A1 /* AKCarWashWorkerDirector.h */,
+				84EF2CC51D0B1AED00CBC2A1 /* AKCarWashWorkerDirector.m */,
+			);
+			path = AKCarWashWorkerSpecialty;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,10 +284,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				84EF2C8F1D03570500CBC2A1 /* AKICreature.m in Sources */,
+				84EF2CB31D0B108A00CBC2A1 /* AKICarWash.m in Sources */,
+				84EF2CAC1D0B0FF600CBC2A1 /* AKICarWashTest.m in Sources */,
 				84EF2C9C1D0964C800CBC2A1 /* AKICreatureMale.m in Sources */,
 				84EF2C9F1D09650000CBC2A1 /* AKICreatureFemale.m in Sources */,
+				84EF2CB81D0B10B800CBC2A1 /* AKICarWashWorker.m in Sources */,
+				84EF2CAF1D0B105600CBC2A1 /* AKICarWashBuilding.m in Sources */,
+				84EF2CC61D0B1AED00CBC2A1 /* AKCarWashWorkerDirector.m in Sources */,
+				84EF2CBB1D0B10C900CBC2A1 /* AKICarWashBuilding.m in Sources */,
 				84EF2CA61D0975BF00CBC2A1 /* AKICreatureTest.m in Sources */,
+				84EF2CC01D0B1AB900CBC2A1 /* AKCarWashWorkerAccountant.m in Sources */,
 				84EF2C911D03598E00CBC2A1 /* AKIRunApplication.m in Sources */,
+				84EF2CC31D0B1ACD00CBC2A1 /* AKCarWashWorkerWasher.m in Sources */,
 				8453D6751D03102000C61D72 /* main.m in Sources */,
 				84EF2CA91D0B02DE00CBC2A1 /* NSObject+AKICategory.m in Sources */,
 			);

@@ -12,6 +12,6 @@
 #import "AKICreatureTest.h"
 
 void AKIRunApplication() {
-    id test = [[AKICreatureTest alloc] init];
+    id test = [[[AKICreatureTest alloc] init]  autorelease];
     [test AKICreatureTestCreate];
 }
