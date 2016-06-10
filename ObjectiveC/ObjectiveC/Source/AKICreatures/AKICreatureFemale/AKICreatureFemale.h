@@ -12,6 +12,6 @@
 
 @interface AKICreatureFemale : AKICreature
 
-- (AKICreature *)giveBirthChild;
+- (AKICreature *)giveBirthToChild;
 
 @end

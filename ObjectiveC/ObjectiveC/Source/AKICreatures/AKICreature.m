@@ -11,26 +11,38 @@
 #import "AKICreature.h"
 
 @interface AKICreature()
-
 @property (nonatomic, retain) NSMutableArray *mutableChildren;
 
 @end
 
 @implementation AKICreature
 
+#pragma mark -
+#pragma mark Init/dealloc
+
 - (void)dealloc {
     [self setMutableChildren:nil];
     [self setName:nil];
-    
+
     [super dealloc];
 }
 
-- (instancetype)creature {
-    self = [super init];
-    self.mutableChildren = [NSMutableArray object];
++ (instancetype)creature {
+    AKICreature *creature = [[[super alloc] init] autorelease];
+    creature.mutableChildren = [NSMutableArray object];
     
-    return self;
+    return creature;
 }
+
+#pragma mark -
+#pragma mark Accessors
+
+- (NSArray *)children {
+    return [[self.mutableChildren copy] autorelease];
+}
+
+#pragma mark -
+#pragma mark Public Implementations
 
 - (void)setName:(NSString *)name {
     if (_name != name) {
@@ -55,13 +67,11 @@
     }
 }
 
-- (NSArray *)children {
-    return [[self.mutableChildren copy] autorelease];
-}
-
 - (void)addChild:(AKICreature *)creature {
-    if (![_mutableChildren containsObject:creature]) {
-        [_mutableChildren addObject:creature];
+    NSMutableArray *childrenCopy = _mutableChildren;
+    
+    if (![childrenCopy containsObject:creature]) {
+        [childrenCopy addObject:creature];
     }
 }
 

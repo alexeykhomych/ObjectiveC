@@ -11,13 +11,12 @@
 #import "NSObject+AKICategory.h"
 
 @interface AKICreature : NSObject
-
 @property (nonatomic, copy)     NSString    *name;
 @property (nonatomic, assign)   NSUInteger  weight;
 @property (nonatomic, assign)   NSUInteger  age;
 @property (nonatomic, readonly) NSArray     *children;
 
-- (instancetype)creature;
++ (instancetype)creature;
 - (void)sayPhrase:(NSString *)sentence;
 - (void)addChild:(AKICreature *)creature;
 - (void)removeChild:(AKICreature *)creature;

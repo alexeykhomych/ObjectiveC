@@ -10,14 +10,16 @@
 
 @implementation AKICreatureFemale
 
-- (AKICreature *)giveBirthChild {
+- (AKICreature *)giveBirthToChild {
     NSLog(@"%@ gives birth", self);
-
-    return [AKICreature object];
+    AKICreature *child = [AKICreature object];
+    [self.children arrayByAddingObject:child];
+    
+    return child;
 }
 
 - (void)performGenderSpecificOperation {
-    [self giveBirthChild];
+    [self giveBirthToChild];
 }
 
 @end
