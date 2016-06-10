@@ -13,5 +13,5 @@
 
 void AKIRunApplication() {
     id test = [[[AKICreatureTest alloc] init]  autorelease];
-    [test AKICreatureTestCreate];
+    [test performTest];
 }
