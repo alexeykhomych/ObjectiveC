@@ -9,5 +9,8 @@
 #import "AKIWorker.h"
 
 @interface AKIDirector : AKIWorker
+@property (nonatomic, assign) NSInteger revenue;
+
+- (void)makeRevenue:(NSInteger)money;
 
 @end

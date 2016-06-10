@@ -10,4 +10,18 @@
 
 @implementation AKIDirector
 
+- (void)doJob {
+    [self makeRevenue:self.money];
+}
+
+- (void)takeMoney:(NSInteger)money {
+    self.money = money;
+    [self makeRevenue:self.money];
+}
+
+- (void)makeRevenue:(NSInteger)money {
+    self.revenue += money;
+    NSLog(@"vse pizdec. poidy kyplu yahtu");
+}
+
 @end

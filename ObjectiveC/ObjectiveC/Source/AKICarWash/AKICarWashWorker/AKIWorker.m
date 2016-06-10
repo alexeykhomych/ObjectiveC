@@ -18,7 +18,7 @@
 }
 
 + (instancetype)worker {
-    return [[super init] autorelease];
+    return [[[super alloc] init] autorelease];
 }
 
 #pragma mark -

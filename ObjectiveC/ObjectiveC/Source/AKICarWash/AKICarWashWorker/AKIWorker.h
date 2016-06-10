@@ -12,6 +12,7 @@
 @property (nonatomic, assign)   NSInteger salary;
 @property (nonatomic, assign)   NSInteger expirience;
 @property (nonatomic, assign)   NSInteger money;
+@property (nonatomic, assign)   AKIWorker *chief;
 
 + (instancetype)worker;
 - (void)doJob;

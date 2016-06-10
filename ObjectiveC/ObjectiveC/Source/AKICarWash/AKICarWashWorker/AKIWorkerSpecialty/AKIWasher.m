@@ -7,17 +7,19 @@
 //
 
 #import "AKIWasher.h"
-
-static NSInteger const kMoney = 10;
+#import "AKIAccountant.h"
 
 @implementation AKIWasher
 
 #pragma mark -
 #pragma mark Public Implementations
 
-- (void)doJob {
+- (void)doJob:(NSInteger)money {
+    [self takeMoney:money];
     [self takeCar];
-    [self takeMoney:kMoney];
+    [self washCar];
+    [self giveCar];
+    [self giveMoneyToWorker:self.chief];
 }
 
 - (void)takeCar {
@@ -30,9 +32,11 @@ static NSInteger const kMoney = 10;
 
 - (void)takeMoney:(NSInteger)money {
     self.money = money;
+    [self doJob];
 }
 
 - (void)giveMoneyToWorker:(AKIWorker *)worker {
+    NSLog(@"Just a little time. I will give money to %@", [self.chief className]);
     [worker takeMoney:self.money];
 }
 

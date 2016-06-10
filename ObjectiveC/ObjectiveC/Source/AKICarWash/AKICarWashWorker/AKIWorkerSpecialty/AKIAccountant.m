@@ -11,15 +11,15 @@
 @implementation AKIAccountant
 
 - (void)doJob {
-    
+    [self giveMoneyToWorker:self.chief];
 }
 
 - (void)takeMoney:(NSInteger)money {
-    
+    self.money = money;
 }
 
 - (void)giveMoneyToWorker:(AKIWorker *)worker {
-    
+    [worker takeMoney:self.money];
 }
 
 @end
