@@ -1,5 +1,5 @@
 //
-//  AKICarWashWorker.h
+//  AKIWorker.h
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 10.06.16.
@@ -8,15 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AKICarWashWorker : NSObject
-
+@interface AKIWorker : NSObject
 @property (nonatomic, assign)   NSInteger salary;
 @property (nonatomic, assign)   NSInteger expirience;
 @property (nonatomic, assign)   NSInteger money;
 
-- (instancetype)worker;
++ (instancetype)worker;
 - (void)doJob;
 - (void)takeMoney:(NSInteger)money;
-- (void)giveMoney:(AKICarWashWorker *)worker;
+- (void)giveMoneyToWorker:(AKIWorker *)worker;
 
 @end

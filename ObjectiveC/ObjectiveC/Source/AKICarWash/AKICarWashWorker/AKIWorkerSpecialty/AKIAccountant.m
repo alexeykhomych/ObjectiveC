@@ -1,14 +1,14 @@
 //
-//  AKCarWashWorkerAccountant.m
+//  AKIAccountant.m
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 10.06.16.
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
-#import "AKCarWashWorkerAccountant.h"
+#import "AKIAccountant.h"
 
-@implementation AKCarWashWorkerAccountant
+@implementation AKIAccountant
 
 - (void)doJob {
     
@@ -18,7 +18,7 @@
     
 }
 
-- (void)giveMoney:(AKICarWashWorker *)worker {
+- (void)giveMoneyToWorker:(AKIWorker *)worker {
     
 }
 

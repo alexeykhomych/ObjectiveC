@@ -1,16 +1,19 @@
 //
-//  AKCarWashWorkerWasher.m
+//  AKIWasher.m
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 10.06.16.
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
-#import "AKCarWashWorkerWasher.h"
-
-@implementation AKCarWashWorkerWasher
+#import "AKIWasher.h"
 
 static NSInteger const kMoney = 10;
+
+@implementation AKIWasher
+
+#pragma mark -
+#pragma mark Public Implementations
 
 - (void)doJob {
     [self takeCar];
@@ -29,7 +32,7 @@ static NSInteger const kMoney = 10;
     self.money = money;
 }
 
-- (void)giveMoney:(AKICarWashWorker *)worker {
+- (void)giveMoneyToWorker:(AKIWorker *)worker {
     [worker takeMoney:self.money];
 }
 

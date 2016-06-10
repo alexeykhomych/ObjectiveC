@@ -1,5 +1,5 @@
 //
-//  AKICarWashBuilding.h
+//  AKIBuilding.h
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 10.06.16.
@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AKICarWashBuilding : NSObject
+@interface AKIBuilding : NSObject
+@property (nonatomic, assign) NSInteger workerCount;
+
++ (instancetype)building;
+- (void)room;
 
 @end

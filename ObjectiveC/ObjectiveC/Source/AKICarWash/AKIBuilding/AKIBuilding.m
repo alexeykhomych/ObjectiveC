@@ -1,23 +1,26 @@
 //
-//  AKICarWashWorker.m
+//  AKIBuilding.m
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 10.06.16.
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
-#import "AKICarWashWorker.h"
+#import "AKIBuilding.h"
 
-@implementation AKICarWashWorker
+
+@implementation AKIBuilding
 
 - (void)dealloc {
     [super dealloc];
 }
 
-- (instancetype)worker {
++ (instancetype)building {
     return [[super init] autorelease];
 }
-- (void)work {
-    NSLog(@"super work");
+
+- (void)room {
+    NSLog(@"ti popal");
 }
+
 @end

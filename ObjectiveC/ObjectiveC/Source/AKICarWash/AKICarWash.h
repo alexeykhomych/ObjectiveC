@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKICarWashBuilding.h"
+#import "AKIBuilding.h"
 
-@interface AKICarWash : AKICarWashBuilding
+@interface AKICarWash : AKIBuilding
 
 @end

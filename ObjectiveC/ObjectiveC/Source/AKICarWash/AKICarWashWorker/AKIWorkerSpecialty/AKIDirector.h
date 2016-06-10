@@ -1,13 +1,13 @@
 //
-//  AKCarWashWorkerDirector.m
+//  AKIDirector.h
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 10.06.16.
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
-#import "AKCarWashWorkerDirector.h"
+#import "AKIWorker.h"
 
-@implementation AKCarWashWorkerDirector
+@interface AKIDirector : AKIWorker
 
 @end

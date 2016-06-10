@@ -1,14 +1,14 @@
 //
-//  AKCarWashWorkerAccountant.h
+//  AKIAccountant.h
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 10.06.16.
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
-#import "AKICarWashWorker.h"
+#import "AKIWorker.h"
 
-@interface AKCarWashWorkerAccountant : AKICarWashWorker
+@interface AKIAccountant : AKIWorker
 
 
 
