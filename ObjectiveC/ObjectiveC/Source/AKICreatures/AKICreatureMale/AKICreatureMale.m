@@ -13,16 +13,12 @@
 
 @implementation AKICreatureMale
 
-- (instancetype)initCreature {
-    return [super init];
-}
-
 - (void)goingToFigth {
-    self.gender == AKIGenderMale ? NSLog(@"I'm %@ and I go to drink", self) : nil;
+    NSLog(@"I'm %@ and I go to drink", self);
 }
 
 - (void)performGenderSpecificOperation {
-    self.gender == AKIGenderMale ? [self goingToFigth] : nil;
+    [self goingToFigth];
 }
 
 @end

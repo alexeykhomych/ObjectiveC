@@ -19,36 +19,39 @@
 @implementation AKICreature
 
 - (void)dealloc {
-    self.mutableChildren = nil;
+    [self setMutableChildren:nil];
+    [self setName:nil];
     
     [super dealloc];
 }
 
-- (instancetype)initCreature {
-    AKICreature *creature = [super init];
-    _mutableChildren = [[NSMutableArray alloc] init];
-
-    return creature;
+- (instancetype)creature {
+    self = [super init];
+    self.mutableChildren = [NSMutableArray object];
+    
+    return self;
 }
 
 - (void)setName:(NSString *)name {
-    self.name = name;
-    [name release];
+    if (_name != name) {
+        [_name release];
+        _name = [name copy];
+    }
 }
 
 - (void)setAge:(NSUInteger)age {
-    self.age = age;
+    _age = age;
 }
 
 - (void)setWeight:(NSUInteger)weight {
-    self.weight = weight;
+    _weight = weight;
 }
 
-- (void)sayAnything:(NSString *)sentence {
+- (void)sayPhrase:(NSString *)sentence {
     NSLog(@"%@ say: %@", self, sentence);
     
     for (AKICreature *child in _mutableChildren) {
-        NSLog(@"%@ say: %@", child, sentence);
+        [child sayPhrase:sentence];
     }
 }
 
@@ -56,12 +59,18 @@
     return [[self.mutableChildren copy] autorelease];
 }
 
-- (void)addChildToArray:(AKICreature *)creature {
-    [_mutableChildren addObject:self];
+- (void)addChild:(AKICreature *)creature {
+    if (![_mutableChildren containsObject:creature]) {
+        [_mutableChildren addObject:creature];
+    }
 }
 
-- (void)removeChildFromArray:(AKICreature *)creature {
-    [_mutableChildren removeObject:creature];
+- (void)removeChild:(AKICreature *)creature {
+    [self.mutableChildren removeObject:creature];
+}
+
+- (void)performGenderSpecificOperation {
+    NSLog(@"ti popal");
 }
 
 @end

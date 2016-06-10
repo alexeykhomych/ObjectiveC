@@ -10,18 +10,14 @@
 
 @implementation AKICreatureFemale
 
-- (instancetype)initCreature {
-    return [super init];
-}
-
 - (AKICreature *)giveBirthChild {
     NSLog(@"%@ gives birth", self);
 
-    return [self initCreature];
+    return [AKICreature object];
 }
 
 - (void)performGenderSpecificOperation {
-    self.gender == AKIGenderFemale ? [self giveBirthChild] : nil;
+    [self giveBirthChild];
 }
 
 @end
