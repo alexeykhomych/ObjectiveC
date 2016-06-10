@@ -26,29 +26,34 @@
 
 - (instancetype)initCreature {
     AKICreature *creature = [super init];
-    _mutableChildren = [[NSMutableArray alloc] init];
-
+    _mutableChildren = [NSMutableArray array];
+    
     return creature;
 }
 
 - (void)setName:(NSString *)name {
-    self.name = name;
-    [name release];
+    if (_name != name) {
+        [_name release];
+        
+        _name = name;
+        
+        [_name retain];
+    }
 }
 
 - (void)setAge:(NSUInteger)age {
-    self.age = age;
+    _age = age;
 }
 
 - (void)setWeight:(NSUInteger)weight {
-    self.weight = weight;
+    _weight = weight;
 }
 
-- (void)sayAnything:(NSString *)sentence {
+- (void)sayPhrase:(NSString *)sentence {
     NSLog(@"%@ say: %@", self, sentence);
     
     for (AKICreature *child in _mutableChildren) {
-        NSLog(@"%@ say: %@", child, sentence);
+        [child sayPhrase:sentence];
     }
 }
 
@@ -56,12 +61,12 @@
     return [[self.mutableChildren copy] autorelease];
 }
 
-- (void)addChildToArray:(AKICreature *)creature {
-    [_mutableChildren addObject:self];
+- (void)addChild:(AKICreature *)creature {
+    [self.mutableChildren addObject:creature];
 }
 
-- (void)removeChildFromArray:(AKICreature *)creature {
-    [_mutableChildren removeObject:creature];
+- (void)removeChild:(AKICreature *)creature {
+    [self.mutableChildren removeObject:creature];
 }
 
 @end

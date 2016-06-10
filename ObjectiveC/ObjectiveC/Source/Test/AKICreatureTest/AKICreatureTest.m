@@ -16,15 +16,15 @@
 - (void)AKICreatureTestCreate {
     AKICreatureTest *test = [[AKICreatureTest alloc] init];
     
-    AKICreatureMale *man = [[AKICreatureMale alloc] init];
-    AKICreatureFemale *woman = [[AKICreatureFemale alloc] init];
+    AKICreatureMale *man = [[AKICreatureMale alloc] initCreature];
+    AKICreatureFemale *woman = [[AKICreatureFemale alloc] initCreature];
     
     [man setGender:AKIGenderMale];
     [woman setGender:AKIGenderFemale];
     
     NSString *sayHi = @"Hi";
     
-    [man sayAnything:sayHi];
+    [man sayPhrase:sayHi];
     
     AKICreature *child1 = [woman giveBirthChild];
     AKICreature *child2 = [woman giveBirthChild];
@@ -34,7 +34,7 @@
     [test AKICreatureTestAddChild:woman : child2];
     [test AKICreatureTestAddChild:man : child3];
     
-    [man sayAnything:sayHi];
+    [man sayPhrase:sayHi];
     
     [test AKICreatureTestRemoveChild:child1 : woman];
     
@@ -43,12 +43,28 @@
     
     [test AKICreatureTestRemoveChild:woman : child2];
     [test AKICreatureTestRemoveChild:man : child3];
+    
+    AKICreature *child4 = [woman giveBirthChild];
+    
+    [test AKICreatureTestAddChild:child3 :child4];
+    
+    [man sayPhrase:sayHi];
+    
+    [test AKICreatureTestRemoveChild:child3 : child4];
+    
+    [test autorelease];
+//        [child1 autorelease];
+//        [child2 autorelease];
+//        [child3 autorelease];
+//        [man release];
+//        [woman autorelease];
+
 }
 - (void)AKICreatureTestAddChild:(AKICreature *)creature : (AKICreature *)child {
-    [creature addChildToArray:child];
+    [creature addChild:child];
 }
 - (void)AKICreatureTestRemoveChild:(AKICreature *)child : (AKICreature *)creature {
-    [creature removeChildFromArray:child];
+    [creature removeChild:child];
 }
 - (void)AKICreatureTestBehavior:(AKICreature *)creature {
     [creature performGenderSpecificOperation];
