@@ -8,15 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+#import "AKIBuilding.h"
+
 @interface AKIWorker : NSObject
-@property (nonatomic, assign)   NSInteger salary;
-@property (nonatomic, assign)   NSInteger expirience;
-@property (nonatomic, assign)   NSInteger money;
-@property (nonatomic, assign)   AKIWorker *chief;
+@property (nonatomic, assign)           NSUInteger  salary;
+@property (nonatomic, assign)           NSUInteger  expirience;
+@property (nonatomic, assign)           NSInteger   money;
+@property (nonatomic, assign)           BOOL        isFree;
+@property (nonatomic, assign)           AKIWorker   *chief;
+@property (nonatomic, readonly, assign) AKIBuilding *workPlace;
 
 + (instancetype)worker;
 - (void)doJob;
 - (void)takeMoney:(NSInteger)money;
 - (void)giveMoneyToWorker:(AKIWorker *)worker;
+- (void)setWorkPlace:(AKIBuilding *)workPlace;
+- (AKIBuilding *)getWorkPlace;
 
 @end
