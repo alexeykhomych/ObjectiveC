@@ -9,6 +9,9 @@
 #import "AKICarWash.h"
 #import "NSObject+AKICategory.h"
 
+static NSUInteger const kAKIMaxWorkerCount = 5;
+static NSUInteger const kAKIMaxBoxCount = 5;
+
 @interface AKICarWash()
 @property (nonatomic, assign) NSMutableArray *_boxs;
 @property (nonatomic, assign) NSMutableArray *_workers;
@@ -52,7 +55,9 @@
 #pragma Public Implementations
 
 - (void)addCar:(id)car {
-    [self._cars addObject:car];
+    if ([self getFreeBox] && [self getFreeWorker]) {
+        [self._cars addObject:car];
+    }
 }
 
 - (void)removeCar:(id)car {
@@ -60,7 +65,9 @@
 }
 
 - (void)addWorker:(AKIWorker *)worker {
-    [self._workers addObject:worker];
+    if ([self workerCount] < kAKIMaxWorkerCount) {
+        [self._workers addObject:worker];
+    }
 }
 
 - (void)removeWorker:(AKIWorker *)worker {
