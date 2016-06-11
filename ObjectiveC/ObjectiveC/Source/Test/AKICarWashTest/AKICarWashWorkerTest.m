@@ -12,14 +12,23 @@
 #import "AKIAccountant.h"
 #import "AKIDirector.h"
 
+#import "AKIBuilding.h"
+
 @implementation AKICarWashWorkerTest
 
 - (void)performWorkerTest {
     NSInteger money = 10;
     
-    AKIWorker *washer = [AKIWorker worker];
-    AKIWorker *accountant = [AKIWorker worker];
-//    AKIWorker *director = [AKIWorker worker];
+    AKIWasher *washer = [AKIWasher worker];
+    AKIAccountant *accountant = [AKIAccountant worker];
+    AKIDirector *director = [AKIDirector worker];
+    
+    
+    
+    [washer setChief:accountant];
+    [accountant setChief:director];
+    
+    [washer takeMoney:money];
     
     [washer doJob:money];
     [accountant doJob];

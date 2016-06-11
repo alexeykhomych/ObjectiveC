@@ -9,7 +9,19 @@
 #import "AKIWasher.h"
 #import "AKIAccountant.h"
 
+@interface AKIWasher()
+@property (nonatomic, assign) AKIBuilding *_workPlace;
+
+@end
+
 @implementation AKIWasher
+
+#pragma mark -
+#pragma mark Accessors
+
+- (AKIBuilding *)workPlace {
+    return [[self._workPlace copy] autorelease];
+}
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -23,16 +35,15 @@
 }
 
 - (void)takeCar {
-    NSLog(@"%@ take a car", self);
+    NSLog(@"%@ take a car", self.className);
 }
 
 - (void)washCar {
-    NSLog(@"%@ wash a car", self);
+    NSLog(@"%@ wash a car", self.className);
 }
 
 - (void)takeMoney:(NSInteger)money {
     self.money = money;
-    [self doJob];
 }
 
 - (void)giveMoneyToWorker:(AKIWorker *)worker {
@@ -41,7 +52,15 @@
 }
 
 - (void)giveCar {
-    NSLog(@"%@ give a car", self);
+    NSLog(@"%@ give a car", self.className);
+}
+
+- (void)setWorkPlace:(AKIBuilding *)workPlace {
+    self._workPlace = workPlace;
+}
+
+- (AKIBuilding *)getWorkPlace {
+    return self._workPlace;
 }
 
 @end
