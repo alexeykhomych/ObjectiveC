@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface AKIBuilding : NSObject
-@property (nonatomic, assign) NSInteger workerCount;
+@property (nonatomic, assign) NSUInteger workerCount;
+@property (nonatomic, assign) BOOL       isFree;
 
 + (instancetype)building;
 - (void)room;
