@@ -10,9 +10,11 @@
 
 @interface AKIBuilding : NSObject
 @property (nonatomic, assign) NSUInteger workerCount;
-@property (nonatomic, assign) BOOL       isFree;
+@property (nonatomic, assign) BOOL       isFull;
+@property (nonatomic, readonly) NSArray *build;
+@property (nonatomic, readonly) NSArray *workerInRoom;
+@property (nonatomic, readonly) NSArray *room;
 
 + (instancetype)building;
-- (void)room;
 
 @end

@@ -16,7 +16,7 @@
 }
 
 + (instancetype)building {
-    return [[super init] autorelease];
+    return [[[self alloc] init] autorelease];
 }
 
 - (void)room {
