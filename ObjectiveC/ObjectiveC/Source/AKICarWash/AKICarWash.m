@@ -8,14 +8,16 @@
 
 #import "AKICarWash.h"
 #import "NSObject+AKICategory.h"
+#import "AKIWasher.h"
 
 static NSUInteger const kAKIMaxWorkerCount = 5;
 static NSUInteger const kAKIMaxBoxCount = 5;
+static NSUInteger const kAKIMoney = 10;
 
 @interface AKICarWash()
-@property (nonatomic, assign) NSMutableArray *_boxs;
-@property (nonatomic, assign) NSMutableArray *_workers;
-@property (nonatomic, assign) NSMutableArray *_cars;
+@property (nonatomic, retain) NSMutableArray *_boxs;
+@property (nonatomic, retain) NSMutableArray *_workers;
+@property (nonatomic, retain) NSMutableArray *_cars;
 
 @end
 
@@ -33,7 +35,12 @@ static NSUInteger const kAKIMaxBoxCount = 5;
 }
 
 + (instancetype)carWash {
-    return [[[self alloc] init] autorelease];
+    AKICarWash *carWash = [super object];
+    carWash._boxs = [NSMutableArray object];
+    carWash._cars = [NSMutableArray object];
+    carWash._workers = [NSMutableArray object];
+    
+    return carWash;
 }
 
 #pragma mark -
@@ -57,21 +64,30 @@ static NSUInteger const kAKIMaxBoxCount = 5;
 - (void)addCar:(id)car {
     if ([self getFreeBox] && [self getFreeWorker]) {
         [self._cars addObject:car];
+        
+        AKIWasher *washer = (AKIWasher *)[self getFreeWorker];
+        [washer doJob:kAKIMoney];
+    } else {
+        //[NSThread sleepForTimeInterval:10]
+        //[self addCar:car];
     }
 }
 
 - (void)removeCar:(id)car {
     [self._cars removeObject:car];
+    [self setCarCount:self.carCount - 1];
 }
 
 - (void)addWorker:(AKIWorker *)worker {
     if ([self workerCount] < kAKIMaxWorkerCount) {
         [self._workers addObject:worker];
+        [self setWorkerCount:self.workerCount + 1];
     }
 }
 
 - (void)removeWorker:(AKIWorker *)worker {
     [self._workers removeObject:worker];
+    [self setWorkerCount:self.workerCount - 1];
 }
 
 - (AKIWorker *)getFreeWorker {
@@ -86,12 +102,23 @@ static NSUInteger const kAKIMaxBoxCount = 5;
 
 - (AKIBuilding *)getFreeBox {
     for (AKIBuilding *box in self._boxs) {
-        if ([box isFree]) {
+        if (![box isFull]) {
             return box;
         }
     }
     
     return nil;
+}
+
+- (void)setWorkerCount:(NSUInteger)workerCount {
+    _workerCount = workerCount;
+}
+
+- (void)addBoxs:(id)box {
+    if (kAKIMaxBoxCount > [self boxCount]) {
+        [self._boxs addObject:box];
+        [self setBoxCount:self.boxCount + 1];
+    }
 }
 
 @end

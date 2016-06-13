@@ -17,6 +17,7 @@
 @property (nonatomic, readonly, assign) NSArray *cars;
 @property (nonatomic, assign)           NSUInteger workerCount;
 @property (nonatomic, assign)           NSUInteger carCount;
+@property (nonatomic, assign)           NSUInteger boxCount;
 
 + (instancetype)carWash;
 - (void)addCar:(id)car;
@@ -25,5 +26,6 @@
 - (void)removeWorker:(AKIWorker *)worker;
 - (AKIWorker *)getFreeWorker;
 - (AKIBuilding *)getFreeBox;
+- (void)addBoxs:(id)box;
 
 @end
