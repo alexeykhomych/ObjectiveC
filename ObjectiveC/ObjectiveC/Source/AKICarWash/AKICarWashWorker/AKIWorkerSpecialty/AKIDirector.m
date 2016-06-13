@@ -16,7 +16,9 @@
 @implementation AKIDirector
 
 - (void)doJob {
+    [self setIsFree:NO];
     [self makeRevenue:self.money];
+    [self setIsFree:YES];
 }
 
 - (void)takeMoney:(NSInteger)money {
@@ -26,6 +28,8 @@
 
 - (void)makeRevenue:(NSInteger)money {
     self.revenue += money;
+    
+    NSLog(@"%@ polychil bablo", self.className);
     
     if (self.revenue > 100) {
         NSLog(@"%@: vse pizdec. poidy kyplu yahtu", self.className);

@@ -16,12 +16,14 @@
 @implementation AKIAccountant
 
 - (void)doJob {
+    [self setIsFree:NO];
     [self giveMoneyToWorker:self.chief];
+    [self setIsFree:YES];
 }
 
 - (void)takeMoney:(NSInteger)money {
     self.money += money;
-    NSLog(@"zbs. bablo y menya %@", [self className]);
+    NSLog(@"zbs. bablo %@", [self className]);
     
     [self calculateSalary:self];
 }
