@@ -10,7 +10,7 @@
 #import "AKIAccountant.h"
 
 @interface AKIWasher()
-@property (nonatomic, assign) AKIBuilding *_workPlace;
+@property (nonatomic, retain) AKIBuilding *_workPlace;
 
 @end
 
@@ -29,9 +29,14 @@
 - (void)doJob:(NSInteger)money {
     [self takeMoney:money];
     [self takeCar];
+    
+    [self setIsFree:NO];
+    
     [self washCar];
     [self giveCar];
     [self giveMoneyToWorker:self.chief];
+    
+    [self setIsFree:YES];
 }
 
 - (void)takeCar {
