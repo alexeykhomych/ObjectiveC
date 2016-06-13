@@ -6,6 +6,7 @@
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
+#import "NSObject+AKICategory.h"
 #import "AKIWorker.h"
 
 @implementation AKIWorker
@@ -14,11 +15,15 @@
 #pragma mark Init/dealloc
 
 - (void)dealloc {
+    _isFree = YES;
     [super dealloc];
 }
 
 + (instancetype)worker {
-    return [[[super alloc] init] autorelease];
+    AKIWorker *worker = [[[super alloc] init] autorelease];
+    worker.workPlace = [AKIBuilding object];
+    worker.isFree = YES;
+    return worker;
 }
 
 #pragma mark -
@@ -37,6 +42,10 @@
 }
 
 - (void)doJob {
+    
+}
+
+- (void)setWorkPlace:(AKIBuilding *)workPlace {
     
 }
 
