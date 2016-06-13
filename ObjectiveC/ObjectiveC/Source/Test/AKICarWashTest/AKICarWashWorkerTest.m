@@ -7,6 +7,7 @@
 //
 
 #import "AKICarWashWorkerTest.h"
+#import "AKICarWash.h"
 #import "AKIWorker.h"
 #import "AKIWasher.h"
 #import "AKIAccountant.h"
@@ -14,24 +15,30 @@
 
 #import "AKIBuilding.h"
 
+#import "NSObject+AKICategory.h"
+
 @implementation AKICarWashWorkerTest
 
 - (void)performWorkerTest {
     NSInteger money = 10;
     
+    AKIBuilding *box = [AKIBuilding building];
+    
     AKIWasher *washer = [AKIWasher worker];
     AKIAccountant *accountant = [AKIAccountant worker];
     AKIDirector *director = [AKIDirector worker];
     
+    AKICarWash *carWash = [AKICarWash carWash];
     
+    [carWash addBoxs:box];
     
     [washer setChief:accountant];
     [accountant setChief:director];
     
-    [washer takeMoney:money];
+    NSObject *car = [NSObject object];
     
-    [washer doJob:money];
-    [accountant doJob];
+    [carWash addWorker:washer];
+    [carWash addCar:car];
 }
 
 @end
