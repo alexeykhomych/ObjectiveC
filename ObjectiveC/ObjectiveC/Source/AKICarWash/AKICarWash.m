@@ -10,6 +10,7 @@
 #import "NSObject+AKICategory.h"
 #import "AKIWasher.h"
 #import "AKIOffice.h"
+#import "AKIBox.h"
 
 static NSUInteger const kAKIMaxWorkerCount = 5;
 static NSUInteger const kAKIMaxBoxCount = 5;
@@ -92,19 +93,21 @@ static NSUInteger const kAKIMoney = 10;
 #pragma Public Implementations
 
 - (void)addCar:(id)car {
-    AKIBuilding *box = [self getFreeBox];
+    AKIBox *box = [self getFreeBox];
     AKIWasher *washer = [self getFreeWorker];
     
     if (box && washer) {
         box.Full = YES;
+        box.washer = washer;
         
-        [self._boxs addObject:car];
-        [self._boxs addObject:washer];
-        
-        [washer doJob:kAKIMoney];
-        
-        [self._boxs removeObject:car];
-        [self._boxs removeObject:washer];
+        [box.washer doJob:10];
+//        [self._boxs addObject:car];
+//        [self._boxs addObject:washer];
+//        
+//        [washer doJob:kAKIMoney];
+//        
+//        [self._boxs removeObject:car];
+//        [self._boxs removeObject:washer];
         
         box.Full = NO;
     }

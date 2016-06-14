@@ -10,7 +10,7 @@
 #import "AKIWasher.h"
 
 @interface AKIBox : AKIOffice
-@property (nonatomic, readonly) AKIWasher *washer;
-@property (nonatomic, readonly) id car;
-
+@property (nonatomic, assign)                 AKIWasher   *washer;
+@property (nonatomic, assign)                 id          car;
+@property (nonatomic, assign, getter=isFull)    BOOL        Full;
 @end
