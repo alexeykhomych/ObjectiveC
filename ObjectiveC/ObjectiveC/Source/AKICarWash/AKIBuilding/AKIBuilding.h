@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "AKIOffice.h"
+
 @interface AKIBuilding : NSObject
-@property (nonatomic, assign) NSUInteger workerCount;
-@property (nonatomic, assign) BOOL       isFull;
+@property (nonatomic, assign, getter=isFull) BOOL       Full;
 @property (nonatomic, readonly) NSArray *build;
-@property (nonatomic, readonly) NSArray *workerInRoom;
-@property (nonatomic, readonly) NSArray *room;
+@property (nonatomic, readonly) NSUInteger floorCount;
+@property (nonatomic, readonly) NSUInteger officesCount;
 
 + (instancetype)building;
 

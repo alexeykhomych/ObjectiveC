@@ -7,7 +7,10 @@
 //
 
 #import "AKIOffice.h"
+#import "AKIWasher.h"
 
 @interface AKIBox : AKIOffice
+@property (nonatomic, readonly) AKIWasher *washer;
+@property (nonatomic, readonly) id car;
 
 @end

@@ -9,23 +9,18 @@
 #import <Foundation/Foundation.h>
 
 #import "AKIBuilding.h"
-#import "AKIWorker.h"
+#import "AKIWasher.h"
 
 @interface AKICarWash : NSObject
 @property (nonatomic, readonly, assign) NSArray *boxs;
 @property (nonatomic, readonly, assign) NSArray *workers;
 @property (nonatomic, readonly, assign) NSArray *cars;
-@property (nonatomic, assign)           NSUInteger workerCount;
-@property (nonatomic, assign)           NSUInteger carCount;
-@property (nonatomic, assign)           NSUInteger boxCount;
+@property (nonatomic, readonly, assign) NSArray *carWash;
+@property (nonatomic, readonly, assign) NSArray *offices;
 
 + (instancetype)carWash;
 - (void)addCar:(id)car;
-- (void)removeCar:(id)car;
-- (void)addWorker:(AKIWorker *)worker;
-- (void)removeWorker:(AKIWorker *)worker;
-- (AKIWorker *)getFreeWorker;
-- (AKIBuilding *)getFreeBox;
-- (void)addBoxs:(id)box;
+- (void)addWorker:(AKIWasher *)worker;
+- (void)removeWorker:(AKIWasher *)worker;
 
 @end

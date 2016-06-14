@@ -9,15 +9,29 @@
 #import "AKICarWash.h"
 #import "NSObject+AKICategory.h"
 #import "AKIWasher.h"
+#import "AKIOffice.h"
 
 static NSUInteger const kAKIMaxWorkerCount = 5;
 static NSUInteger const kAKIMaxBoxCount = 5;
+static NSUInteger const kAKIMaxOfficeCount = 3;
 static NSUInteger const kAKIMoney = 10;
 
 @interface AKICarWash()
-@property (nonatomic, retain) NSMutableArray *_boxs;
-@property (nonatomic, retain) NSMutableArray *_workers;
-@property (nonatomic, retain) NSMutableArray *_cars;
+@property (nonatomic, retain) NSMutableArray    *_boxs;
+@property (nonatomic, retain) NSMutableArray    *_workers;
+@property (nonatomic, retain) NSMutableArray    *_cars;
+@property (nonatomic, retain) NSMutableArray    *_carWash;
+@property (nonatomic, retain) NSMutableArray    *_offices;
+@property (nonatomic, assign) NSUInteger        workerCount;
+@property (nonatomic, assign) NSUInteger        carCount;
+@property (nonatomic, assign) NSUInteger        boxCount;
+@property (nonatomic, assign) NSUInteger        officeCount;
+
+- (id)getFreeWorker;
+- (id)getFreeBox;
+- (void)addBox:(id)box;
+- (void)addOffice:(id)office;
+- (void)removeCar:(id)car;
 
 @end
 
@@ -39,6 +53,14 @@ static NSUInteger const kAKIMoney = 10;
     carWash._boxs = [NSMutableArray object];
     carWash._cars = [NSMutableArray object];
     carWash._workers = [NSMutableArray object];
+    carWash._carWash = [NSMutableArray object];
+    carWash._offices = [NSMutableArray object];
+    
+    AKIOffice *accountant = [AKIOffice officeInitWithName:@"Accountant"];
+    AKIOffice *admin = [AKIOffice officeInitWithName:@"Administrative"];
+    
+    [carWash addOffice:accountant];
+    [carWash addOffice:admin];
     
     return carWash;
 }
@@ -58,49 +80,65 @@ static NSUInteger const kAKIMoney = 10;
     return [[self._cars copy] autorelease];
 }
 
+- (NSArray *)carWash {
+    return [[self._carWash copy] autorelease];
+}
+
+- (NSArray *)offices {
+    return [[self.offices copy] autorelease];
+}
+
 #pragma mark
 #pragma Public Implementations
 
 - (void)addCar:(id)car {
-    if ([self getFreeBox] && [self getFreeWorker]) {
-        [self._cars addObject:car];
+    AKIBuilding *box = [self getFreeBox];
+    AKIWasher *washer = [self getFreeWorker];
+    
+    if (box && washer) {
+        box.Full = YES;
         
-        AKIWasher *washer = (AKIWasher *)[self getFreeWorker];
+        [self._boxs addObject:car];
+        [self._boxs addObject:washer];
+        
         [washer doJob:kAKIMoney];
-    } else {
-        //[NSThread sleepForTimeInterval:10]
-        //[self addCar:car];
+        
+        [self._boxs removeObject:car];
+        [self._boxs removeObject:washer];
+        
+        box.Full = NO;
     }
 }
 
 - (void)removeCar:(id)car {
     [self._cars removeObject:car];
     [self setCarCount:self.carCount - 1];
+    [self._boxs removeObject:car];
 }
 
-- (void)addWorker:(AKIWorker *)worker {
+- (void)addWorker:(AKIWasher *)worker {
     if ([self workerCount] < kAKIMaxWorkerCount) {
         [self._workers addObject:worker];
         [self setWorkerCount:self.workerCount + 1];
     }
 }
 
-- (void)removeWorker:(AKIWorker *)worker {
+- (void)removeWorker:(AKIWasher *)worker {
     [self._workers removeObject:worker];
     [self setWorkerCount:self.workerCount - 1];
 }
 
-- (AKIWorker *)getFreeWorker {
-    for (AKIWorker *worker in self._workers) {
-        if ([worker isFree]) {
-            return worker;
+- (id)getFreeWorker {
+    for (AKIWasher *washer in self._workers) {
+        if ([washer isFree]) {
+            return washer;
         }
     }
     
     return nil;
 }
 
-- (AKIBuilding *)getFreeBox {
+- (id)getFreeBox {
     for (AKIBuilding *box in self._boxs) {
         if (![box isFull]) {
             return box;
@@ -114,11 +152,17 @@ static NSUInteger const kAKIMoney = 10;
     _workerCount = workerCount;
 }
 
-- (void)addBoxs:(id)box {
-    if (kAKIMaxBoxCount > [self boxCount]) {
-        [self._boxs addObject:box];
-        [self setBoxCount:self.boxCount + 1];
-    }
+#pragma -
+#pragma Private Implementations
+
+- (void)addBox:(id)box {
+    [self._boxs addObject:box];
+    [self setBoxCount:self.boxCount + 1];
+}
+
+- (void)addOffice:(id)office {
+    [self._boxs addObject:office];
+    [self setOfficeCount:self.officeCount + 1];
 }
 
 @end
