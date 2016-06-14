@@ -21,14 +21,14 @@
 #pragma mark Init/dealloc
 
 - (void)dealloc {
-    [self setMutableChildren:nil];
-    [self setName:nil];
+    self.mutableChildren = nil;
+    self.name = nil;
 
     [super dealloc];
 }
 
 + (instancetype)creature {
-    AKICreature *creature = [[[super alloc] init] autorelease];
+    AKICreature *creature = [[self new] autorelease];
     creature.mutableChildren = [NSMutableArray object];
     
     return creature;
@@ -43,21 +43,6 @@
 
 #pragma mark -
 #pragma mark Public Implementations
-
-- (void)setName:(NSString *)name {
-    if (_name != name) {
-        [_name release];
-        _name = [name copy];
-    }
-}
-
-- (void)setAge:(NSUInteger)age {
-    _age = age;
-}
-
-- (void)setWeight:(NSUInteger)weight {
-    _weight = weight;
-}
 
 - (void)sayPhrase:(NSString *)sentence {
     NSLog(@"%@ say: %@", self, sentence);

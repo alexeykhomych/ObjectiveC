@@ -16,9 +16,9 @@
 @implementation AKIDirector
 
 - (void)doJob {
-    [self setIsFree:NO];
+    [self setFree:NO];
     [self makeRevenue:self.money];
-    [self setIsFree:YES];
+    [self setFree:YES];
 }
 
 - (void)takeMoney:(NSInteger)money {

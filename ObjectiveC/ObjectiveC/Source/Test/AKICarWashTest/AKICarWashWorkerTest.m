@@ -30,7 +30,7 @@
     
     AKICarWash *carWash = [AKICarWash carWash];
     
-    [carWash addBoxs:box];
+    [carWash addBox:box];
     
     [washer setChief:accountant];
     [accountant setChief:director];

@@ -7,20 +7,19 @@
 //
 
 #import "AKIBuilding.h"
-
+#import "NSObject+AKICategory.h"
 
 @implementation AKIBuilding
+
+#pragma mark -
+#pragma mark Init/dealloc
 
 - (void)dealloc {
     [super dealloc];
 }
 
 + (instancetype)building {
-    return [[[self alloc] init] autorelease];
-}
-
-- (void)room {
-    NSLog(@"ti popal");
+    return [super object];
 }
 
 @end

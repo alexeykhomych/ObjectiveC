@@ -16,9 +16,9 @@
 @implementation AKIAccountant
 
 - (void)doJob {
-    [self setIsFree:NO];
+    [self setFree:NO];
     [self giveMoneyToWorker:self.chief];
-    [self setIsFree:YES];
+    [self setFree:YES];
 }
 
 - (void)takeMoney:(NSInteger)money {
@@ -34,7 +34,7 @@
 }
 
 - (void)calculateSalary:(AKIWorker *)worker {
-    [self setExpirience:1];
+    [self setExperience:1];
     [worker setSalary:self.money * 0.1];
 }
 

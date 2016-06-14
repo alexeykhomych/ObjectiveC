@@ -5,9 +5,17 @@
 //  Created by Alexey Khomych on 10.06.16.
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
+#import <Foundation/Foundation.h>
 
 #import "NSObject+AKICategory.h"
 #import "AKIWorker.h"
+
+@protocol AKIMoney <NSObject>
+
+- (void)giveMoneyToWorker:(AKIWorker *)worker;
+- (void)setWorkPlace:(AKIBuilding *)workPlace;
+
+@end
 
 @implementation AKIWorker
 
@@ -15,14 +23,14 @@
 #pragma mark Init/dealloc
 
 - (void)dealloc {
-    _isFree = YES;
+    self.free = YES;
     [super dealloc];
 }
 
 + (instancetype)worker {
-    AKIWorker *worker = [[[super alloc] init] autorelease];
+    AKIWorker *worker = [[self new] autorelease];
     worker.workPlace = [AKIBuilding object];
-    worker.isFree = YES;
+    worker.free = YES;
     return worker;
 }
 
