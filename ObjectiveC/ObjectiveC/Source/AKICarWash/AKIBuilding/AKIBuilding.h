@@ -18,4 +18,7 @@
 
 + (instancetype)building;
 
+- (void)addOffice:(AKIOffice *)office;
+- (void)removeOffice:(AKIOffice *)office;
+
 @end
