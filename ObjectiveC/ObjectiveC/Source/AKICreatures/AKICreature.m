@@ -47,7 +47,7 @@
 - (void)sayPhrase:(NSString *)sentence {
     NSLog(@"%@ say: %@", self, sentence);
     
-    for (AKICreature *child in _mutableChildren) {
+    for (AKICreature *child in self.mutableChildren) {
         [child sayPhrase:sentence];
     }
 }

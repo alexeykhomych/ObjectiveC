@@ -18,9 +18,8 @@
 @property (nonatomic, assign)                   AKIWorker   *chief;
 
 + (instancetype)worker;
+
 - (void)doJob;
 - (void)takeMoney:(NSInteger)money;
-- (AKIBuilding *)getWorkPlace;
-//- (id)getFreeWorkerWithClass:(id)Class (AKIWorker *)workers;
 
 @end

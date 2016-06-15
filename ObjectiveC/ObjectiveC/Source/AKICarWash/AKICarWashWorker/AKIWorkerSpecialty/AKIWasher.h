@@ -13,6 +13,5 @@
 - (void)doJob:(NSInteger)money;
 - (void)takeCar;
 - (void)washCar;
-- (void)giveCar;
 
 @end

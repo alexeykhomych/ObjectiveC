@@ -14,12 +14,7 @@ static NSUInteger const kAKIOfficesMaxCount = 10;
 static NSUInteger const kAKIOfficecMaxCountOnFloor = 10;
 
 @interface AKIOffice()
-@property (nonatomic, retain) NSMutableArray    *_workersInOffice;
-@property (nonatomic, retain) NSMutableArray    *_offices;
-@property (nonatomic, retain) NSMutableArray    *_floor;
-@property (nonatomic, assign) NSUInteger        officesCount;
-@property (nonatomic, assign) NSUInteger        officeNumber;
-@property (nonatomic, assign) NSString    *name;
+@property (nonatomic, retain) NSMutableArray    *mutableWorkers;
 
 @end
 
@@ -29,20 +24,14 @@ static NSUInteger const kAKIOfficecMaxCountOnFloor = 10;
 #pragma mark Init/dealloc
 
 - (void)dealloc {
-    self._offices = nil;
-    self._workersInOffice = nil;
-    self._floor = nil;
+    self.mutableWorkers = nil;
     
     [super dealloc];
 }
 
-+ (instancetype)officeInitWithName:(NSString *)name {
++ (instancetype)office {
     AKIOffice *office = [super object];
-    office._floor = [NSMutableArray object];
-    office._workersInOffice = [NSMutableArray object];
-    office._offices = [NSMutableArray object];
-    office.officeNumber = arc4random_uniform(100);
-    office.name = name;
+    office.mutableWorkers = [NSMutableArray object];
     
     return [super object];
 }
@@ -50,41 +39,22 @@ static NSUInteger const kAKIOfficecMaxCountOnFloor = 10;
 #pragma mark -
 #pragma mark Accessors
 
-- (NSArray *)workersInOffice {
-    return [[self copy] autorelease];
-}
-
-- (NSArray *)offices {
-    return [[self copy] autorelease];
-}
-
-- (NSArray *)floor {
+- (NSArray *)workers {
     return [[self copy] autorelease];
 }
 
 #pragma mark -
 #pragma mark Public Implementations
 
-- (void)addOffice:(AKIOffice *)office {
-    if (kAKIOfficesMaxCount > self.officesCount) {
-        [self._offices addObject:office];
-        self.officesCount += 1;
-    }
+- (void)addWorker:(AKIWorker *)worker {
+    [self.mutableWorkers addObject:worker];
 }
 
-- (void)removeOffice:(AKIOffice *)office {
-    [self._offices removeObject:office];
-    self.officesCount -= 1;
+- (void)removeWorker:(AKIWorker *)worker {
+    [self.mutableWorkers removeObject:worker];
 }
-
-- (id)getOfficeByNumber:(NSUInteger)number {
-    return nil;
-}
-
-- (id)getWorkersByOfficeNumber:(NSUInteger)number {
-    NSMutableArray *workers = [NSMutableArray object];
-    
-    return workers;
+- (NSArray *)allWorkers {
+    return self.mutableWorkers;
 }
 
 @end

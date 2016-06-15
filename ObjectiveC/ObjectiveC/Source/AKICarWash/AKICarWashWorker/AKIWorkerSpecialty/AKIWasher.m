@@ -33,7 +33,6 @@
     self.free = NO;
     
     [self washCar];
-    [self giveCar];
     [self giveMoneyToWorker:self.chief];
     
     self.free = YES;
@@ -55,10 +54,6 @@
     NSLog(@"Just a little time. I will give money to %@", [self.chief className]);
     [worker takeMoney:self.money];
     [worker setMoney:0];
-}
-
-- (void)giveCar {
-    NSLog(@"%@ give a car", self.className);
 }
 
 - (void)setWorkPlace:(AKIBuilding *)workPlace {

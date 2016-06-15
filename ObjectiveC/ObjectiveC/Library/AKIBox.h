@@ -8,9 +8,11 @@
 
 #import "AKIOffice.h"
 #import "AKIWasher.h"
+#import "AKICar.h"
 
 @interface AKIBox : AKIOffice
 @property (nonatomic, assign)                 AKIWasher   *washer;
-@property (nonatomic, assign)                 id          car;
-@property (nonatomic, assign, getter=isFull)    BOOL        Full;
+@property (nonatomic, assign)                 AKICar      *car;
+@property (nonatomic, assign, getter=isFull)  BOOL        full;
+
 @end
