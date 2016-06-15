@@ -7,7 +7,21 @@
 //
 
 #import "AKICar.h"
+#import "NSObject+AKICategory.h"
 
 @implementation AKICar
+
+- (void)dealloc {
+    [super dealloc];
+}
+
++ (instancetype)car {
+    AKICar *car = [[self new] autorelease];
+    
+    car.money = arc4random_uniform(100);
+    car.clean = NO;
+    
+    return car;
+}
 
 @end

@@ -9,5 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface AKICar : NSObject
+@property (nonatomic, assign)                   NSUInteger  money;
+@property (nonatomic, assign, getter=isClear)   BOOL        clean;
+
++ (instancetype)car;
 
 @end
