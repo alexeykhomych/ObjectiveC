@@ -10,6 +10,7 @@
 
 #import "AKIBuilding.h"
 #import "AKIWasher.h"
+#import "AKICar.h"
 
 @interface AKICarWash : NSObject
 @property (nonatomic, readonly, assign) NSArray *boxs;
@@ -19,8 +20,6 @@
 @property (nonatomic, readonly, assign) NSArray *offices;
 
 + (instancetype)carWash;
-- (void)addCar:(id)car;
-- (void)addWorker:(AKIWasher *)worker;
-- (void)removeWorker:(AKIWasher *)worker;
+- (void)washCar:(AKICar *)car;
 
 @end
