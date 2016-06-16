@@ -18,8 +18,9 @@
 
 + (instancetype)creature;
 - (void)sayPhrase:(NSString *)sentence;
+- (void)performGenderSpecificOperation;
+
 - (void)addChild:(AKICreature *)creature;
 - (void)removeChild:(AKICreature *)creature;
-- (void)performGenderSpecificOperation;
 
 @end

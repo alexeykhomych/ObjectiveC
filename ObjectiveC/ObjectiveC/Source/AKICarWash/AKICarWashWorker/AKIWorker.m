@@ -11,13 +11,6 @@
 #import "AKIWorker.h"
 #import "SingletonWorkers.h"
 
-@protocol AKIMoney <NSObject>
-
-- (void)giveMoneyToWorker:(AKIWorker *)worker;
-- (void)setWorkPlace:(AKIBuilding *)workPlace;
-
-@end
-
 @implementation AKIWorker
 
 #pragma mark -

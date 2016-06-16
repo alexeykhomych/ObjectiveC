@@ -27,11 +27,18 @@
     [super dealloc];
 }
 
-+ (instancetype)creature {
-    AKICreature *creature = [[self new] autorelease];
-    creature.mutableChildren = [NSMutableArray object];
+- (instancetype)init {
+    self = [super init];
+    self.mutableChildren = [NSMutableArray object];
     
-    return creature;
+    return self;
+}
+
+#pragma mark
+#pragma Class Methods
+
++ (instancetype)creature {
+    return [self init];
 }
 
 #pragma mark -

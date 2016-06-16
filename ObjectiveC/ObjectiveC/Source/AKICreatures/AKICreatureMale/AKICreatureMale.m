@@ -13,12 +13,12 @@
 
 @implementation AKICreatureMale
 
-- (void)goingToFigth {
+- (void)goingToFight {
     NSLog(@"I'm %@ and I go to drink", self);
 }
 
 - (void)performGenderSpecificOperation {
-    [self goingToFigth];
+    [self goingToFight];
 }
 
 @end

@@ -8,9 +8,6 @@
 
 #import "AKIBox.h"
 
-static NSUInteger const kAKIMaxWasherCount = 1;
-static NSUInteger const kAKIMaxCarCount = 1;
-
 @implementation AKIBox
 
 #pragma -

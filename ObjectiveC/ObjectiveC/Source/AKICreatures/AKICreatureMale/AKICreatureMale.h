@@ -10,6 +10,6 @@
 
 @interface AKICreatureMale : AKICreature
 
-- (void)goingToFigth;
+- (void)goingToFight;
 
 @end
