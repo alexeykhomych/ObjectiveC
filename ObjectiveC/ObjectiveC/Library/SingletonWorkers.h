@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SingletonWorkers : NSObject
-@property (nonatomic, assign) NSMutableDictionary *workers;
+@property (nonatomic, assign) NSMutableArray *workers;
 
 +(instancetype) sharedInstance;
 

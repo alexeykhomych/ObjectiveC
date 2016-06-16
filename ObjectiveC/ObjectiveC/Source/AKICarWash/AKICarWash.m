@@ -13,6 +13,7 @@
 #import "AKIAccountant.h"
 #import "AKIOffice.h"
 #import "AKIBox.h"
+#import "SingletonWorkers.h"
 
 static NSUInteger const kAKIMoney = 10;
 
@@ -22,7 +23,7 @@ static NSUInteger const kAKIMoney = 10;
 @property (nonatomic, retain) NSMutableArray    *mutableCars;
 
 - (void)queued:(NSMutableArray *)car;
-- (id)getFreeWorker;
+- (id)getFreeWorker:(NSString *)className;
 - (id)getFreeBox;
 
 - (void)addBox;
@@ -51,6 +52,9 @@ static NSUInteger const kAKIMoney = 10;
     carWash.mutableBoxs = [NSMutableArray object];
     carWash.mutableCars = [NSMutableArray object];
     carWash.mutableWorkers = [NSMutableArray object];
+    
+    [carWash addBox];
+    [carWash addWorker];
     
     return carWash;
 }
@@ -95,24 +99,29 @@ static NSUInteger const kAKIMoney = 10;
     [self.mutableCars removeObject:car];
 }
 
-- (void)addWorker{
-    AKIWasher *washer = [AKIWasher object];
-    AKIAccountant *accountant = [AKIAccountant object];
-    AKIDirector *director = [AKIDirector object];
+- (void)addWorker {
+    AKIWasher *washer = [AKIWasher worker];
+    AKIAccountant *accountant = [AKIAccountant worker];
+    AKIDirector *director = [AKIDirector worker];
     
     [self.mutableWorkers addObject:washer];
     [self.mutableWorkers addObject:accountant];
     [self.mutableWorkers addObject:director];
+    
 }
 
 - (void)removeWorker:(AKIWasher *)worker {
     [self.mutableWorkers removeObject:worker];
 }
 
-- (id)getFreeWorker {
-    for (AKIWasher *washer in self.mutableWorkers) {
-        if ([washer isFree]) {
-            return washer;
+- (id)getFreeWorker:(NSString *)className {
+    SingletonWorkers *s = [SingletonWorkers sharedInstance];
+    for (NSMutableArray *iteration in s.workers) {
+        NSMutableDictionary *dictionary = (NSMutableDictionary *)iteration;
+        AKIWorker *worker = [dictionary objectForKey:className];
+        
+        if ([worker isFree]) {
+            return worker;
         }
     }
     
@@ -129,7 +138,7 @@ static NSUInteger const kAKIMoney = 10;
     
     for (AKICar *currentCar in car) {
         box = [self getFreeBox];
-        washer = [self getFreeWorker];
+        washer = [self getFreeWorker:AKIWasher.className];
         
         if (box && washer) {
             box.full = YES;
@@ -138,9 +147,8 @@ static NSUInteger const kAKIMoney = 10;
             
             [box.washer doJob:currentCar.money];
             
-            box.full = NO;
-            
             [self removeCar:box.car];
+            box.full = NO;
         } else {
             NSLog(@"Wait a few minets");
         }

@@ -21,7 +21,10 @@
 }
 
 - (instancetype)initUniqueInstance {
-    return [super init];
+    SingletonWorkers *singleton = [super init];
+    singleton.workers = [NSMutableArray new];
+    
+    return singleton;
 }
 
 @end

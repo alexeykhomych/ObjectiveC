@@ -29,12 +29,15 @@
 }
 
 + (instancetype)worker {
-    SingletonWorkers *sworkers = [SingletonWorkers sharedInstance];
     AKIWorker *worker = [[self new] autorelease];
     worker.free = YES;
     
-    [sworkers.workers setObject:worker forKey:worker.className];
-
+    SingletonWorkers *sworkers = [SingletonWorkers sharedInstance];
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary new];
+    [dictionary setObject:worker forKey:worker.className];
+    [sworkers.workers addObject:dictionary];
+    
     return worker;
 }
 
