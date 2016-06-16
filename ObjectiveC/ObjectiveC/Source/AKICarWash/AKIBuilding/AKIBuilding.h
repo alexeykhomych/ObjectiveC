@@ -11,14 +11,8 @@
 #import "AKIOffice.h"
 
 @interface AKIBuilding : NSObject
-@property (nonatomic, assign, getter=isFull) BOOL       Full;
-@property (nonatomic, readonly) NSArray *build;
-@property (nonatomic, readonly) NSUInteger floorCount;
-@property (nonatomic, readonly) NSUInteger officesCount;
+@property (nonatomic, assign, getter=isFull)    BOOL        full;
 
 + (instancetype)building;
-
-- (void)addOffice:(AKIOffice *)office;
-- (void)removeOffice:(AKIOffice *)office;
 
 @end

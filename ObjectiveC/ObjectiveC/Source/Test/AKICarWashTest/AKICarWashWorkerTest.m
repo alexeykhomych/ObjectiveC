@@ -14,31 +14,19 @@
 #import "AKIDirector.h"
 
 #import "AKIBuilding.h"
+#import "AKIBox.h"
+
+#import "AKICar.h"
 
 #import "NSObject+AKICategory.h"
 
 @implementation AKICarWashWorkerTest
 
 - (void)performWorkerTest {
-    NSInteger money = 10;
-    
-    AKIBuilding *box = [AKIBuilding building];
-    
-    AKIWasher *washer = [AKIWasher worker];
-    AKIAccountant *accountant = [AKIAccountant worker];
-    AKIDirector *director = [AKIDirector worker];
-    
+    AKICar *car = [AKICar car];
     AKICarWash *carWash = [AKICarWash carWash];
     
-    [carWash addBox:box];
-    
-    [washer setChief:accountant];
-    [accountant setChief:director];
-    
-    NSObject *car = [NSObject object];
-    
-    [carWash addWorker:washer];
-    [carWash addCar:car];
+    [carWash washCar:car];
 }
 
 @end

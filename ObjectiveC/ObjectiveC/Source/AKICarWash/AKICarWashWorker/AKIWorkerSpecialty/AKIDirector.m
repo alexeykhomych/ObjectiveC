@@ -7,13 +7,16 @@
 //
 
 #import "AKIDirector.h"
-
-@interface AKIDirector()
-@property (nonatomic, assign) AKIBuilding *_workPlace;
-
-@end
+#import "NSObject+AKICategory.h"
 
 @implementation AKIDirector
+
+- (instancetype)director {
+    AKIDirector *director = [AKIDirector object];
+
+    
+    return director;
+}
 
 - (void)doJob {
     [self setFree:NO];
@@ -34,14 +37,6 @@
     if (self.revenue > 100) {
         NSLog(@"%@: vse pizdec. poidy kyplu yahtu", self.className);
     }
-}
-
-- (void)setWorkPlace:(AKIBuilding *)workPlace {
-    self._workPlace = workPlace;
-}
-
-- (AKIBuilding *)getWorkPlace {
-    return self._workPlace;
 }
 
 @end

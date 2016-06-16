@@ -11,6 +11,8 @@
 @interface AKIDirector : AKIWorker
 @property (nonatomic, assign) NSInteger revenue;
 
+- (instancetype)director;
+
 - (void)makeRevenue:(NSInteger)money;
 
 @end

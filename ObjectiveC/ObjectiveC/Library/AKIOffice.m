@@ -10,11 +10,8 @@
 #import "NSObject+AKICategory.h"
 #import "AKIWorker.h"
 
-static NSUInteger const kAKIOfficesMaxCount = 10;
-static NSUInteger const kAKIOfficecMaxCountOnFloor = 10;
-
 @interface AKIOffice()
-@property (nonatomic, retain) NSMutableArray    *mutableWorkers;
+//@property (nonatomic, retain) NSMutableDictionary    *mutableWorkers;
 
 @end
 
@@ -24,16 +21,16 @@ static NSUInteger const kAKIOfficecMaxCountOnFloor = 10;
 #pragma mark Init/dealloc
 
 - (void)dealloc {
-    self.mutableWorkers = nil;
+//    self.workers = nil;
     
     [super dealloc];
 }
 
 + (instancetype)office {
     AKIOffice *office = [super object];
-    office.mutableWorkers = [NSMutableArray object];
+//    office.workers = [NSMutableDictionary object];
     
-    return [super object];
+    return office;
 }
 
 #pragma mark -
@@ -45,16 +42,5 @@ static NSUInteger const kAKIOfficecMaxCountOnFloor = 10;
 
 #pragma mark -
 #pragma mark Public Implementations
-
-- (void)addWorker:(AKIWorker *)worker {
-    [self.mutableWorkers addObject:worker];
-}
-
-- (void)removeWorker:(AKIWorker *)worker {
-    [self.mutableWorkers removeObject:worker];
-}
-- (NSArray *)allWorkers {
-    return self.mutableWorkers;
-}
 
 @end

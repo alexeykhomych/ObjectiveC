@@ -9,6 +9,7 @@
 
 #import "NSObject+AKICategory.h"
 #import "AKIWorker.h"
+#import "SingletonWorkers.h"
 
 @protocol AKIMoney <NSObject>
 
@@ -28,9 +29,12 @@
 }
 
 + (instancetype)worker {
+    SingletonWorkers *sworkers = [SingletonWorkers sharedInstance];
     AKIWorker *worker = [[self new] autorelease];
-    worker.workPlace = [AKIBuilding object];
     worker.free = YES;
+    
+    [sworkers.workers setObject:worker forKey:worker.className];
+
     return worker;
 }
 

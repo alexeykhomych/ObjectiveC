@@ -9,19 +9,7 @@
 #import "AKIWasher.h"
 #import "AKIAccountant.h"
 
-@interface AKIWasher()
-@property (nonatomic, retain) AKIBuilding *_workPlace;
-
-@end
-
 @implementation AKIWasher
-
-#pragma mark -
-#pragma mark Accessors
-
-- (AKIBuilding *)workPlace {
-    return [[self._workPlace copy] autorelease];
-}
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -54,14 +42,6 @@
     NSLog(@"Just a little time. I will give money to %@", [self.chief className]);
     [worker takeMoney:self.money];
     [worker setMoney:0];
-}
-
-- (void)setWorkPlace:(AKIBuilding *)workPlace {
-    self._workPlace = workPlace;
-}
-
-- (AKIBuilding *)getWorkPlace {
-    return self._workPlace;
 }
 
 @end

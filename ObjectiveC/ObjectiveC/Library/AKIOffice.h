@@ -12,12 +12,8 @@
 
 @interface AKIOffice : NSObject
 
-@property (nonatomic, readonly) NSArray *workers;
+//@property (nonatomic, assign) NSMutableDictionary *workers;
 
 + (instancetype)office;
-
-- (void)addWorker:(AKIWorker *)worker;
-- (void)removeWorker:(AKIWorker *)worker;
-- (NSArray *)allWorkers;
 
 @end
