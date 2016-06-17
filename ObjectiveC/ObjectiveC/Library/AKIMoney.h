@@ -8,14 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKIWorker.h"
-
 @protocol AKIMoney <NSObject>
+@property (nonatomic, assign) NSUInteger money;
 
-- (void)giveMoneyToWorker:(AKIWorker *)worker;
+@optional
+- (void)takeMoney:(id)object;
 
-@end
-
-@interface AKIMoney : NSObject
+@optional
+- (NSUInteger)giveMoney;
 
 @end

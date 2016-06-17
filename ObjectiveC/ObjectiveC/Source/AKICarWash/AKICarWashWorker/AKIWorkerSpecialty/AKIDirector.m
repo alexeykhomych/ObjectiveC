@@ -8,35 +8,23 @@
 
 #import "AKIDirector.h"
 #import "NSObject+AKICategory.h"
+#import "AKIAccountant.h"
 
 @implementation AKIDirector
 
-- (instancetype)director {
-    AKIDirector *director = [AKIDirector object];
+#pragma mark -
+#pragma mark Public Methods
 
-    
-    return director;
+- (void)processObject:(AKIAccountant *)object {
+    [self makeRevenue];
+    [self takeMoney:object];
 }
 
-- (void)doJob {
-    [self setFree:NO];
-    [self makeRevenue:self.money];
-    [self setFree:YES];
-}
+#pragma mark -
+#pragma mark Private Methods
 
-- (void)takeMoney:(NSInteger)money {
-    self.money = money;
-    [self makeRevenue:self.money];
-}
-
-- (void)makeRevenue:(NSInteger)money {
-    self.revenue += money;
-    
-    NSLog(@"%@ polychil bablo", self.className);
-    
-    if (self.revenue > 100) {
-        NSLog(@"%@: vse pizdec. poidy kyplu yahtu", self.className);
-    }
+- (void)makeRevenue {
+    NSLog(@"profit");
 }
 
 @end

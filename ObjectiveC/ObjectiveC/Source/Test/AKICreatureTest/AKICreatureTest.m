@@ -10,6 +10,7 @@
 #import "AKICreatureMale.h"
 #import "AKICreatureFemale.h"
 #import "AKICreature.h"
+#import "NSObject+AKICategory.h"
 
 @implementation AKICreatureTest
 
@@ -22,7 +23,7 @@
     
     [man sayPhrase:sayHi];
     
-    NSMutableArray *array = [NSMutableArray new];
+    NSMutableArray *array = [NSMutableArray object];
     [array addObject:man];
     [array addObject:woman];
     

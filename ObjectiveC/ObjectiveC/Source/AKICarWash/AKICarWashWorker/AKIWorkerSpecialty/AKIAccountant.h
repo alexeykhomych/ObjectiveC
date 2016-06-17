@@ -10,6 +10,4 @@
 
 @interface AKIAccountant : AKIWorker
 
-- (void)calculateSalary:(AKIWorker *)worker;
-
 @end

@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 
 #import "AKIOffice.h"
+#import "AKIWorker.h"
 
 @interface AKIBuilding : NSObject
-@property (nonatomic, assign, getter=isFull)    BOOL        full;
+@property (nonatomic, copy, readonly) NSArray *offices;
 
-+ (instancetype)building;
+- (void)addOffice:(AKIOffice *)office;
+- (void)removeOffice:(AKIOffice *)office;
+
+- (BOOL)addWorker:(AKIWorker *)worker;
+- (void)removeWorker:(AKIWorker *)worker;
 
 @end

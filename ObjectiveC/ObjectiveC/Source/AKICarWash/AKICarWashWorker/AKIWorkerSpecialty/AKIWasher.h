@@ -10,8 +10,4 @@
 
 @interface AKIWasher : AKIWorker
 
-- (void)doJob:(NSInteger)money;
-- (void)takeCar;
-- (void)washCar;
-
 @end

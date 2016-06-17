@@ -7,26 +7,20 @@
 //
 
 #import "AKIAccountant.h"
+#import "AKIWasher.h"
 
 @implementation AKIAccountant
 
-- (void)doJob {
-    [self setFree:NO];
-    [self giveMoneyToWorker:self.chief];
-    [self setFree:YES];
+#pragma mark -
+#pragma mark Public Methods
+
+- (void)processObject:(AKIWasher *)object {
+    [self calculateSalary:object];
+    [self takeMoney:object];
 }
 
-- (void)takeMoney:(NSInteger)money {
-    self.money += money;
-    NSLog(@"zbs. bablo %@", [self className]);
-    
-    [self calculateSalary:self];
-}
-
-- (void)giveMoneyToWorker:(AKIWorker *)worker {
-    NSLog(@"Just a little time. I will give money to %@", [self.chief className]);
-    [worker takeMoney:self.money];
-}
+#pragma mark -
+#pragma mark Private Methods
 
 - (void)calculateSalary:(AKIWorker *)worker {
     [self setExperience:1];

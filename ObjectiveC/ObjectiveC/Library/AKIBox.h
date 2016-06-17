@@ -11,8 +11,9 @@
 #import "AKICar.h"
 
 @interface AKIBox : AKIOffice
-@property (nonatomic, assign)                 AKIWasher   *washer;
-@property (nonatomic, assign)                 AKICar      *car;
-@property (nonatomic, assign, getter=isFull)  BOOL        full;
+@property (nonatomic, copy, readonly) NSArray *cars;
+
+- (void)addCar:(AKICar *)car;
+- (void)removeCar:(AKICar *)car;
 
 @end

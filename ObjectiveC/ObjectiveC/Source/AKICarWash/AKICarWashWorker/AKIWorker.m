@@ -9,9 +9,11 @@
 
 #import "NSObject+AKICategory.h"
 #import "AKIWorker.h"
-#import "SingletonWorkers.h"
+#import "AKIMoney.h"
 
 @implementation AKIWorker
+
+@synthesize money = _money;
 
 #pragma mark -
 #pragma mark Init/dealloc
@@ -21,40 +23,33 @@
     [super dealloc];
 }
 
+- (id)init {
+    self = [super init];
+    
+    self.salary = arc4random_uniform(100);
+    self.experience = arc4random_uniform(10);
+    self.free = YES;
+    
+    return self;
+}
+
 + (instancetype)worker {
-    AKIWorker *worker = [[self new] autorelease];
-    worker.free = YES;
-    
-    SingletonWorkers *sworkers = [SingletonWorkers sharedInstance];
-    
-    NSMutableDictionary *dictionary = [NSMutableDictionary new];
-    [dictionary setObject:worker forKey:worker.className];
-    [sworkers.workers addObject:dictionary];
-    
-    return worker;
+    return [self init];
 }
 
 #pragma mark -
-#pragma mark Public Implementations
+#pragma mark Public methods
 
-- (void)work {
-    NSLog(@"super work");
+- (void)processObject:(id)object {
+    [self takeMoney:object];
 }
 
-- (void)takeMoney:(NSInteger)money {
-    
+- (void)takeMoney:(id)object {
+    self.money += [object giveMoney];
 }
 
-- (void)giveMoneyToWorker:(AKIWorker *)worker {
-    
-}
-
-- (void)doJob {
-    
-}
-
-- (void)setWorkPlace:(AKIBuilding *)workPlace {
-    
+- (NSUInteger)giveMoney {
+    return self.money;
 }
 
 @end

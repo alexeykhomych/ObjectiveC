@@ -13,13 +13,12 @@
 @interface AKIWorker : NSObject
 @property (nonatomic, assign)                   NSUInteger  salary;
 @property (nonatomic, assign)                   NSUInteger  experience;
-@property (nonatomic, assign)                   NSInteger   money;
 @property (nonatomic, assign, getter=isFree)    BOOL        free;
-@property (nonatomic, assign)                   AKIWorker   *chief;
+@property (nonatomic, assign)                   NSUInteger  money;
 
 + (instancetype)worker;
-
-- (void)doJob;
-- (void)takeMoney:(NSInteger)money;
+- (void)processObject:(id)object;
+- (void)takeMoney:(id)object;
+- (NSUInteger)giveMoney;
 
 @end

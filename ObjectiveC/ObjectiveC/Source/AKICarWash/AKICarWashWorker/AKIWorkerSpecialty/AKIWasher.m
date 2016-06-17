@@ -7,41 +7,24 @@
 //
 
 #import "AKIWasher.h"
-#import "AKIAccountant.h"
+#import "AKICar.h"
 
 @implementation AKIWasher
 
 #pragma mark -
-#pragma mark Public Implementations
+#pragma mark Public Methods
 
-- (void)doJob:(NSInteger)money {
-    [self takeMoney:money];
-    [self takeCar];
-    
-    self.free = NO;
-    
-    [self washCar];
-    [self giveMoneyToWorker:self.chief];
-    
-    self.free = YES;
+- (void)processObject:(AKICar *)car {
+    [self washCar:car];
+    [self takeMoney:car];
 }
 
-- (void)takeCar {
-    NSLog(@"%@ take a car", self.className);
-}
+#pragma mark -
+#pragma mark Private Methods
 
-- (void)washCar {
+- (void)washCar:(AKICar *)car {
     NSLog(@"%@ wash a car", self.className);
-}
-
-- (void)takeMoney:(NSInteger)money {
-    self.money = money;
-}
-
-- (void)giveMoneyToWorker:(AKIWorker *)worker {
-    NSLog(@"Just a little time. I will give money to %@", [self.chief className]);
-    [worker takeMoney:self.money];
-    [worker setMoney:0];
+    [car setClean:YES];
 }
 
 @end

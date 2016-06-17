@@ -11,17 +11,39 @@
 
 @implementation AKICar
 
+#pragma mark -
+#pragma mark Class Methods
+
++ (instancetype)car {
+    return [self init];
+}
+
+
+#pragma mark -
+#pragma mark Initializations and Dealoocations
+
 - (void)dealloc {
     [super dealloc];
 }
 
-+ (instancetype)car {
-    AKICar *car = [[self new] autorelease];
+- (id)car {
+    AKICar *car = [super init];
     
-    car.money = arc4random_uniform(100);
+    car.money = 10;
     car.clean = NO;
     
     return car;
+}
+
+#pragma mark -
+#pragma mark Private Methods
+
+- (void)takeMoney:(id)object {
+    self.money += [object giveMoney];
+}
+
+- (NSUInteger)giveMoney {
+    return self.money;
 }
 
 @end

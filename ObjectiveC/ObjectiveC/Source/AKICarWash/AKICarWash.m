@@ -13,150 +13,169 @@
 #import "AKIAccountant.h"
 #import "AKIOffice.h"
 #import "AKIBox.h"
-#import "SingletonWorkers.h"
 
 static NSUInteger const kAKIMoney = 10;
 
 @interface AKICarWash()
-@property (nonatomic, retain) NSMutableArray    *mutableBoxs;
-@property (nonatomic, retain) NSMutableArray    *mutableWorkers;
-@property (nonatomic, retain) NSMutableArray    *mutableCars;
+@property (nonatomic, retain)   NSMutableArray  *directors;
+@property (nonatomic, retain)   NSMutableArray  *accountants;
+@property (nonatomic, retain)   NSMutableArray  *washers;
+@property (nonatomic, retain)   NSMutableArray  *cars;
+@property (nonatomic, retain)   AKIBuilding     *adminBuilding;
+@property (nonatomic, retain)   AKIOffice       *office;
+@property (nonatomic, retain)   AKIBox          *box;
 
 - (void)queued:(NSMutableArray *)car;
 - (id)getFreeWorker:(NSString *)className;
 - (id)getFreeBox;
 
 - (void)addBox;
-- (void)removeBox:(AKIBox *)box;
 - (void)removeCar:(AKICar *)car;
 - (void)addWorker;
 - (void)removeWorker:(AKIWasher *)worker;
+- (AKIWasher *)freeWasher;
+- (AKIDirector *)freeDirector;
+- (AKIAccountant *)freeAccountant;
 
 @end
 
 @implementation AKICarWash
 
-#pragma mark
-#pragma mark Init/dealloc
+#pragma mark -
+#pragma mark Class Methods
+
++ (instancetype)carWash {
+    return [self init];
+}
+
+#pragma mark -
+#pragma mark Initializations and Dealocations
 
 - (void)dealloc {
-    self.mutableBoxs = nil;
-    self.mutableWorkers = nil;
-    self.mutableCars = nil;
+    self.directors = nil;
+    self.accountants = nil;
+    self.washers = nil;
     
     [super dealloc];
 }
 
-+ (instancetype)carWash {
-    AKICarWash *carWash = [super object];
-    carWash.mutableBoxs = [NSMutableArray object];
-    carWash.mutableCars = [NSMutableArray object];
-    carWash.mutableWorkers = [NSMutableArray object];
+- (id)init {
+    AKICarWash *carWash = [super init];
     
-    [carWash addBox];
-    [carWash addWorker];
+    carWash.directors = [NSMutableArray object];
+    carWash.accountants = [NSMutableArray object];
+    carWash.washers = [NSMutableArray object];
+    
+    [carWash initCarWash];
     
     return carWash;
 }
 
+- (void)initCarWash {
+    AKIBuilding *adminBuilding = [AKIBuilding init];
+    AKIBuilding *carWashBuilding = [AKIBuilding init];
+    AKIOffice *office = [AKIOffice office];
+    AKIBox *box = [AKIBox init];
+    
+    AKIWasher *washer = [AKIWasher init];
+    AKIAccountant *accountant = [AKIAccountant init];
+    AKIDirector *director = [AKIDirector init];
+    
+    [adminBuilding addOffice:office];
+    [adminBuilding addWorker:director];
+    [adminBuilding addWorker:accountant];
+    
+    [carWashBuilding addOffice:box];
+    [carWashBuilding addWorker:washer];
+    [box addWorker:washer];
+    
+    self.adminBuilding = adminBuilding;
+    self.office = office;
+    self.box = box;
+    
+    [self addDirector:director];
+    [self addAccountant:accountant];
+    [self addWasher:washer];
+}
+
 #pragma mark -
-#pragma mark Accessors
+#pragma mark Public Methods
 
-- (NSArray *)boxs {
-    return [[self.mutableBoxs copy] autorelease];
+- (void)washCar{
+    for (AKICar *currentCar in self.cars) {
+        AKIWasher *washer = [self freeWasher];
+        AKIAccountant *accountant = [self freeAccountant];
+        AKIDirector *director = [self freeDirector];
+        
+        [washer processObject:currentCar];
+        [accountant processObject:washer];
+        [director processObject:accountant];
+        
+        [self removeCar:currentCar];
+    }
 }
 
-- (NSArray *)workers {
-    return [[self.mutableWorkers copy] autorelease];
-}
-
-- (NSArray *)cars {
-    return [[self.mutableCars copy] autorelease];
-}
-
-#pragma mark
-#pragma Public Implementations
-
-- (void)washCar:(AKICar *)car {
-    [self.mutableCars addObject:car];
-    [self queued:self.mutableCars];
-}
-
-#pragma -
-#pragma Private Implementations
+#pragma mark -
+#pragma mark Private Methods
 
 - (id)getFreeBox {
-    for (AKIBuilding *box in self.mutableBoxs) {
-        if (![box isFull]) {
-            return box;
-        }
-    }
-    
-    return nil;
+    return ![self.box isFull] ? self.box : nil;
 }
 
 - (void)removeCar:(id)car {
-    [self.mutableCars removeObject:car];
+    [self.cars removeObject:car];
 }
 
-- (void)addWorker {
-    AKIWasher *washer = [AKIWasher worker];
-    AKIAccountant *accountant = [AKIAccountant worker];
-    AKIDirector *director = [AKIDirector worker];
+- (void)addDirector:(AKIWorker *)worker {
+    [self.directors addObject:worker];
+    [self.adminBuilding addWorker:worker];
+}
+
+- (void)addAccountant:(AKIWorker *)worker {
+    [self.accountants addObject:worker];
+    [self.adminBuilding addWorker:worker];
+}
+
+- (void)addWasher:(AKIWorker *)worker {
+    [self.washers addObject:worker];
+    [self.adminBuilding addWorker:worker];
+}
+
+- (void)removeWorker:(AKIWorker *)worker {
+    [self.washers removeObject:worker];
+    [self.accountants removeObject:worker];
+    [self.directors removeObject:worker];
     
-    [self.mutableWorkers addObject:washer];
-    [self.mutableWorkers addObject:accountant];
-    [self.mutableWorkers addObject:director];
-    
+    [self.adminBuilding removeWorker:worker];
+    [self.box removeWorker:worker];
 }
 
-- (void)removeWorker:(AKIWasher *)worker {
-    [self.mutableWorkers removeObject:worker];
-}
-
-- (id)getFreeWorker:(NSString *)className {
-    SingletonWorkers *s = [SingletonWorkers sharedInstance];
-    for (NSMutableArray *iteration in s.workers) {
-        NSMutableDictionary *dictionary = (NSMutableDictionary *)iteration;
-        AKIWorker *worker = [dictionary objectForKey:className];
-        
-        if ([worker isFree]) {
-            return worker;
+- (AKIWasher *)freeWasher {
+    for (AKIWasher *currentWasher in self.washers) {
+        if ([currentWasher isFree]) {
+            return currentWasher;
         }
     }
     
     return nil;
 }
-
-- (void)addBox {
-    [self.mutableBoxs addObject:[AKIBox object]];
-}
-
-- (void)queued:(NSMutableArray *)car {
-    AKIBox *box = nil;
-    AKIWasher *washer = nil;
-    
-    for (AKICar *currentCar in car) {
-        box = [self getFreeBox];
-        washer = [self getFreeWorker:AKIWasher.className];
-        
-        if (box && washer) {
-            box.full = YES;
-            box.washer = washer;
-            box.car = currentCar;
-            
-            [box.washer doJob:currentCar.money];
-            
-            [self removeCar:box.car];
-            box.full = NO;
-        } else {
-            NSLog(@"Wait a few minets");
+- (AKIDirector *)freeDirector {
+    for (AKIDirector *currentDirector in self.directors) {
+        if ([currentDirector isFree]) {
+            return currentDirector;
         }
     }
+    
+    return nil;
 }
-
-- (void)removeBox:(AKIBox *)box {
-    [self.mutableBoxs removeObject:box];
+- (AKIAccountant *)freeAccountant {
+    for (AKIAccountant *currentAccountant in self.accountants) {
+        if ([currentAccountant isFree]) {
+            return currentAccountant;
+        }
+    }
+    
+    return nil;
 }
 
 @end

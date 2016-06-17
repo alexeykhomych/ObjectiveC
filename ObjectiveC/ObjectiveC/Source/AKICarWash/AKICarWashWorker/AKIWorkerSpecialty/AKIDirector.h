@@ -13,6 +13,4 @@
 
 - (instancetype)director;
 
-- (void)makeRevenue:(NSInteger)money;
-
 @end
