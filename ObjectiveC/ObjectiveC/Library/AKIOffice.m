@@ -9,26 +9,13 @@
 #import "AKIOffice.h"
 #import "NSObject+AKICategory.h"
 
-static NSUInteger const kAKIMaxOfficeCount = 5;
-
 @interface AKIOffice()
 @property (nonatomic, retain) NSMutableArray *mutableWorkers;
-@property (nonatomic, assign) NSUInteger capacity;
+@property (nonatomic, retain)                   AKIBuilding *building;
 
 @end
 
 @implementation AKIOffice
-
-#pragma mark -
-#pragma mark Class Methods
-
-+ (id)office {
-    return [self officeWithCapacity:kAKIMaxOfficeCount];
-}
-
-+ (id)officeWithCapacity:(NSUInteger)capacity {
-    return [[self alloc] initWithCapacity:capacity];
-}
 
 #pragma mark -
 #pragma mark Initializations and Dealocations
@@ -39,10 +26,9 @@ static NSUInteger const kAKIMaxOfficeCount = 5;
     [super dealloc];
 }
 
-- (instancetype)initWithCapacity:(NSUInteger)capacity {
+- (instancetype)init {
     self = [super init];
     self.mutableWorkers = [NSMutableArray object];
-    self.capacity = capacity ? capacity : kAKIMaxOfficeCount;
     
     return self;
 }
@@ -54,10 +40,6 @@ static NSUInteger const kAKIMaxOfficeCount = 5;
     return [[self.mutableWorkers copy] autorelease];
 }
 
-- (BOOL)isFull {
-    return self.capacity <= self.workerCount;
-}
-
 - (NSUInteger)workerCount {
     return [self.mutableWorkers count];
 }
@@ -65,14 +47,8 @@ static NSUInteger const kAKIMaxOfficeCount = 5;
 #pragma mark -
 #pragma mark Public Methods
 
-- (BOOL)addWorker:(AKIWorker *)worker {
-    if (self.full) {
-        return NO;
-    }
-    
+- (void)addWorker:(AKIWorker *)worker {
     [self.mutableWorkers addObject:worker];
-    
-    return YES;
 }
 
 - (void)removeWorker:(AKIWorker *)worker {

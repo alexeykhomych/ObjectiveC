@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @protocol AKIMoney <NSObject>
-@property (nonatomic, assign) NSUInteger money;
+@property (nonatomic, readonly) NSUInteger money;
+
+- (void)receiveMoney:(NSUInteger)money;
+- (void)giveMoney:(NSUInteger)money;
 
 @optional
-- (void)takeMoney:(id)object;
 
-@optional
-- (NSUInteger)giveMoney;
+- (void)takeMoneyFromObject:(id<AKIMoney>)object;
 
 @end

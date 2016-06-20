@@ -13,112 +13,97 @@
 #import "AKIAccountant.h"
 #import "AKIOffice.h"
 #import "AKIBox.h"
-
-static NSUInteger const kAKIMoney = 10;
+#import "AKIQueue.h"
 
 @interface AKICarWash()
-@property (nonatomic, retain)   NSMutableArray  *directors;
-@property (nonatomic, retain)   NSMutableArray  *accountants;
-@property (nonatomic, retain)   NSMutableArray  *washers;
 @property (nonatomic, retain)   NSMutableArray  *cars;
 @property (nonatomic, retain)   AKIBuilding     *adminBuilding;
+@property (nonatomic, retain)   AKIBuilding     *carWashBuilding;
 @property (nonatomic, retain)   AKIOffice       *office;
 @property (nonatomic, retain)   AKIBox          *box;
+@property (nonatomic, retain)   AKIQueue        *queue;
 
-- (void)queued:(NSMutableArray *)car;
-- (id)getFreeWorker:(NSString *)className;
-- (id)getFreeBox;
+- (id)freeBox;
 
-- (void)addBox;
-- (void)removeCar:(AKICar *)car;
-- (void)addWorker;
-- (void)removeWorker:(AKIWasher *)worker;
-- (AKIWasher *)freeWasher;
-- (AKIDirector *)freeDirector;
-- (AKIAccountant *)freeAccountant;
+- (AKIWorker *)freeWorkerWithClass:(Class)cls;
+
+- (void)addCarToQueue:(AKICar *)car;
 
 @end
 
 @implementation AKICarWash
 
 #pragma mark -
-#pragma mark Class Methods
-
-+ (instancetype)carWash {
-    return [self init];
-}
-
-#pragma mark -
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
-    self.directors = nil;
-    self.accountants = nil;
-    self.washers = nil;
+    self.cars = nil;
     
     [super dealloc];
 }
 
-- (id)init {
-    AKICarWash *carWash = [super init];
+- (instancetype)init {
+    self = [super init];
     
-    carWash.directors = [NSMutableArray object];
-    carWash.accountants = [NSMutableArray object];
-    carWash.washers = [NSMutableArray object];
+    [self initCarWash];
     
-    [carWash initCarWash];
-    
-    return carWash;
+    return self;
 }
 
 - (void)initCarWash {
-    AKIBuilding *adminBuilding = [AKIBuilding init];
-    AKIBuilding *carWashBuilding = [AKIBuilding init];
-    AKIOffice *office = [AKIOffice office];
-    AKIBox *box = [AKIBox init];
+    AKIBuilding *adminBuilding = [[AKIBuilding new] autorelease];
+    AKIBuilding *carWashBuilding = [[AKIBuilding new] autorelease];
+    AKIOffice *office = [[AKIOffice new] autorelease];
+    AKIBox *box = [[AKIBox new] autorelease];
     
-    AKIWasher *washer = [AKIWasher init];
-    AKIAccountant *accountant = [AKIAccountant init];
-    AKIDirector *director = [AKIDirector init];
+    AKIWasher *washer = [[AKIWasher new] autorelease];
+    AKIAccountant *accountant = [[AKIAccountant new] autorelease];
+    AKIDirector *director = [[AKIDirector new] autorelease];
     
-    [adminBuilding addOffice:office];
-    [adminBuilding addWorker:director];
-    [adminBuilding addWorker:accountant];
+    AKIQueue *queue = [[AKIQueue new] autorelease];
+    
+    [office addWorker:director];
+    [office addWorker:accountant];
     
     [carWashBuilding addOffice:box];
-    [carWashBuilding addWorker:washer];
     [box addWorker:washer];
     
     self.adminBuilding = adminBuilding;
+    self.carWashBuilding = carWashBuilding;
     self.office = office;
     self.box = box;
-    
-    [self addDirector:director];
-    [self addAccountant:accountant];
-    [self addWasher:washer];
+    self.queue = queue;
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
+- (void)addCarToQueue:(AKICar *)car {
+    [self.queue addCar:car];
+}
+
 - (void)washCar{
-    for (AKICar *currentCar in self.cars) {
-        AKIWasher *washer = [self freeWasher];
-        AKIAccountant *accountant = [self freeAccountant];
-        AKIDirector *director = [self freeDirector];
+    AKICar *car = nil;
+    
+    while ((car = [self.queue nextCar])) {
+        AKIBox *box = [self freeBox];
+        AKIWorker *washer = [self freeWorkerWithClass:[AKIWasher class]];
         
-        [washer processObject:currentCar];
-        [accountant processObject:washer];
-        [director processObject:accountant];
-        
-        [self removeCar:currentCar];
+        if (box && washer) {
+            [box addCar:car];
+            
+            [washer processObject:car];
+            [self.queue removeCar];
+            
+            [box removeCar:car];
+        }
     }
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
-- (id)getFreeBox {
+- (id)freeBox {
     return ![self.box isFull] ? self.box : nil;
 }
 
@@ -126,52 +111,12 @@ static NSUInteger const kAKIMoney = 10;
     [self.cars removeObject:car];
 }
 
-- (void)addDirector:(AKIWorker *)worker {
-    [self.directors addObject:worker];
-    [self.adminBuilding addWorker:worker];
-}
-
-- (void)addAccountant:(AKIWorker *)worker {
-    [self.accountants addObject:worker];
-    [self.adminBuilding addWorker:worker];
-}
-
-- (void)addWasher:(AKIWorker *)worker {
-    [self.washers addObject:worker];
-    [self.adminBuilding addWorker:worker];
-}
-
-- (void)removeWorker:(AKIWorker *)worker {
-    [self.washers removeObject:worker];
-    [self.accountants removeObject:worker];
-    [self.directors removeObject:worker];
+- (AKIWorker *)freeWorkerWithClass:(Class)cls {
+    NSArray *workers = [self.carWashBuilding freeWorkers];
     
-    [self.adminBuilding removeWorker:worker];
-    [self.box removeWorker:worker];
-}
-
-- (AKIWasher *)freeWasher {
-    for (AKIWasher *currentWasher in self.washers) {
-        if ([currentWasher isFree]) {
-            return currentWasher;
-        }
-    }
-    
-    return nil;
-}
-- (AKIDirector *)freeDirector {
-    for (AKIDirector *currentDirector in self.directors) {
-        if ([currentDirector isFree]) {
-            return currentDirector;
-        }
-    }
-    
-    return nil;
-}
-- (AKIAccountant *)freeAccountant {
-    for (AKIAccountant *currentAccountant in self.accountants) {
-        if ([currentAccountant isFree]) {
-            return currentAccountant;
+    for (AKIWorker *worker in workers) {
+        if ([worker isKindOfClass:cls] && worker.free) {
+            return worker;
         }
     }
     

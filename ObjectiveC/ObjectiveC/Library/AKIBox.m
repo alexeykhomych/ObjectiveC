@@ -9,6 +9,8 @@
 #import "AKIBox.h"
 #import "NSObject+AKICategory.h"
 
+static NSUInteger const kAKIMaxCarCount = 1;
+
 @interface AKIBox()
 @property (nonatomic, retain) NSMutableArray *mutableCars;
 
@@ -25,7 +27,7 @@
     [super dealloc];
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     self.mutableCars = [NSMutableArray object];
     
@@ -43,11 +45,17 @@
 #pragma mark Public Methods
 
 - (void)addCar:(AKICar *)car {
-    [self.mutableCars addObject:car];
+    if (!self.full) {
+        [self.mutableCars addObject:car];
+    }
 }
 
 - (void)removeCar:(AKICar *)car {
     [self.mutableCars removeObject:car];
+}
+
+- (BOOL)isFull {
+    return kAKIMaxCarCount <= _mutableCars.count;
 }
 
 @end

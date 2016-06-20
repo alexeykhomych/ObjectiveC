@@ -9,15 +9,12 @@
 #import "AKICar.h"
 #import "NSObject+AKICategory.h"
 
+@interface AKICar()
+@property (nonatomic, assign)NSUInteger money;
+
+@end
+
 @implementation AKICar
-
-#pragma mark -
-#pragma mark Class Methods
-
-+ (instancetype)car {
-    return [self init];
-}
-
 
 #pragma mark -
 #pragma mark Initializations and Dealoocations
@@ -26,24 +23,30 @@
     [super dealloc];
 }
 
-- (id)car {
-    AKICar *car = [super init];
+- (instancetype)init {
+    self = [super init];
     
-    car.money = 10;
-    car.clean = NO;
+    self.money = 10;
+    self.clean = NO;
     
-    return car;
+    return self;
 }
 
 #pragma mark -
-#pragma mark Private Methods
+#pragma mark Public Methods
 
-- (void)takeMoney:(id)object {
-    self.money += [object giveMoney];
+- (void)receiveMoney:(NSUInteger)money {
+    self.money += money;
 }
 
-- (NSUInteger)giveMoney {
-    return self.money;
+- (void)giveMoney:(NSUInteger)money {
+    self.money -= money;
+}
+
+- (void)takeMoneyFromObject:(id<AKIMoney>)object {
+    NSUInteger money = object.money;
+    [object giveMoney:money];
+    [self receiveMoney:money];
 }
 
 @end

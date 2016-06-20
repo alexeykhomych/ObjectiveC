@@ -9,16 +9,13 @@
 #import <Foundation/Foundation.h>
 
 #import "AKIBuilding.h"
+#import "AKIMoney.h"
 
-@interface AKIWorker : NSObject
+@interface AKIWorker : NSObject <AKIMoney>
 @property (nonatomic, assign)                   NSUInteger  salary;
 @property (nonatomic, assign)                   NSUInteger  experience;
 @property (nonatomic, assign, getter=isFree)    BOOL        free;
-@property (nonatomic, assign)                   NSUInteger  money;
 
-+ (instancetype)worker;
 - (void)processObject:(id)object;
-- (void)takeMoney:(id)object;
-- (NSUInteger)giveMoney;
 
 @end

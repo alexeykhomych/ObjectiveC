@@ -9,6 +9,12 @@
 #import "AKIWasher.h"
 #import "AKICar.h"
 
+@interface AKIWasher()
+
+- (void)washCar:(AKICar *)car;
+
+@end
+
 @implementation AKIWasher
 
 #pragma mark -
@@ -16,7 +22,7 @@
 
 - (void)processObject:(AKICar *)car {
     [self washCar:car];
-    [self takeMoney:car];
+    [self takeMoneyFromObject:car];
 }
 
 #pragma mark -
@@ -24,7 +30,8 @@
 
 - (void)washCar:(AKICar *)car {
     NSLog(@"%@ wash a car", self.className);
-    [car setClean:YES];
+    [self takeMoneyFromObject:car];
+    car.clean = YES;
 }
 
 @end

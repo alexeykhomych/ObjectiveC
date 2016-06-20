@@ -11,6 +11,4 @@
 @interface AKIDirector : AKIWorker
 @property (nonatomic, assign) NSInteger revenue;
 
-- (instancetype)director;
-
 @end

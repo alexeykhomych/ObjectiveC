@@ -9,21 +9,22 @@
 
 #import "NSObject+AKICategory.h"
 #import "AKIWorker.h"
-#import "AKIMoney.h"
+
+@interface AKIWorker()
+@property (nonatomic, assign) NSUInteger money;
+
+@end
 
 @implementation AKIWorker
-
-@synthesize money = _money;
 
 #pragma mark -
 #pragma mark Init/dealloc
 
 - (void)dealloc {
-    self.free = YES;
     [super dealloc];
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     self.salary = arc4random_uniform(100);
@@ -33,23 +34,27 @@
     return self;
 }
 
-+ (instancetype)worker {
-    return [self init];
-}
-
 #pragma mark -
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    [self takeMoney:object];
+    self.free = NO;
+    [self takeMoneyFromObject:object];
+    self.free = YES;
 }
 
-- (void)takeMoney:(id)object {
-    self.money += [object giveMoney];
+- (void)receiveMoney:(NSUInteger)money {
+    self.money += money;
 }
 
-- (NSUInteger)giveMoney {
-    return self.money;
+- (void)giveMoney:(NSUInteger)money {
+    self.money -= money;
+}
+
+- (void)takeMoneyFromObject:(id<AKIMoney>)object {
+    NSUInteger money = object.money;
+    [object giveMoney:money];
+    [self receiveMoney:money];
 }
 
 @end

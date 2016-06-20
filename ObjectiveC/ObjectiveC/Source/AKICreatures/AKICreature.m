@@ -34,13 +34,6 @@
     return self;
 }
 
-#pragma mark
-#pragma Class Methods
-
-+ (instancetype)creature {
-    return [self init];
-}
-
 #pragma mark -
 #pragma mark Accessors
 

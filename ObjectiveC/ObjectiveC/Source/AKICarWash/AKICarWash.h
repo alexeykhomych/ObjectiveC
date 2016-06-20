@@ -13,8 +13,8 @@
 #import "AKICar.h"
 
 @interface AKICarWash : NSObject
-@property (nonatomic, readonly, getter=isEmptyQueue) BOOL emptyQueue;
 
-- (void)washCar:(AKICar *)car;
+- (void)addCarToQueue:(AKICar *)car;
+- (void)washCar;
 
 @end

@@ -15,16 +15,7 @@
 #pragma mark Public Methods
 
 - (void)processObject:(AKIWasher *)object {
-    [self calculateSalary:object];
-    [self takeMoney:object];
-}
-
-#pragma mark -
-#pragma mark Private Methods
-
-- (void)calculateSalary:(AKIWorker *)worker {
-    [self setExperience:1];
-    [worker setSalary:self.money * 0.1];
+    [self takeMoneyFromObject:object];
 }
 
 @end

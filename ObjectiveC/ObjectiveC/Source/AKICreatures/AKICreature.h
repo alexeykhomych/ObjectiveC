@@ -16,7 +16,6 @@
 @property (nonatomic, assign)   NSUInteger  age;
 @property (nonatomic, readonly) NSArray     *children;
 
-+ (instancetype)creature;
 - (void)sayPhrase:(NSString *)sentence;
 - (void)performGenderSpecificOperation;
 

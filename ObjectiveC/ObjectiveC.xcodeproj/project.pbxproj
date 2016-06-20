@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8404BC921D17F1A0004DEA41 /* AKIQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404BC911D17F1A0004DEA41 /* AKIQueue.m */; };
 		8453D6751D03102000C61D72 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453D6741D03102000C61D72 /* main.m */; };
 		84C193641D0B6B31006A8C39 /* AKIBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C193631D0B6B31006A8C39 /* AKIBuilding.m */; };
 		84C193671D0B7660006A8C39 /* AKICarWashWorkerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C193661D0B7660006A8C39 /* AKICarWashWorkerTest.m */; };
@@ -39,6 +40,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8404BC901D17F1A0004DEA41 /* AKIQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIQueue.h; sourceTree = "<group>"; };
+		8404BC911D17F1A0004DEA41 /* AKIQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIQueue.m; sourceTree = "<group>"; };
 		8453D6711D03102000C61D72 /* ObjectiveC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ObjectiveC; sourceTree = BUILT_PRODUCTS_DIR; };
 		8453D6741D03102000C61D72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		84C193621D0B6B31006A8C39 /* AKIBuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKIBuilding.h; path = ObjectiveC/Source/AKICarWash/AKIBuilding/AKIBuilding.h; sourceTree = SOURCE_ROOT; };
@@ -230,6 +233,8 @@
 				84EF2CBD1D0B1A3D00CBC2A1 /* AKIWorkerSpecialty */,
 				84EF2CB61D0B10B800CBC2A1 /* AKIWorker.h */,
 				84EF2CB71D0B10B800CBC2A1 /* AKIWorker.m */,
+				8404BC901D17F1A0004DEA41 /* AKIQueue.h */,
+				8404BC911D17F1A0004DEA41 /* AKIQueue.m */,
 			);
 			path = AKICarWashWorker;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				84C1937B1D11EDCF006A8C39 /* AKICar.m in Sources */,
 				84C193641D0B6B31006A8C39 /* AKIBuilding.m in Sources */,
 				84C193771D10592E006A8C39 /* AKIBox.m in Sources */,
+				8404BC921D17F1A0004DEA41 /* AKIQueue.m in Sources */,
 				84C1936E1D10376F006A8C39 /* AKIOffice.m in Sources */,
 				84EF2CB81D0B10B800CBC2A1 /* AKIWorker.m in Sources */,
 				84EF2CA61D0975BF00CBC2A1 /* AKICreatureTest.m in Sources */,

@@ -23,10 +23,15 @@
 @implementation AKICarWashWorkerTest
 
 - (void)performWorkerTest {
-    AKICar *car = [AKICar car];
-    AKICarWash *carWash = [AKICarWash carWash];
     
-    [carWash washCar:car];
+    AKICarWash *carWash = [[AKICarWash new] autorelease];
+    
+    for (NSUInteger i = 0; i < 100; i++) {
+        AKICar *car = [[AKICar new] autorelease];
+        [carWash addCarToQueue:car];
+    }
+    
+    [carWash washCar];
 }
 
 @end

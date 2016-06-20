@@ -19,13 +19,6 @@
 @implementation AKIBuilding
 
 #pragma mark -
-#pragma mark Class Methods
-
-+ (instancetype)building {
-    return [self init];
-}
-
-#pragma mark -
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
@@ -33,7 +26,7 @@
     [super dealloc];
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     self.mutableOffices = [NSMutableArray object];
 
@@ -58,15 +51,18 @@
     [self.mutableOffices removeObject:office];
 }
 
-- (BOOL)addWorker:(AKIWorker *)worker {
-    AKIOffice *office = [self freeOffice];
-    return [office addWorker:worker];
-}
-
-- (void)removeWorker:(AKIWorker *)worker {
-    for (AKIOffice *office in self.offices) {
-        [office removeWorker:worker];
+- (NSArray *)freeWorkers {
+    NSMutableArray *mutableWorkers = [NSMutableArray object];
+    
+    for (AKIOffice *office in self.mutableOffices) {
+        for (AKIWorker *worker in office.workers) {
+            if (worker.free) {
+                [mutableWorkers addObject:worker];
+            }
+        }
     }
+    
+    return mutableWorkers;
 }
 
 #pragma mark -
