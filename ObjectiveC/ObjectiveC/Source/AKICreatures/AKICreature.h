@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "NSObject+AKICategory.h"
+#import "NSObject+AKIExtensions.h"
 
 @interface AKICreature : NSObject
 @property (nonatomic, copy)     NSString    *name;

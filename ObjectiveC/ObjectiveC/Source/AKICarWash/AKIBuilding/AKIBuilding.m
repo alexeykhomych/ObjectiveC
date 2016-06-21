@@ -7,7 +7,7 @@
 //
 
 #import "AKIBuilding.h"
-#import "NSObject+AKICategory.h"
+#import "NSObject+AKIExtensions.h"
 
 @interface AKIBuilding()
 @property (nonatomic, retain) NSMutableArray *mutableOffices;

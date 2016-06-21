@@ -7,12 +7,16 @@
 //
 
 #import "AKICarWash.h"
-#import "NSObject+AKICategory.h"
+
+#import "NSObject+AKIExtensions.h"
+
 #import "AKIWasher.h"
 #import "AKIDirector.h"
 #import "AKIAccountant.h"
+
 #import "AKIOffice.h"
 #import "AKIBox.h"
+
 #import "AKIQueue.h"
 
 @interface AKICarWash()

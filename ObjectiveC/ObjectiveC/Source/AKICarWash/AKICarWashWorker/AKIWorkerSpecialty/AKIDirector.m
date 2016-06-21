@@ -7,7 +7,7 @@
 //
 
 #import "AKIDirector.h"
-#import "NSObject+AKICategory.h"
+#import "NSObject+AKIExtensions.h"
 #import "AKIAccountant.h"
 
 @implementation AKIDirector

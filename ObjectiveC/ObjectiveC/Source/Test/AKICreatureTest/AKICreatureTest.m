@@ -7,10 +7,12 @@
 //
 
 #import "AKICreatureTest.h"
+
 #import "AKICreatureMale.h"
 #import "AKICreatureFemale.h"
 #import "AKICreature.h"
-#import "NSObject+AKICategory.h"
+
+#import "NSObject+AKIExtensions.h"
 
 static NSUInteger const kAKICount = 10;
 

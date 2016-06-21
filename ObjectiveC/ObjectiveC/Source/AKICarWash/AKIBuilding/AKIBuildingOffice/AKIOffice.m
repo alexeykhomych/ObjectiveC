@@ -7,7 +7,7 @@
 //
 
 #import "AKIOffice.h"
-#import "NSObject+AKICategory.h"
+#import "NSObject+AKIExtensions.h"
 
 @interface AKIOffice()
 @property (nonatomic, retain) NSMutableArray    *mutableWorkers;

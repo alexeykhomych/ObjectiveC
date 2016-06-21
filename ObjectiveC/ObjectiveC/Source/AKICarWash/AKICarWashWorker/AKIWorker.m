@@ -7,7 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 
-#import "NSObject+AKICategory.h"
+#import "NSObject+AKIExtensions.h"
 #import "AKIWorker.h"
 
 @interface AKIWorker()
@@ -19,10 +19,6 @@
 
 #pragma mark -
 #pragma mark Init/dealloc
-
-- (void)dealloc {
-    [super dealloc];
-}
 
 - (instancetype)init {
     self = [super init];

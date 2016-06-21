@@ -7,7 +7,9 @@
 //
 
 #import "AKICar.h"
-#import "NSObject+AKICategory.h"
+#import "NSObject+AKIExtensions.h"
+
+static NSUInteger const kAKIMoney = 10;
 
 @interface AKICar()
 @property (nonatomic, assign)NSUInteger money;
@@ -19,14 +21,10 @@
 #pragma mark -
 #pragma mark Initializations and Dealoocations
 
-- (void)dealloc {
-    [super dealloc];
-}
-
 - (instancetype)init {
     self = [super init];
     
-    self.money = 10;
+    self.money = kAKIMoney;
     self.clean = NO;
     
     return self;
@@ -35,18 +33,12 @@
 #pragma mark -
 #pragma mark Public Methods
 
-- (void)receiveMoney:(NSUInteger)money {
-    self.money += money;
-}
-
 - (void)giveMoney:(NSUInteger)money {
     self.money -= money;
 }
 
-- (void)takeMoneyFromObject:(id<AKIMoney>)object {
-    NSUInteger money = object.money;
-    [object giveMoney:money];
-    [self receiveMoney:money];
+- (void)receiveMoney:(NSUInteger)money {
+    
 }
 
 @end

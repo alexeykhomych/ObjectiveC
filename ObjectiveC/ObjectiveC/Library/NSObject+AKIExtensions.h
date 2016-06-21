@@ -1,5 +1,5 @@
 //
-//  NSObject+AKICategory.h
+//  NSObject+AKIExtensions.h
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 10.06.16.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (AKICategory)
+@interface NSObject (AKIExtensions)
 
 + (instancetype)object;
 

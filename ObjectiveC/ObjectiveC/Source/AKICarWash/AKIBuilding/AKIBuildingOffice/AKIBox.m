@@ -7,7 +7,7 @@
 //
 
 #import "AKIBox.h"
-#import "NSObject+AKICategory.h"
+#import "NSObject+AKIExtensions.h"
 
 static NSUInteger const kAKIMaxCarCount = 1;
 
