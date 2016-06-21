@@ -11,10 +11,12 @@
 #import "AKICreatureMale.h"
 #import "AKICreature.h"
 
+static NSString const *kAKIDrink = @"I go to drink";
+
 @implementation AKICreatureMale
 
 - (void)goingToFight {
-    NSLog(@"I'm %@ and I go to drink", self);
+    NSLog(@"%@", kAKIDrink);
 }
 
 - (void)performGenderSpecificOperation {

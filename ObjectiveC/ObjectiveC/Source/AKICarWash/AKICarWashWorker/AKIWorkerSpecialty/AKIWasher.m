@@ -30,7 +30,6 @@
 
 - (void)washCar:(AKICar *)car {
     NSLog(@"%@ wash a car", self.className);
-    [self takeMoneyFromObject:car];
     car.clean = YES;
 }
 

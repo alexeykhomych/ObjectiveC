@@ -8,10 +8,12 @@
 
 #import "AKICreatureFemale.h"
 
+static NSString const *kAKIBirth = @"gives birth";
+
 @implementation AKICreatureFemale
 
 - (AKICreature *)giveBirthToChild {
-    NSLog(@"%@ gives birth", self);
+    NSLog(@"%@ %@", self, kAKIBirth);
     AKICreature *child = [AKICreature object];
     [self.children arrayByAddingObject:child];
     

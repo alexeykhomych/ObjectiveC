@@ -10,6 +10,9 @@
 
 #import "AKICreature.h"
 
+static NSString const *kAKISay = @"say :";
+static NSString const *kAKISuper = @"super";
+
 @interface AKICreature()
 @property (nonatomic, retain) NSMutableArray *mutableChildren;
 
@@ -45,7 +48,7 @@
 #pragma mark Public Implementations
 
 - (void)sayPhrase:(NSString *)sentence {
-    NSLog(@"%@ say: %@", self, sentence);
+    NSLog(@"%@ %@ %@", self, kAKISay,sentence);
     
     for (AKICreature *child in self.mutableChildren) {
         [child sayPhrase:sentence];
@@ -65,7 +68,7 @@
 }
 
 - (void)performGenderSpecificOperation {
-    NSLog(@"ti popal");
+    NSLog(@"%@", kAKISuper);
 }
 
 @end

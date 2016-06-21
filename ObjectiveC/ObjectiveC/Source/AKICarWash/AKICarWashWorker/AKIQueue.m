@@ -40,25 +40,18 @@
 #pragma mark Accessors Methods
 
 - (NSArray *)queue {
-    return [[self copy] autorelease];
+    return [[self.mutableQueue copy] autorelease];
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
-- (void)addCar:(AKICar *)car {
+- (void)queue:(AKICar *)car {
     [self.mutableQueue addObject:car];
 }
 
-- (void)removeCar {
+- (void)dequeue {
     [self.mutableQueue removeObject:[self.mutableQueue firstObject]];
 }
-
-- (AKICar *)nextCar {
-    return [self.mutableQueue firstObject];
-}
-
-#pragma mark -
-#pragma mark Private Methods
 
 @end

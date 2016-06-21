@@ -16,6 +16,14 @@
 
 - (void)processObject:(AKIWasher *)object {
     [self takeMoneyFromObject:object];
+    [self calculateSalary:object];
+}
+
+#pragma mark -
+#pragma mark Private Methods
+
+- (void)calculateSalary:(AKIWorker *)worker {
+    
 }
 
 @end

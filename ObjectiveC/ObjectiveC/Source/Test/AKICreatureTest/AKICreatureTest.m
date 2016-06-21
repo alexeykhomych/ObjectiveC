@@ -12,11 +12,12 @@
 #import "AKICreature.h"
 #import "NSObject+AKICategory.h"
 
+static NSUInteger const kAKICount = 10;
+
 @implementation AKICreatureTest
 
 - (void)performTest {
     NSString *sayHi = @"Hi";
-    NSUInteger count = 10;
     
     AKICreatureMale *man = [AKICreatureMale object];
     AKICreatureFemale *woman = [AKICreatureFemale object];
@@ -27,7 +28,7 @@
     [array addObject:man];
     [array addObject:woman];
     
-    for (uint64 i = 0; i < count; i++) {
+    for (NSUInteger i = 0; i < kAKICount; i++) {
         [array addObject:[woman giveBirthToChild]];
     }
     
@@ -35,7 +36,7 @@
         [creature performGenderSpecificOperation];
     }
 
-    [man addChild:[array objectAtIndex:0]];
+    [man addChild:array[0]];
     
     [man sayPhrase:sayHi];
     

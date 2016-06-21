@@ -16,6 +16,7 @@
 - (void)addOffice:(id)office;
 - (void)removeOffice:(id)office;
 
-- (NSArray *)freeWorkers;
+- (id)freeWorkerWithClass:(Class)cls;
+- (id)freeOffice;
 
 @end
