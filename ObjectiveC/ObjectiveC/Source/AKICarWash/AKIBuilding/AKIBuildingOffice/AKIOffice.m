@@ -44,11 +44,19 @@
 #pragma mark Public Methods
 
 - (void)addWorker:(AKIWorker *)worker {
+    if (!worker) {
+        return;
+    }
+    
     [self.mutableWorkers addObject:worker];
 }
 
 - (void)removeWorker:(AKIWorker *)worker {
     [self.mutableWorkers removeObject:worker];
+}
+
+- (NSArray *)allWorkers {
+    return self.mutableWorkers;
 }
 
 @end

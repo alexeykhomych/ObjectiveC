@@ -7,6 +7,7 @@
 //
 
 #import "AKICreatureFemale.h"
+#import "NSObject+AKIExtensions.h"
 
 static NSString const *kAKIBirth = @"gives birth";
 

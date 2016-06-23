@@ -45,7 +45,7 @@ static NSUInteger const kAKIMaxCarCount = 1;
 #pragma mark Public Methods
 
 - (void)addCar:(AKICar *)car {
-    if (!self.full) {
+    if (!self.full && car) {
         [self.mutableCars addObject:car];
     }
 }

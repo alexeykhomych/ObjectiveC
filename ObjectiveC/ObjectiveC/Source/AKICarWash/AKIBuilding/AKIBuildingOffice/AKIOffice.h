@@ -17,5 +17,6 @@
 
 - (void)addWorker:(id)worker;
 - (void)removeWorker:(id)worker;
+- (NSArray *)allWorkers;
 
 @end

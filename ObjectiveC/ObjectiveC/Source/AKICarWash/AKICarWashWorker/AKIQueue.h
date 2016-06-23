@@ -13,7 +13,7 @@
 @interface AKIQueue : NSObject
 @property (nonatomic, readonly) NSArray *queue;
 
-- (void)queue:(AKICar *)car;
-- (void)dequeue;
+- (void)enqueueObject:(id)object;
+- (id)dequeueObject;
 
 @end

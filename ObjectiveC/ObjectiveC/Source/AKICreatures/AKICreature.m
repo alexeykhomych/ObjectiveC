@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "AKICreature.h"
+#import "NSObject+AKIExtensions.h"
 
 static NSString const *kAKISay = @"say :";
 static NSString const *kAKISuper = @"super";

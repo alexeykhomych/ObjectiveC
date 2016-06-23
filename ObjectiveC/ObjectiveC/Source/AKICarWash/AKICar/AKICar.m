@@ -12,7 +12,7 @@
 static NSUInteger const kAKIMoney = 10;
 
 @interface AKICar()
-@property (nonatomic, assign)NSUInteger money;
+@property (nonatomic, assign) NSUInteger money;
 
 @end
 
@@ -38,7 +38,7 @@ static NSUInteger const kAKIMoney = 10;
 }
 
 - (void)receiveMoney:(NSUInteger)money {
-    
+    self.money += money;
 }
 
 @end

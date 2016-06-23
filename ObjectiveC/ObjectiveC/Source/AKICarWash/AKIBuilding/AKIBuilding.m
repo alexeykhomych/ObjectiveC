@@ -12,6 +12,8 @@
 @interface AKIBuilding()
 @property (nonatomic, retain) NSMutableArray *mutableOffices;
 
+- (NSArray *)allWorkersFromOffice:(id)office;
+
 @end
 
 @implementation AKIBuilding
@@ -49,16 +51,22 @@
     [self.mutableOffices removeObject:office];
 }
 
-- (AKIWorker *)freeWorkerWithClass:(Class)cls {
+- (NSMutableArray *)freeWorkerWithClass:(Class)cls {
+    NSMutableArray *freeWorkers = [NSMutableArray object];
+    NSMutableArray *allWorkers = nil;
+    
     for (AKIOffice *office in self.mutableOffices) {
-        for (AKIWorker *worker in [office workers]) {
+        
+        allWorkers = [[[self allWorkersFromOffice:office] copy] autorelease];
+        
+        for (AKIWorker *worker in allWorkers) {
             if ([worker isKindOfClass:cls] && worker.free) {
-                return worker;
+                [freeWorkers addObject:worker];
             }
         }
     }
     
-    return nil;
+    return freeWorkers;
 }
 
 - (AKIOffice *)freeOffice {
@@ -69,6 +77,13 @@
     }
     
     return nil;
+}
+
+#pragma mark -
+#pragma mark Private Methods
+
+- (NSArray *)allWorkersFromOffice:(AKIOffice *)office {
+    return [office allWorkers];
 }
 
 @end

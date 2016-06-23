@@ -18,9 +18,6 @@
 @implementation AKIQueue
 
 #pragma mark -
-#pragma mark Class Methods
-
-#pragma mark -
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
@@ -31,7 +28,7 @@
 
 - (instancetype)init {
     self = [super init];
-    self.mutableQueue = [[NSMutableArray array] autorelease];
+    self.mutableQueue = [NSMutableArray array];
     
     return self;
 }
@@ -46,12 +43,15 @@
 #pragma mark -
 #pragma mark Public Methods
 
-- (void)queue:(AKICar *)car {
-    [self.mutableQueue addObject:car];
+- (void)enqueueObject:(id)object {
+    [self.mutableQueue addObject:object];
 }
 
-- (void)dequeue {
+- (id)dequeueObject {
+    id object = [self.mutableQueue firstObject];
     [self.mutableQueue removeObject:[self.mutableQueue firstObject]];
+    
+    return object;
 }
 
 @end

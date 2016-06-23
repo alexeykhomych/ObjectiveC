@@ -31,6 +31,10 @@
 
 - (void)addCarToQueue:(AKICar *)car;
 
+- (void)runProcessObjectOfWorkerWithClassAndObject:(Class)cls object:(id)object;
+- (AKIWorker *)freeWorkerWithClass:(Class)cls;
+- (AKIWorker *)freeWorkerWithClassFromBuilding:(Class)cls building:(AKIBuilding *)building;
+
 @end
 
 @implementation AKICarWash
@@ -41,11 +45,11 @@
 - (void)dealloc {
     self.cars = nil;
     
-    [self.adminBuilding release];
-    [self.carWashBuilding release];
-    [self.office release];
-    [self.box release];
-    [self.queue release];
+    self.adminBuilding = nil;
+    self.carWashBuilding = nil;
+    self.office = nil;
+    self.box = nil;
+    self.queue = nil;
     
     [super dealloc];
 }
@@ -59,16 +63,16 @@
 }
 
 - (void)initCarWash {
-    AKIBuilding *adminBuilding = [[AKIBuilding new] autorelease];
-    AKIBuilding *carWashBuilding = [[AKIBuilding new] autorelease];
-    AKIOffice *office = [[AKIOffice new] autorelease];
-    AKIBox *box = [[AKIBox new] autorelease];
+    AKIBuilding *adminBuilding = [AKIBuilding object];
+    AKIBuilding *carWashBuilding = [AKIBuilding object];
+    AKIOffice *office = [AKIOffice object];
+    AKIBox *box = [AKIBox object];
     
-    AKIWasher *washer = [[AKIWasher new] autorelease];
-    AKIAccountant *accountant = [[AKIAccountant new] autorelease];
-    AKIDirector *director = [[AKIDirector new] autorelease];
+    AKIWasher *washer = [AKIWasher object];
+    AKIAccountant *accountant = [AKIAccountant object];
+    AKIDirector *director = [AKIDirector object];
     
-    AKIQueue *queue = [[AKIQueue new] autorelease];
+    AKIQueue *queue = [AKIQueue object];
     
     [office addWorker:director];
     [office addWorker:accountant];
@@ -88,7 +92,7 @@
 #pragma mark Public Methods
 
 - (void)addCarToQueue:(AKICar *)car {
-    [self.queue queue:car];
+    [self.queue enqueueObject:car];
     [self washCar];
 }
 
@@ -102,7 +106,7 @@
 - (void)washCar{
     AKICar *car = nil;
     
-    while ((car = [self.queue.queue firstObject])) {
+    while ((car = [self.queue dequeueObject])) {
         AKIBox *box = [self.carWashBuilding freeOffice];
         
         if (!box) {
@@ -110,29 +114,36 @@
         }
         
         [box addCar:car];
-        [self runProcessObjectOfWorkerWithClass:[AKIWasher class] object:car];
+        [self runProcessObjectOfWorkerWithClassAndObject:[AKIWasher class] object:car];
         [box removeCar:car];
-        [self.queue dequeue];
         
-        [self runProcessObjectOfWorkerWithClass:[AKIAccountant class] object:[self.carWashBuilding freeWorkerWithClass:[AKIWasher class]]];
-        [self runProcessObjectOfWorkerWithClass:[AKIDirector class] object:[self.adminBuilding freeWorkerWithClass:[AKIAccountant class]]];
+        [self runProcessObjectOfWorkerWithClassAndObject:[AKIAccountant class] object:[self freeWorkerWithClass:[AKIWasher class]]];
+        [self runProcessObjectOfWorkerWithClassAndObject:[AKIDirector class] object:[self freeWorkerWithClass:[AKIAccountant class]]];
     }
 }
 
-- (void)runProcessObjectOfWorkerWithClass:(Class)cls object:(id)object {
+- (void)runProcessObjectOfWorkerWithClassAndObject:(Class)cls object:(id)object {
+    [[self freeWorkerWithClass:cls] processObject:object];
+}
+
+- (AKIWorker *)freeWorkerWithClass:(Class)cls {
     AKIWorker *worker = nil;
     
     if ([cls isSubclassOfClass:[AKIWasher class]]) {
-        worker = [self.carWashBuilding freeWorkerWithClass:cls];
+        worker = [self freeWorkerWithClassFromBuilding:cls building:self.carWashBuilding];
     } else {
-        worker = [self.adminBuilding freeWorkerWithClass:cls];
+        worker = [self freeWorkerWithClassFromBuilding:cls building:self.adminBuilding];
     }
     
     if (!worker) {
-        [self runProcessObjectOfWorkerWithClass:cls object:object];
+        [self freeWorkerWithClass:cls];
     }
     
-    [worker processObject:object];
+    return worker;
+}
+
+- (AKIWorker *)freeWorkerWithClassFromBuilding:(Class)cls building:(AKIBuilding *)building {
+    return [[building freeWorkerWithClass:cls] firstObject];
 }
 
 @end

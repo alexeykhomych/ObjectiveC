@@ -56,7 +56,7 @@
 		84C193661D0B7660006A8C39 /* AKICarWashWorkerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICarWashWorkerTest.m; sourceTree = "<group>"; };
 		84C193791D11EDCF006A8C39 /* AKICar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICar.h; sourceTree = "<group>"; };
 		84C1937A1D11EDCF006A8C39 /* AKICar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICar.m; sourceTree = "<group>"; };
-		84C1937F1D12F0D1006A8C39 /* AKIMoney.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIMoney.h; sourceTree = "<group>"; };
+		84C1937F1D12F0D1006A8C39 /* AKIMoney.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKIMoney.h; path = ../../Library/AKIMoney.h; sourceTree = "<group>"; };
 		84EF2C8D1D03570500CBC2A1 /* AKICreature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICreature.h; sourceTree = "<group>"; };
 		84EF2C8E1D03570500CBC2A1 /* AKICreature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreature.m; sourceTree = "<group>"; };
 		84EF2C901D03598E00CBC2A1 /* AKIRunApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIRunApplication.m; sourceTree = "<group>"; };
@@ -142,7 +142,6 @@
 			children = (
 				8404BC991D198FF5004DEA41 /* NSObject+AKIExtensions.h */,
 				8404BC9A1D198FF5004DEA41 /* NSObject+AKIExtensions.m */,
-				84C1937F1D12F0D1006A8C39 /* AKIMoney.h */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -212,6 +211,7 @@
 				84EF2CB41D0B108E00CBC2A1 /* AKIBuilding */,
 				84EF2CB11D0B108A00CBC2A1 /* AKICarWash.h */,
 				84EF2CB21D0B108A00CBC2A1 /* AKICarWash.m */,
+				84C1937F1D12F0D1006A8C39 /* AKIMoney.h */,
 			);
 			path = AKICarWash;
 			sourceTree = "<group>";
