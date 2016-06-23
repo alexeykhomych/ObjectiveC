@@ -27,8 +27,6 @@
 @property (nonatomic, retain)   AKIBox          *box;
 @property (nonatomic, retain)   AKIQueue        *queue;
 
-- (void)runProcessObjectOfWorkerWithClass:(Class)cls1 object:(id)object;
-
 - (void)addCarToQueue:(AKICar *)car;
 
 - (void)runProcessObjectOfWorkerWithClassAndObject:(Class)cls object:(id)object;
@@ -114,15 +112,19 @@
         }
         
         [box addCar:car];
-        [self runProcessObjectOfWorkerWithClassAndObject:[AKIWasher class] object:car];
+        [self runProcessObjectOfWorkerWithClass:[AKIWasher class] object:car];
         [box removeCar:car];
         
-        [self runProcessObjectOfWorkerWithClassAndObject:[AKIAccountant class] object:[self freeWorkerWithClass:[AKIWasher class]]];
-        [self runProcessObjectOfWorkerWithClassAndObject:[AKIDirector class] object:[self freeWorkerWithClass:[AKIAccountant class]]];
+        if (car.clean) {
+            [self.queue enqueueObject:car];
+        }
+        
+        [self runProcessObjectOfWorkerWithClass:[AKIAccountant class] object:[self freeWorkerWithClass:[AKIWasher class]]];
+        [self runProcessObjectOfWorkerWithClass:[AKIDirector class] object:[self freeWorkerWithClass:[AKIAccountant class]]];
     }
 }
 
-- (void)runProcessObjectOfWorkerWithClassAndObject:(Class)cls object:(id)object {
+- (void)runProcessObjectOfWorkerWithClass:(Class)cls object:(id)object {
     [[self freeWorkerWithClass:cls] processObject:object];
 }
 
@@ -130,19 +132,19 @@
     AKIWorker *worker = nil;
     
     if ([cls isSubclassOfClass:[AKIWasher class]]) {
-        worker = [self freeWorkerWithClassFromBuilding:cls building:self.carWashBuilding];
+        worker = [self freeWorkerWithClass:cls building:self.carWashBuilding];
     } else {
-        worker = [self freeWorkerWithClassFromBuilding:cls building:self.adminBuilding];
+        worker = [self freeWorkerWithClass:cls building:self.adminBuilding];
     }
     
     if (!worker) {
-        [self freeWorkerWithClass:cls];
+        return nil;
     }
     
     return worker;
 }
 
-- (AKIWorker *)freeWorkerWithClassFromBuilding:(Class)cls building:(AKIBuilding *)building {
+- (AKIWorker *)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building {
     return [[building freeWorkerWithClass:cls] firstObject];
 }
 

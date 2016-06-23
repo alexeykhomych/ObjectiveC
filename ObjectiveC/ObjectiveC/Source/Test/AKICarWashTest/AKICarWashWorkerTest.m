@@ -18,10 +18,10 @@ static NSUInteger const kAKICount = 100;
 @implementation AKICarWashWorkerTest
 
 - (void)performWorkerTest {
-    AKICarWash *carWash = [[AKICarWash new] autorelease];
+    AKICarWash *carWash = [AKICarWash object];
     
     for (NSUInteger i = 0; i < kAKICount; i++) {
-        AKICar *car = [[AKICar new] autorelease];
+        AKICar *car = [AKICar object];
         [carWash addCarToQueue:car];
     }
 }

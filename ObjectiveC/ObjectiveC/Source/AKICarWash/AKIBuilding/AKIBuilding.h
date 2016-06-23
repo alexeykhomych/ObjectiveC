@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKIOffice.h"
-
 @interface AKIBuilding : NSObject
 @property (nonatomic, copy, readonly) NSArray *offices;
 

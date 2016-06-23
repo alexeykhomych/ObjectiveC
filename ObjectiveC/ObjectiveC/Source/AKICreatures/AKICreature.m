@@ -57,10 +57,10 @@ static NSString const *kAKISuper = @"super";
 }
 
 - (void)addChild:(AKICreature *)creature {
-    NSMutableArray *childrenCopy = _mutableChildren;
+    NSMutableArray *children = self.mutableChildren;
     
-    if (![childrenCopy containsObject:creature]) {
-        [childrenCopy addObject:creature];
+    if (![children containsObject:creature]) {
+        [children addObject:creature];
     }
 }
 

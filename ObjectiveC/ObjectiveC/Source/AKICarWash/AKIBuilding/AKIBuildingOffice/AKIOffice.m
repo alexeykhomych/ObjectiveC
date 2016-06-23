@@ -21,7 +21,7 @@
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
-    self.mutableWorkers= nil;
+    self.mutableWorkers = nil;
     
     [super dealloc];
 }
@@ -55,8 +55,16 @@
     [self.mutableWorkers removeObject:worker];
 }
 
-- (NSArray *)allWorkers {
-    return self.mutableWorkers;
+- (NSArray *)freeWorkerWithClass:(Class)cls {
+    NSMutableArray *workers = [NSMutableArray object];
+    
+    for (AKIWorker *worker in self.workers) {
+        if ([worker isKindOfClass:cls]) {
+            [workers addObject:worker];
+        }
+    }
+    
+    return [[workers copy] autorelease];
 }
 
 @end

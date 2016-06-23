@@ -48,7 +48,7 @@
 }
 
 - (id)dequeueObject {
-    id object = [self.mutableQueue firstObject];
+    id object = [[[self.mutableQueue firstObject] retain] autorelease];
     [self.mutableQueue removeObject:[self.mutableQueue firstObject]];
     
     return object;
