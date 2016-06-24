@@ -9,59 +9,58 @@
 #import <Foundation/Foundation.h>
 
 #import "AKICreature.h"
+#import "NSObject+AKIExtensions.h"
+
+static NSString const *kAKISay = @"say :";
+static NSString const *kAKISuper = @"super";
 
 @interface AKICreature()
-
 @property (nonatomic, retain) NSMutableArray *mutableChildren;
 
 @end
 
 @implementation AKICreature
 
+#pragma mark -
+#pragma mark Init/dealloc
+
 - (void)dealloc {
-    [self setMutableChildren:nil];
-    [self setName:nil];
-    
+    self.mutableChildren = nil;
+    self.name = nil;
+
     [super dealloc];
 }
 
-- (instancetype)creature {
+- (instancetype)init {
     self = [super init];
     self.mutableChildren = [NSMutableArray object];
     
     return self;
 }
 
-- (void)setName:(NSString *)name {
-    if (_name != name) {
-        [_name release];
-        _name = [name copy];
-    }
-}
-
-- (void)setAge:(NSUInteger)age {
-    _age = age;
-}
-
-- (void)setWeight:(NSUInteger)weight {
-    _weight = weight;
-}
-
-- (void)sayPhrase:(NSString *)sentence {
-    NSLog(@"%@ say: %@", self, sentence);
-    
-    for (AKICreature *child in _mutableChildren) {
-        [child sayPhrase:sentence];
-    }
-}
+#pragma mark -
+#pragma mark Accessors
 
 - (NSArray *)children {
     return [[self.mutableChildren copy] autorelease];
 }
 
+#pragma mark -
+#pragma mark Public Implementations
+
+- (void)sayPhrase:(NSString *)sentence {
+    NSLog(@"%@ %@ %@", self, kAKISay,sentence);
+    
+    for (AKICreature *child in self.mutableChildren) {
+        [child sayPhrase:sentence];
+    }
+}
+
 - (void)addChild:(AKICreature *)creature {
-    if (![_mutableChildren containsObject:creature]) {
-        [_mutableChildren addObject:creature];
+    NSMutableArray *children = self.mutableChildren;
+    
+    if (![children containsObject:creature]) {
+        [children addObject:creature];
     }
 }
 
@@ -70,7 +69,7 @@
 }
 
 - (void)performGenderSpecificOperation {
-    NSLog(@"ti popal");
+    NSLog(@"%@", kAKISuper);
 }
 
 @end

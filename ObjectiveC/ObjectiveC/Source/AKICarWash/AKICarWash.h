@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKICarWashBuilding.h"
+#import "AKIBuilding.h"
+#import "AKIWasher.h"
+#import "AKICar.h"
 
-@interface AKICarWash : AKICarWashBuilding
+@interface AKICarWash : NSObject
+
+- (void)addCarToQueue:(AKICar *)car;
+- (void)washCar;
 
 @end

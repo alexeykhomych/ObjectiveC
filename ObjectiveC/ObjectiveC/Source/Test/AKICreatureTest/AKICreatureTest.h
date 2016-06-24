@@ -12,9 +12,6 @@
 
 @interface AKICreatureTest : AKICreature
 
-- (void)AKICreatureTestCreate;
-- (void)AKICreatureTestAddChild:(AKICreature *)creature : (AKICreature *)child;
-- (void)AKICreatureTestRemoveChild:(AKICreature *)child : (AKICreature *)creature;
-- (void)AKICreatureTestBehavior:(AKICreature *)creature;
+- (void)performTest;
 
 @end

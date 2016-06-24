@@ -10,8 +10,13 @@
 
 #import "AKIRunApplication.h"
 #import "AKICreatureTest.h"
+#import "AKICarWashWorkerTest.h"
+#import "AKIWorker.h"
 
 void AKIRunApplication() {
-    id test = [[[AKICreatureTest alloc] init]  autorelease];
-    [test AKICreatureTestCreate];
+//    id testCreature = [[[AKICreatureTest alloc] init]  autorelease];
+//    [testCreature performTest];
+    
+    id testWorker = [[[AKICarWashWorkerTest alloc] init] autorelease];
+    [testWorker performWorkerTest];
 }

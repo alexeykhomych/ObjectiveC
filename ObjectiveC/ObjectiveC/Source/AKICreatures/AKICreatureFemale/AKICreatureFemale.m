@@ -7,17 +7,22 @@
 //
 
 #import "AKICreatureFemale.h"
+#import "NSObject+AKIExtensions.h"
+
+static NSString const *kAKIBirth = @"gives birth";
 
 @implementation AKICreatureFemale
 
-- (AKICreature *)giveBirthChild {
-    NSLog(@"%@ gives birth", self);
-
-    return [AKICreature object];
+- (AKICreature *)giveBirthToChild {
+    NSLog(@"%@ %@", self, kAKIBirth);
+    AKICreature *child = [AKICreature object];
+    [self.children arrayByAddingObject:child];
+    
+    return child;
 }
 
 - (void)performGenderSpecificOperation {
-    [self giveBirthChild];
+    [self giveBirthToChild];
 }
 
 @end
