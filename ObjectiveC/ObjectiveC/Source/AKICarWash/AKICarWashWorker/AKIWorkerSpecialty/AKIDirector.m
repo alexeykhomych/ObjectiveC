@@ -15,8 +15,10 @@
 #pragma mark Public Methods
 
 - (void)processObject:(AKIAccountant *)object {
+    self.free = NO;
     [self takeMoneyFromObject:object];
     [self makeRevenue];
+    self.free = YES;
 }
 
 #pragma mark -

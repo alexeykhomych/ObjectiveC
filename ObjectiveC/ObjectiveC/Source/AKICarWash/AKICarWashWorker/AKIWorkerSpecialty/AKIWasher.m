@@ -21,8 +21,10 @@
 #pragma mark Public Methods
 
 - (void)processObject:(AKICar *)car {
+    self.free = NO;
     [self washCar:car];
     [self takeMoneyFromObject:car];
+    self.free = YES;
 }
 
 #pragma mark -
