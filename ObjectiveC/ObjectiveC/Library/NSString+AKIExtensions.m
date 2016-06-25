@@ -71,4 +71,16 @@ static const NSUInteger kNSStringDefaultRandomStringLength = 30;
     return [self stringWithString:result];
 }
 
+- (NSArray *)symbols {
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self length]];
+    NSUInteger alphabetLength = [self length];
+    
+    for (NSUInteger i = 0; i < alphabetLength; i++) {
+        unichar resultChar = [self characterAtIndex:arc4random_uniform(((uint32_t)i))];
+        [result addObject:[NSString stringWithFormat:@"%c", resultChar]];
+    }
+    
+    return [[result copy] autorelease];
+}
+
 @end

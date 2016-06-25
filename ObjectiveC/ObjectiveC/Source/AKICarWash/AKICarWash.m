@@ -28,9 +28,9 @@
 
 - (void)addCarToQueue:(AKICar *)car;
 
-- (void)runProcessObjectOfWorkerWithClass:(Class)cls object:(id)object;
-- (AKIWorker *)workerWithClass:(Class)cls;
-- (AKIWorker *)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building;
+- (void)runProcessObjectOfWorker:(id)worker object:(id)object;
+- (id)workerWithClass:(Class)cls;
+- (id)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building;
 - (AKIBuilding *)workerWorkPlace:(Class)cls;
 
 @end
@@ -101,40 +101,48 @@
     while ((car = [self.queue dequeueObject])) {
         AKIBox *box = [self.carWashBuilding freeOffice];
         
+        AKIWasher *washer = [self workerWithClass:[AKIWasher class]];
+        AKIAccountant *accountant = [self workerWithClass:[AKIAccountant class]];
+        AKIDirector *director = [self workerWithClass:[AKIDirector class]];
+        
         [box addCar:car];
-        [self runProcessObjectOfWorkerWithClass:[AKIWasher class] object:car];
+        [self runProcessObjectOfWorker:washer object:car];
         [box removeCar:car];
         
         if (!car.clean) {
             [self.queue enqueueObject:car];
         }
         
-        [self runProcessObjectOfWorkerWithClass:[AKIAccountant class] object:[self workerWithClass:[AKIWasher class]]];
-        [self runProcessObjectOfWorkerWithClass:[AKIDirector class] object:[self workerWithClass:[AKIAccountant class]]];
+        [self runProcessObjectOfWorker:accountant object:washer];
+        [self runProcessObjectOfWorker:director object:accountant];
     }
 }
 
-- (void)runProcessObjectOfWorkerWithClass:(Class)cls object:(id)object {
-    [[self workerWithClass:cls] processObject:object];
+- (void)runProcessObjectOfWorker:(id)worker object:(id)object {
+    [worker processObject:object];
 }
 
-- (AKIWorker *)workerWithClass:(Class)cls {
-    AKIBuilding *building = [self workerWorkPlace:cls];
-    AKIWorker *worker = [self freeWorkerWithClass:cls building:building];
+- (id)workerWithClass:(Class)cls {
+    return [self freeWorkerWithClass:cls building:[self workerWorkPlace:cls]];
+}
+
+- (id)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building {
+    NSArray *workers = [building workerWithClass:cls];
+    for (AKIWorker *worker in workers) {
+        if (worker.free) {
+            return worker;
+        }
+    }
     
-    return worker;
-}
-
-- (AKIWorker *)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building {
-    return [[building freeWorkerWithClass:cls] firstObject];
+    return nil;
 }
 
 - (AKIBuilding *)workerWorkPlace:(Class)cls {
     if ([cls isSubclassOfClass:[AKIWasher class]]) {
         return self.carWashBuilding;
-    } else {
-        return self.adminBuilding;
     }
+    
+    return self.adminBuilding;
 }
 
 @end

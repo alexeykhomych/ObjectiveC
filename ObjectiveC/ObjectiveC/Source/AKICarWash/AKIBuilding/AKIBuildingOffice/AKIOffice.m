@@ -55,7 +55,7 @@
     [self.mutableWorkers removeObject:worker];
 }
 
-- (NSArray *)freeWorkerWithClass:(Class)cls {
+- (NSArray *)workerWithClass:(Class)cls {
     NSMutableArray *workers = [NSMutableArray object];
     
     for (AKIWorker *worker in self.workers) {
