@@ -53,7 +53,7 @@
 		847EE0DB1D1EB6D100561955 /* AKICreatureTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0AE1D1EB6D100561955 /* AKICreatureTest.m */; };
 		847EE0DC1D1EB6D100561955 /* AKICreatureTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0AE1D1EB6D100561955 /* AKICreatureTest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		847EE0DF1D1EE59A00561955 /* AKIAlphabetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0DE1D1EE59A00561955 /* AKIAlphabetSpec.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		CA514BCD762B33D654C0ACBF /* libPods-ObjCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F67B2D0B9F5199366A35C7 /* libPods-ObjCTests.a */; };
+		A5E6F799363753A9B52DB123 /* libPods-ObjCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49468D8C24C74BCE00B98A03 /* libPods-ObjCTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,8 +69,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		17534016B2F5EE79B1FD5BD9 /* Pods-ObjCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCTests/Pods-ObjCTests.release.xcconfig"; sourceTree = "<group>"; };
-		23CA0E5C41580F7A8DE8140D /* Pods-ObjCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCTests/Pods-ObjCTests.debug.xcconfig"; sourceTree = "<group>"; };
+		49468D8C24C74BCE00B98A03 /* libPods-ObjCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ED110C10E63D04D7178356C /* Pods-ObjCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCTests/Pods-ObjCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8453D6711D03102000C61D72 /* ObjectiveC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ObjectiveC; sourceTree = BUILT_PRODUCTS_DIR; };
 		847EE0121D1EB53600561955 /* ObjCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		847EE0161D1EB53700561955 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -121,8 +121,7 @@
 		847EE0AD1D1EB6D100561955 /* AKICreatureTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICreatureTest.h; sourceTree = "<group>"; };
 		847EE0AE1D1EB6D100561955 /* AKICreatureTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreatureTest.m; sourceTree = "<group>"; };
 		847EE0DE1D1EE59A00561955 /* AKIAlphabetSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIAlphabetSpec.m; sourceTree = "<group>"; };
-		89F67B2D0B9F5199366A35C7 /* libPods-ObjCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C2E1E68A7BDBF8BBB5C22029 /* libPods-ObjectiveC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDB226545FD32522FC6FFEFC /* Pods-ObjCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCTests/Pods-ObjCTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,22 +136,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA514BCD762B33D654C0ACBF /* libPods-ObjCTests.a in Frameworks */,
+				A5E6F799363753A9B52DB123 /* libPods-ObjCTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3C813BD7372A9A0118A9D562 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				23CA0E5C41580F7A8DE8140D /* Pods-ObjCTests.debug.xcconfig */,
-				17534016B2F5EE79B1FD5BD9 /* Pods-ObjCTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		8453D6681D03102000C61D72 = {
 			isa = PBXGroup;
 			children = (
@@ -160,8 +150,8 @@
 				847EE0771D1EB6D100561955 /* main.m */,
 				847EE0131D1EB53600561955 /* ObjCTests */,
 				8453D6721D03102000C61D72 /* Products */,
-				3C813BD7372A9A0118A9D562 /* Pods */,
-				ABC0BE65EA8A3AF6664ADE26 /* Frameworks */,
+				FB62AB1F53E8FE0F24F5959E /* Pods */,
+				E44045C324D908EC6D307FC0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -371,13 +361,21 @@
 			path = Specs;
 			sourceTree = "<group>";
 		};
-		ABC0BE65EA8A3AF6664ADE26 /* Frameworks */ = {
+		E44045C324D908EC6D307FC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C2E1E68A7BDBF8BBB5C22029 /* libPods-ObjectiveC.a */,
-				89F67B2D0B9F5199366A35C7 /* libPods-ObjCTests.a */,
+				49468D8C24C74BCE00B98A03 /* libPods-ObjCTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FB62AB1F53E8FE0F24F5959E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6ED110C10E63D04D7178356C /* Pods-ObjCTests.debug.xcconfig */,
+				BDB226545FD32522FC6FFEFC /* Pods-ObjCTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -710,7 +708,7 @@
 		};
 		847EE0171D1EB53700561955 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23CA0E5C41580F7A8DE8140D /* Pods-ObjCTests.debug.xcconfig */;
+			baseConfigurationReference = 6ED110C10E63D04D7178356C /* Pods-ObjCTests.debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ObjCTests/Info.plist;
@@ -722,7 +720,7 @@
 		};
 		847EE0181D1EB53700561955 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17534016B2F5EE79B1FD5BD9 /* Pods-ObjCTests.release.xcconfig */;
+			baseConfigurationReference = BDB226545FD32522FC6FFEFC /* Pods-ObjCTests.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ObjCTests/Info.plist;

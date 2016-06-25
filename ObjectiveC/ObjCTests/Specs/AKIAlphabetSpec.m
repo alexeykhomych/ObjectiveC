@@ -31,15 +31,13 @@ describe(@"AKIAlphabet", ^{
 //    - (NSString *)stringAtIndex:(NSUInteger)index;
 //    - (NSString *)objectAtIndexedSubscript:(NSUInteger)index;
     
+    afterEach(^{
+        alphabet = nil;
+    });
+    
     context(@"when initialized with + (instancetype)alphabetWithRange: with range 'A' - 'B'", ^{
-        
-        
         beforeAll(^{
             alphabet = [AKIAlphabet alphabetWithRange:NSMakeRange('A', 'B' - 'A')];
-        });
-        
-        afterAll(^{
-            alphabet = nil;
         });
         
         it(@"should be of class AKIRangeAlphabet", ^{
@@ -58,6 +56,17 @@ describe(@"AKIAlphabet", ^{
         it(@"should contain @\"B\" at index = 0", ^{
             [[alphabet[1] should] equal:@"B"];
         });
+    });
+    
+    context(@"when initialized with - initWithRange: With range 'A' - 'B'", ^{
+        beforeAll(^{
+            alphabet = [[AKIAlphabet alloc] initWithRange:NSMakeRange('A', 'B' - 'A')];
+        });
+        
+        it(@"should be of class AKIRangeAlphabet", ^{
+            [[alphabet should] beKindOfClass:[AKIRangeAlphabet class]];
+        });
+        
     });
 });
 
