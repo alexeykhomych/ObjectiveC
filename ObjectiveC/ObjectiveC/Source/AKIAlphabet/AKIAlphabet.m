@@ -8,11 +8,20 @@
 
 #import "AKIAlphabet.h"
 
+#import <math.h>
+
 #import "AKIRangeAlphabet.h"
 #import "AKIClusterAlphabet.h"
 #import "AKIStringsAlphabet.h"
 
 #import "NSString+AKIExtensions.h"
+
+NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
+    unichar minValue = MIN(value1, value2);
+    unichar maxValue = MAX(value1, value2);
+    
+    return NSMakeRange(minValue, maxValue - minValue + 1);
+}
 
 @implementation AKIAlphabet
 
@@ -56,8 +65,8 @@
     return [[AKIStringsAlphabet alloc] initWithStrings:strings];
 }
 
-- (instancetype)initWithSymbols:(NSString *)strings {
-    return [self initWithSymbols:strings];
+- (instancetype)initWithSymbols:(NSString *)string {
+    return [self initWithStrings:[string symbols]];
 }
 
 #pragma mark -
@@ -78,13 +87,36 @@
     return [self stringAtIndex:index];
 }
 
+- (NSString *)string {
+    NSMutableString *string = [NSMutableString stringWithCapacity:[self count]];
+    
+    for (NSString *symbol in self) {
+        [string appendString:symbol];
+    }
+    
+    return [[string copy] autorelease];
+}
+
 #pragma mark -
 #pragma mark NSFastEnumeration
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
-                                    objects:(id  _Nonnull *)buffer
-                                    count:(NSUInteger)len
+                                    objects:(id [])stackbuf
+                                    count:(NSUInteger)resultLength
 {
-    return 0;
+    state->mutationsPtr = (unsigned long *)self;
+    NSUInteger length = MIN(state->state + resultLength, [self count]);
+    resultLength = length - state->state;
+    
+    if (resultLength != 0) {
+        for (NSUInteger i = 0; i < resultLength; i++) {
+            stackbuf[i] = self[i + state->state];
+        }
+    }
+    
+    state->state += resultLength;
+    
+    return resultLength;
 }
+
 @end

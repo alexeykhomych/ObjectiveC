@@ -9,6 +9,7 @@
 #import "AKIAlphabet.h"
 
 @interface AKIStringsAlphabet : AKIAlphabet
+@property (nonatomic, readonly) NSArray *strings;
 
 - (instancetype)initWithStrings:(NSArray *)strings;
 

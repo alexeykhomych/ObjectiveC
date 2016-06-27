@@ -9,6 +9,7 @@
 #import "AKIAlphabet.h"
 
 @interface AKIRangeAlphabet : AKIAlphabet
+@property (nonatomic, readonly) NSRange range;
 
 - (instancetype)initWithRange:(NSRange)range;
 

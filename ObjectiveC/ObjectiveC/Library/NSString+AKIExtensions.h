@@ -10,10 +10,19 @@
 
 @interface NSString (AKIExtensions)
 
+// english
 + (id)alphanumericAlphabet;
+
+// arabian
 + (id)numericAlphabet;
+
+// english
 + (id)lowercaseLetterAlphabet;
+
+// english
 + (id)capitaliedLetterAlphabet;
+
+// english
 + (id)letterAlphabet;
 
 + (id)alphabetWithUnicodeRange:(NSRange)range;
@@ -21,5 +30,7 @@
 + (NSString *)randomString;
 + (NSString *)randomStringWithLength:(NSUInteger)length;
 + (NSString *)randomStringWithLength:(NSUInteger)length alphabet:(NSString *)alphabet;
+
+- (NSArray *)symbols;
 
 @end

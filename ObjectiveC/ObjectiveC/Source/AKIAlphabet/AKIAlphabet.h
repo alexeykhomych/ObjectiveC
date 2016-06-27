@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern
+NSRange AKIMakeAlphabetRange(unichar value1, unichar value2);
+
 @interface AKIAlphabet : NSArray <NSFastEnumeration>
 
 + (instancetype)alphabetWithRange:(NSRange)range;
@@ -18,10 +21,15 @@
 - (instancetype)initWithRange:(NSRange)range;
 - (instancetype)initWithAlphabets:(NSArray *)alphabets;
 - (instancetype)initWithStrings:(NSArray *)strings;
-- (instancetype)initWithSymbols:(NSString *)strings;
+- (instancetype)initWithSymbols:(NSString *)string;
 
+// the method should be overriden
 - (NSUInteger)count;
+
+// the method should be overriden
 - (NSString *)stringAtIndex:(NSUInteger)index;
 - (NSString *)objectAtIndexedSubscript:(NSUInteger)index;
+
+- (NSString *)string;
 
 @end
