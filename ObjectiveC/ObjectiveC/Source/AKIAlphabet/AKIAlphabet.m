@@ -19,7 +19,7 @@
 NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
     unichar minValue = MIN(value1, value2);
     unichar maxValue = MAX(value1, value2);
-    unichar test = maxValue - minValue + 1;
+    
     return NSMakeRange(minValue, maxValue - minValue + 1);
 }
 

@@ -10,7 +10,7 @@
 
 @interface AKIClusterAlphabet ()
 @property (nonatomic, retain) NSArray       *alphabets;
-@property (nonatomic, assign) NSUInteger    count1;
+@property (nonatomic, assign) NSUInteger    count;
 
 - (NSUInteger)countWithAlphabets:(NSArray *)alphabets;
 
@@ -30,7 +30,7 @@
 - (instancetype)initWithAlphabets:(NSArray *)alphabets {
     self = [super init];
     self.alphabets = alphabets;
-    self.count1 = [self countWithAlphabets:alphabets];
+    self.count = [self countWithAlphabets:alphabets];
     
     return self;
 }
@@ -39,7 +39,7 @@
 #pragma mark Public Methods
 
 - (NSString *)stringAtIndex:(NSUInteger)index {
-    NSUInteger count = self.count1;
+    NSUInteger count = self.count;
     NSUInteger iteratedIndex = index;
     
     NSAssert(index < count, NSRangeException);

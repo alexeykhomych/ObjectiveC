@@ -143,56 +143,18 @@ describe(@"AKIAlphabet", ^{
         it(@"should be of AKIClusterAlphabet", ^{
             [[alphabet should] beKindOfClass:[AKIClusterAlphabet class]];
         });
-        
+
         it(@"should be of count 52", ^{
             [[alphabet should] haveCountOf:52];
         });
         
-        it(@"should return  @\"A-Za-z\" from -string", ^{
-            NSString *string = [NSString stringWithFormat:@"%@%@",
-                                [capitalizedAlphabet string],
-                                [lowercaseAlphabet string]];
-            [[[alphabet string] should] equal:string];
-        });
+//        it(@"should return  @\"A-Za-z\" from -string", ^{
+//            NSString *string = [NSString stringWithFormat:@"%@%@",
+//                                [capitalizedAlphabet string],
+//                                [lowercaseAlphabet string]];
+//            [[[alphabet string] should] equal:string];
+//        });
     });
-//
-//    context(@"when initialized with +initWithStrings: when array containing 'A'-'z' when enumerated", ^{
-//        AKIAlphabet *capitalizedAlphabet = [AKIAlphabet alphabetWithRange:AKIMakeAlphabetRange('A', 'Z')];
-//        AKIAlphabet *lowercaseAlphabet = [AKIAlphabet alphabetWithRange:AKIMakeAlphabetRange('a', 'z')];
-//        
-//        beforeAll(^{
-//            alphabet = [AKIAlphabet alphabetWithAlphabets:@[capitalizedAlphabet, lowercaseAlphabet]];
-//        });
-//        
-//        it(@"should's raise", ^{
-//            [[theBlock(^{
-//                for(id symbol in alphabet) {
-//                    [symbol description];
-//                }
-//            }) shouldNot] raise];
-//        });
-//        
-//        it(@"should return count of symbols equal to 'A'-'Z'+'a'-'z' range", ^{
-//            NSUInteger count = 0;
-//            for(NSString *symbol in alphabet) {
-//                [symbol description];
-//                count++;
-//            }
-//            
-//            [[theValue(count) should] equal:@([capitalizedAlphabet count] + [lowercaseAlphabet count])];
-//        });
-//        
-//        it(@"should return symbols in range 'A'-'Z'+'a'-'z'", ^{
-//            NSMutableString *string = [NSMutableString stringWithString:[capitalizedAlphabet string]];
-//            [string appendString:[lowercaseAlphabet string]];
-//            
-//            NSUInteger index = 0;
-//            for(NSString *symbol in alphabet) {
-//                [[symbol should] equal:[NSString stringWithFormat:@"%c", [string characterAtIndex:index]]];
-//                index++;
-//            }
-//        });
-//    });
 });
 
 SPEC_END
