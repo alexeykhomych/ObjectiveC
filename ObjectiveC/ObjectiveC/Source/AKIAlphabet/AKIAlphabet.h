@@ -14,7 +14,7 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2);
 @interface AKIAlphabet : NSArray <NSFastEnumeration>
 
 + (instancetype)alphabetWithRange:(NSRange)range;
-+ (instancetype)alphabetWithStrings:(NSArray *)array;
++ (instancetype)alphabetWithStrings:(NSArray *)strings;
 + (instancetype)alphabetWithAlphabets:(NSArray *)alphabets;
 + (instancetype)alphabetWithSymbols:(NSString *)string;
 

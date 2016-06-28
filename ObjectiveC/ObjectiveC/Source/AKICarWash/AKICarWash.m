@@ -106,20 +106,16 @@
         AKIDirector *director = [self workerWithClass:[AKIDirector class]];
         
         [box addCar:car];
-        [self runProcessObjectOfWorker:washer object:car];
+        [washer processObject:car];
         [box removeCar:car];
         
         if (!car.clean) {
             [self.queue enqueueObject:car];
         }
         
-        [self runProcessObjectOfWorker:accountant object:washer];
-        [self runProcessObjectOfWorker:director object:accountant];
+        [accountant processObject:washer];
+        [director processObject:accountant];
     }
-}
-
-- (void)runProcessObjectOfWorker:(id)worker object:(id)object {
-    [worker processObject:object];
 }
 
 - (id)workerWithClass:(Class)cls {

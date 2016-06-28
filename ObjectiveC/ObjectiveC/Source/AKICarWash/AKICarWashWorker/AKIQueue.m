@@ -48,9 +48,9 @@
 }
 
 - (id)dequeueObject {
-    NSMutableArray *array = [[self.queue copy] autorelease];
+    NSMutableArray *array = self.mutableQueue;
     id object = [[[array firstObject] retain] autorelease];
-    [array removeObject:[array firstObject]];
+    [array removeObject:object];
     
     return object;
 }

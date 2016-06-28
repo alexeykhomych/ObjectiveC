@@ -21,22 +21,22 @@ static const NSUInteger kNSStringDefaultRandomStringLength = 30;
 
 + (id)numericAlphabet {
     return [self alphabetWithUnicodeRange:NSMakeRange('0',
-                                                      '9' - '0' + 1)];
+                                                      '9' - '0')];
 }
 
 + (id)lowercaseLetterAlphabet {
     return [self alphabetWithUnicodeRange:NSMakeRange('a',
-                                                      'z' - 'a' + 1)];
+                                                      'z' - 'a')];
 }
 
-+ (id)capitaliedLetterAlphabet {
++ (id)capitalizedLetterAlphabet {
     return [self alphabetWithUnicodeRange:NSMakeRange('A',
-                                                      'Z' - 'A' + 1)];
+                                                      'Z' - 'A')];
 }
 
 + (id)letterAlphabet {
     NSMutableString *result = [NSMutableString stringWithString:[self lowercaseLetterAlphabet]];
-    [result appendString:[self capitaliedLetterAlphabet]];
+    [result appendString:[self capitalizedLetterAlphabet]];
     
     return [self stringWithString:result];
 }
@@ -64,7 +64,7 @@ static const NSUInteger kNSStringDefaultRandomStringLength = 30;
     NSUInteger alphabetLength = [alphabet length];
     
     for (NSUInteger i = 0; i < alphabetLength; i++) {
-        unichar resultChar = [alphabet characterAtIndex:arc4random_uniform(((uint32_t)i))];
+        unichar resultChar = [alphabet characterAtIndex:arc4random_uniform((u_int32_t)alphabetLength)];
         [result appendFormat:@"%c", resultChar];
     }
     
@@ -76,7 +76,7 @@ static const NSUInteger kNSStringDefaultRandomStringLength = 30;
     NSUInteger alphabetLength = [self length];
     
     for (NSUInteger i = 0; i < alphabetLength; i++) {
-        unichar resultChar = [self characterAtIndex:arc4random_uniform(((uint32_t)i))];
+        unichar resultChar = [self characterAtIndex:i];
         [result addObject:[NSString stringWithFormat:@"%c", resultChar]];
     }
     

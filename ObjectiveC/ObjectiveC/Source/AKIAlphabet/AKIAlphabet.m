@@ -1,4 +1,4 @@
-//
+	//
 //  AKIAlphabet.m
 //  ObjectiveC
 //
@@ -19,13 +19,13 @@
 NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
     unichar minValue = MIN(value1, value2);
     unichar maxValue = MAX(value1, value2);
-    
+    unichar test = maxValue - minValue + 1;
     return NSMakeRange(minValue, maxValue - minValue + 1);
 }
 
 @implementation AKIAlphabet
 
-#pragma mark -
+#pragma mark -	
 #pragma mark Class Methods
 
 + (instancetype)alphabetWithRange:(NSRange)range {
@@ -109,11 +109,12 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
     resultLength = length - state->state;
     
     if (resultLength != 0) {
-        for (NSUInteger i = 0; i < resultLength; i++) {
-            stackbuf[i] = self[i + state->state];
+        for (NSUInteger i = state->state; i < length; i++) {
+            stackbuf[i] = self[i];
         }
     }
     
+    state->itemsPtr = stackbuf;
     state->state += resultLength;
     
     return resultLength;

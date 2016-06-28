@@ -20,7 +20,7 @@
 + (id)lowercaseLetterAlphabet;
 
 // english
-+ (id)capitaliedLetterAlphabet;
++ (id)capitalizedLetterAlphabet;
 
 // english
 + (id)letterAlphabet;

@@ -10,7 +10,7 @@
 
 @interface AKIClusterAlphabet ()
 @property (nonatomic, retain) NSArray       *alphabets;
-@property (nonatomic, assign) NSUInteger    count;
+@property (nonatomic, assign) NSUInteger    count1;
 
 - (NSUInteger)countWithAlphabets:(NSArray *)alphabets;
 
@@ -30,7 +30,7 @@
 - (instancetype)initWithAlphabets:(NSArray *)alphabets {
     self = [super init];
     self.alphabets = alphabets;
-    self.count = [self countWithAlphabets:alphabets];
+    self.count1 = [self countWithAlphabets:alphabets];
     
     return self;
 }
@@ -39,36 +39,32 @@
 #pragma mark Public Methods
 
 - (NSString *)stringAtIndex:(NSUInteger)index {
-    NSUInteger count = self.count;
+    NSUInteger count = self.count1;
     NSUInteger iteratedIndex = index;
     
     NSAssert(index < count, NSRangeException);
     
-    NSUInteger iterator = 0;
-    
     for (AKIAlphabet *alphabet in self.alphabets) {
-        if (iterator >= index) {
+        count = [alphabet count];
+        
+        if (iteratedIndex < count) {
             return alphabet[iteratedIndex];
         }
-        
-        count = [alphabet count];
-        iterator += count;
+    
         iteratedIndex -= count;
     }
     
-    return self.alphabets[index];
+    return nil;
 }
 
-#pragma mark -
-#pragma mark NSFastEnumeration
-
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
-                                  objects:(id [])stackbuf
-                                    count:(NSUInteger)resultLength
-{
-    return [super countByEnumeratingWithState:state
-                                             objects:stackbuf
-                                               count:resultLength];
+- (NSString *)string {
+    NSMutableString *string = [NSMutableString stringWithCapacity:[self count]];
+    
+    for (AKIAlphabet *alphabet in self.alphabets) {
+        [string appendString:[alphabet string]];
+    }
+    
+    return [[string copy] autorelease];
 }
 
 #pragma mark -
@@ -81,6 +77,18 @@
     }
     
     return count;
+}
+
+#pragma mark -
+#pragma mark NSFastEnumeration
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
+                                  objects:(id [])stackbuf
+                                    count:(NSUInteger)resultLength
+{
+    return [super countByEnumeratingWithState:state
+                                      objects:stackbuf
+                                        count:resultLength];
 }
 
 @end
