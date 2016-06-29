@@ -28,7 +28,6 @@
 
 - (void)addCarToQueue:(AKICar *)car;
 
-- (void)runProcessObjectOfWorker:(id)worker object:(id)object;
 - (id)workerWithClass:(Class)cls;
 - (id)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building;
 - (AKIBuilding *)workerWorkPlace:(Class)cls;

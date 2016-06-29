@@ -18,6 +18,10 @@ SPEC_BEGIN(AKIAlphabetSpec)
 describe(@"AKIAlphabet", ^{
     __block AKIAlphabet *alphabet = nil;
     
+    afterAll(^{
+        alphabet = nil;
+    });
+    
     context(@"when initialized with + (instancetype)alphabetWithRange: with range 'A' - 'B'", ^{
         beforeAll(^{
             alphabet = [AKIAlphabet alphabetWithRange:AKIMakeAlphabetRange('A', 'B')];
@@ -93,6 +97,42 @@ describe(@"AKIAlphabet", ^{
         });
     });
 
+    context(@"when initialized with +initWithRange: with range 'A'-'z' when enumerated", ^{
+        NSRange range = AKIMakeAlphabetRange('A', 'z');
+        
+        beforeAll(^{
+            alphabet = [[AKIAlphabet alloc] initWithRange:range];
+        });
+        
+        it(@"should's raise", ^{
+            [[theBlock(^{
+                for(id symbol in alphabet) {
+                    [symbol description];
+                }
+            }) shouldNot] raise];
+        });
+        
+        it(@"should return count of symbols equal to 'A'-'z' range", ^{
+            NSUInteger count = 0;
+            for(NSString *symbol in alphabet) {
+                [symbol description];
+                count++;
+            }
+            
+            [[theValue(count) should] equal:@(range.length)];
+        });
+        
+        it(@"should return symbols in range 'A'-'z'", ^{
+            unichar character = range.location;
+            for(NSString *symbol in alphabet) {
+                [[symbol should] equal:[NSString stringWithFormat:@"%c", character]];
+                character++;
+            }
+        });
+        
+    });
+
+    
     context(@"when initialized with +initWithStrings: with array containing 'A'-'z' when enumerated", ^{
         NSRange range = AKIMakeAlphabetRange('A', 'z');
         
@@ -130,10 +170,9 @@ describe(@"AKIAlphabet", ^{
                 character++;
             }
         });
-        
     });
-
-    context(@"when initialized with +alphabetWithAlphabets: with alphabets in range 'A'-'Z', 'a'-'z'", ^{       
+    
+    context(@"when initialized with +alphabetWithAlphabets: with alphabets in range 'A'-'Z', 'a'-'z'", ^{
         AKIAlphabet *capitalizedAlphabet = [AKIAlphabet alphabetWithRange:AKIMakeAlphabetRange('A', 'Z')];
         AKIAlphabet *lowercaseAlphabet = [AKIAlphabet alphabetWithRange:AKIMakeAlphabetRange('a', 'z')];
         beforeAll(^{
@@ -148,12 +187,34 @@ describe(@"AKIAlphabet", ^{
             [[alphabet should] haveCountOf:52];
         });
         
-//        it(@"should return  @\"A-Za-z\" from -string", ^{
-//            NSString *string = [NSString stringWithFormat:@"%@%@",
-//                                [capitalizedAlphabet string],
-//                                [lowercaseAlphabet string]];
-//            [[[alphabet string] should] equal:string];
-//        });
+        it(@"should return  @\"A-Za-z\" from -string", ^{
+            NSString *string = [NSString stringWithFormat:@"%@%@",
+                                [capitalizedAlphabet string],
+                                [lowercaseAlphabet string]];
+            [[[alphabet string] should] equal:string];
+        });
+        
+        it(@"should return count of symbols equal to 'A'-'Z'+'a'-'z' range", ^{
+            NSUInteger count = 0;
+            for(NSString *symbol in alphabet) {
+                [symbol description];
+                count++;
+            }
+
+            [[theValue(count) should] equal:@([capitalizedAlphabet count] + [lowercaseAlphabet count])];
+        });
+
+        it(@"should return symbols in range 'A'-'Z'+'a'-'z'", ^{
+            NSMutableString *string = [NSMutableString stringWithString:[capitalizedAlphabet string]];
+            [string appendString:[lowercaseAlphabet string]];
+
+            NSUInteger index = 0;
+            for(NSString *symbol in alphabet) {
+                [[symbol should] equal:[NSString stringWithFormat:@"%c", [string characterAtIndex:index]]];
+                index++;
+            }
+        });
+
     });
 });
 

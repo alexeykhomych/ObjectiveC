@@ -11,7 +11,7 @@
 extern
 NSRange AKIMakeAlphabetRange(unichar value1, unichar value2);
 
-@interface AKIAlphabet : NSArray <NSFastEnumeration>
+@interface AKIAlphabet : NSObject <NSFastEnumeration>
 
 + (instancetype)alphabetWithRange:(NSRange)range;
 + (instancetype)alphabetWithStrings:(NSArray *)strings;

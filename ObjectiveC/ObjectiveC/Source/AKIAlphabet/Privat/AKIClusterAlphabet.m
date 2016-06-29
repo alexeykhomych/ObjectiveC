@@ -18,6 +18,8 @@
 
 @implementation AKIClusterAlphabet
 
+@synthesize count = _count;
+
 #pragma mark -
 #pragma mark Initializations and Dealocations
 
@@ -77,18 +79,6 @@
     }
     
     return count;
-}
-
-#pragma mark -
-#pragma mark NSFastEnumeration
-
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
-                                  objects:(id [])stackbuf
-                                    count:(NSUInteger)resultLength
-{
-    return [super countByEnumeratingWithState:state
-                                      objects:stackbuf
-                                        count:resultLength];
 }
 
 @end

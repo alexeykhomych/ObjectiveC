@@ -25,6 +25,8 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
 
 @implementation AKIAlphabet
 
+//@dynamic count;
+
 #pragma mark -	
 #pragma mark Class Methods
 
@@ -103,14 +105,14 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
                                     objects:(id [])stackbuf
                                     count:(NSUInteger)resultLength
-{
+{    
     state->mutationsPtr = (unsigned long *)self;
     NSUInteger length = MIN(state->state + resultLength, [self count]);
     resultLength = length - state->state;
     
     if (resultLength != 0) {
-        for (NSUInteger i = state->state; i < length; i++) {
-            stackbuf[i] = self[i];
+        for (NSUInteger i = 0; i < resultLength; i++) {
+            stackbuf[i] = self[i + state->state];
         }
     }
     
@@ -118,6 +120,7 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
     state->state += resultLength;
     
     return resultLength;
+
 }
 
 @end
