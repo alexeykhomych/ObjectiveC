@@ -1,4 +1,4 @@
-	//
+//
 //  AKIAlphabet.m
 //  ObjectiveC
 //
@@ -31,20 +31,58 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
 #pragma mark Class Methods
 
 + (instancetype)alphabetWithRange:(NSRange)range {
-    return [[[AKIRangeAlphabet alloc] initWithRange:range] autorelease];
+    return [[[AKIAlphabet alloc] initWithRange:range] autorelease];
 }
 
 + (instancetype)alphabetWithStrings:(NSArray *)array {
-    return [[[AKIStringsAlphabet alloc] initWithStrings:array] autorelease];
+    return [[[AKIAlphabet alloc] initWithStrings:array] autorelease];
 }
 
 + (instancetype)alphabetWithAlphabets:(NSArray *)alphabets {
-    return [[[AKIClusterAlphabet alloc] initWithAlphabets:alphabets] autorelease];
+    return [[[AKIAlphabet alloc] initWithAlphabets:alphabets] autorelease];
 }
 
 + (instancetype)alphabetWithSymbols:(NSString *)string {
-    return [self alphabetWithStrings:[string symbols]];
+    return [[[AKIAlphabet alloc] initWithSymbols:string] autorelease];
 }
+
++ (id)alphanumericAlphabet {
+    return [[AKIAlphabet alloc] initWithAlphabets:@[[AKIAlphabet numericAlphabet], [AKIAlphabet letterAlphabet]]];
+    
+}
+
++ (id)numericAlphabet {
+    return [AKIAlphabet alphabetWithUnicodeRange:NSMakeRange('0',
+                                                             '9' - '0')];
+}
+
++ (id)lowercaseLetterAlphabet {
+    return [AKIAlphabet alphabetWithUnicodeRange:NSMakeRange('a',
+                                                      'z' - 'a')];
+}
+
++ (id)capitalizedLetterAlphabet {
+    return [AKIAlphabet alphabetWithUnicodeRange:NSMakeRange('A',
+                                                      'Z' - 'A')];
+}
+
++ (id)letterAlphabet {
+    NSMutableString *result = [NSMutableString stringWithString:[self lowercaseLetterAlphabet]];
+    [result appendString:[self capitalizedLetterAlphabet]];
+    
+    return [NSString stringWithString:result];
+}
+            
++ (id)alphabetWithUnicodeRange:(NSRange)range {
+    NSMutableString *result = [NSMutableString string];
+    
+    for (unichar i = range.location; i < NSMaxRange(range); i++) {
+        [result appendFormat:@"%c", i];
+    }
+    
+    return [NSString stringWithString:result];
+}
+
 
 #pragma mark -
 #pragma mark Initializations and Dealocations
@@ -110,8 +148,9 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
     NSUInteger length = MIN(state->state + resultLength, [self count]);
     resultLength = length - state->state;
     
-    if (resultLength != 0) {
-        for (NSUInteger i = 0; i < resultLength; i++) {
+    
+    if (resultLength) {
+        for(NSUInteger i = 0; i < resultLength; i++) {
             stackbuf[i] = self[i + state->state];
         }
     }
@@ -120,7 +159,6 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
     state->state += resultLength;
     
     return resultLength;
-
 }
 
 @end

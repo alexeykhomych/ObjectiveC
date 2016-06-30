@@ -17,6 +17,13 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2);
 + (instancetype)alphabetWithStrings:(NSArray *)strings;
 + (instancetype)alphabetWithAlphabets:(NSArray *)alphabets;
 + (instancetype)alphabetWithSymbols:(NSString *)string;
++ (id)alphabetWithUnicodeRange:(NSRange)range;
+
++ (id)alphanumericAlphabet;
++ (id)numericAlphabet;
++ (id)lowercaseLetterAlphabet;
++ (id)capitalizedLetterAlphabet;
++ (id)letterAlphabet;
 
 - (instancetype)initWithRange:(NSRange)range;
 - (instancetype)initWithAlphabets:(NSArray *)alphabets;

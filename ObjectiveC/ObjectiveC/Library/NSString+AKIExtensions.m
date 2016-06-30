@@ -7,56 +7,18 @@
 //
 
 #import "NSString+AKIExtensions.h"
+#import "AKIAlphabet.h"
 
 static const NSUInteger kNSStringDefaultRandomStringLength = 30;
 
 @implementation NSString (AKIExtensions)
-
-+ (id)alphanumericAlphabet {
-    NSMutableString *result = [NSMutableString stringWithString:[self letterAlphabet]];
-    [result appendString:[self numericAlphabet]];
-    
-    return [self stringWithString:result];
-}
-
-+ (id)numericAlphabet {
-    return [self alphabetWithUnicodeRange:NSMakeRange('0',
-                                                      '9' - '0')];
-}
-
-+ (id)lowercaseLetterAlphabet {
-    return [self alphabetWithUnicodeRange:NSMakeRange('a',
-                                                      'z' - 'a')];
-}
-
-+ (id)capitalizedLetterAlphabet {
-    return [self alphabetWithUnicodeRange:NSMakeRange('A',
-                                                      'Z' - 'A')];
-}
-
-+ (id)letterAlphabet {
-    NSMutableString *result = [NSMutableString stringWithString:[self lowercaseLetterAlphabet]];
-    [result appendString:[self capitalizedLetterAlphabet]];
-    
-    return [self stringWithString:result];
-}
-
-+ (id)alphabetWithUnicodeRange:(NSRange)range {
-    NSMutableString *result = [NSMutableString string];
-    
-    for (unichar i = range.location; i < NSMaxRange(range); i++) {
-        [result appendFormat:@"%c", i];
-    }
-    
-    return [self stringWithString:result];
-}
 
 + (id)randomString {
     return [self randomStringWithLength:arc4random_uniform(kNSStringDefaultRandomStringLength)];
 }
 
 + (id)randomStringWithLength:(NSUInteger)length {
-    return [self randomStringWithLength:length alphabet:[self alphanumericAlphabet]];
+    return [self randomStringWithLength:length alphabet:[AKIAlphabet alphanumericAlphabet]];
 }
 
 + (id)randomStringWithLength:(NSUInteger)length alphabet:(NSString *)alphabet {
