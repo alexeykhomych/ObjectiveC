@@ -146,13 +146,11 @@ NSRange AKIMakeAlphabetRange(unichar value1, unichar value2) {
 {    
     state->mutationsPtr = (unsigned long *)self;
     NSUInteger length = MIN(state->state + resultLength, [self count]);
+    
     resultLength = length - state->state;
     
-    
-    if (resultLength) {
-        for(NSUInteger i = 0; i < resultLength; i++) {
-            stackbuf[i] = self[i + state->state];
-        }
+    for (NSUInteger i = 0; i < resultLength; i++) {
+        stackbuf[i] = self[i + state->state];
     }
     
     state->itemsPtr = stackbuf;
