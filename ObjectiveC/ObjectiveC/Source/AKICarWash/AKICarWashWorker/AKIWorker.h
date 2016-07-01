@@ -9,8 +9,24 @@
 #import <Foundation/Foundation.h>
 
 #import "AKIMoney.h"
+#import "AKIObservableObject.h"
 
-@interface AKIWorker : NSObject <AKIMoney>
+@class AKIWorker;
+
+typedef NS_ENUM(NSUInteger, AKIWorkerState) {
+    AKIWorkerBusy,
+    AKIWorkerFree
+};
+
+@protocol AKIMWorkerObserver <NSObject>
+@optional
+
+- (void)workerDidBecomeBusy:(AKIWorker *)worker;
+- (void)workerDidBecomeFree:(AKIWorker *)worker;
+
+@end
+
+@interface AKIWorker : AKIObservableObject <AKIMoney>
 @property (nonatomic, assign)                   NSUInteger  salary;
 @property (nonatomic, assign)                   NSUInteger  experience;
 @property (nonatomic, assign, getter=isFree)    BOOL        free;

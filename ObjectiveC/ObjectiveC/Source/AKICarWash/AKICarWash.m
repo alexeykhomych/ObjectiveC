@@ -19,6 +19,8 @@
 
 #import "AKIQueue.h"
 
+#import "AKIObservableObject.h"
+
 @interface AKICarWash()
 @property (nonatomic, retain)   AKIBuilding     *adminBuilding;
 @property (nonatomic, retain)   AKIBuilding     *carWashBuilding;
@@ -105,15 +107,17 @@
         AKIDirector *director = [self workerWithClass:[AKIDirector class]];
         
         [box addCar:car];
-        [washer processObject:car];
+        
+        [washer performSelector:@selector(processObject:) withObject:car];
+        
         [box removeCar:car];
         
         if (!car.clean) {
             [self.queue enqueueObject:car];
         }
         
-        [accountant processObject:washer];
-        [director processObject:accountant];
+        [accountant performSelector:@selector(processObject:) withObject:washer];
+        [director performSelector:@selector(processObject:) withObject:accountant];
     }
 }
 

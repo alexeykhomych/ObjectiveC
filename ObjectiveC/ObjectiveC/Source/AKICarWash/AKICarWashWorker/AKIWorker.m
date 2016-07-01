@@ -10,6 +10,8 @@
 #import "NSObject+AKIExtensions.h"
 #import "AKIWorker.h"
 
+#import "AKIWorkerDelegate.h"
+
 @interface AKIWorker()
 @property (nonatomic, assign) NSUInteger money;
 
@@ -34,9 +36,11 @@
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    self.free = NO;
-    [self takeMoneyFromObject:object];
-    self.free = YES;
+    if (AKIWorkerFree == self.state) {
+        [self takeMoneyFromObject:object];
+    } else {
+        
+    }
 }
 
 - (void)receiveMoney:(NSUInteger)money {
@@ -51,6 +55,29 @@
     NSUInteger money = object.money;
     [object giveMoney:money];
     [self receiveMoney:money];
+}
+
+#pragma mark -
+#pragma mark Overload Methods
+
+- (SEL)selectorForState:(NSUInteger)state {
+    switch (state) {
+        case AKIWorkerBusy:
+            return @selector(workerDidBecomeBusy:);
+
+        case AKIWorkerFree:
+            return @selector(workerDidBecomeFree:);
+        
+        default:
+            return [super selectorForState:state];
+    }
+}
+
+#pragma mark -
+#pragma mark AKIWorkerDelegate
+
+- (void)workerDidFinishProccesingObject:(AKIWorker *)worker {
+    [self processObject:worker];
 }
 
 @end
