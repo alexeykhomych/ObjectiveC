@@ -54,8 +54,6 @@
 		847EE0DC1D1EB6D100561955 /* AKICreatureTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0AE1D1EB6D100561955 /* AKICreatureTest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		847EE0DF1D1EE59A00561955 /* AKIAlphabetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0DE1D1EE59A00561955 /* AKIAlphabetSpec.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8486F06F1D25534D001C84CB /* AKIDelegatingObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F06E1D25534D001C84CB /* AKIDelegatingObjectSpec.m */; };
-		8486F0761D255722001C84CB /* AKIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0751D255722001C84CB /* AKIDelegate.m */; };
-		8486F0771D255722001C84CB /* AKIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0751D255722001C84CB /* AKIDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8486F07F1D269E47001C84CB /* AKIObservableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F07E1D269E47001C84CB /* AKIObservableObject.m */; };
 		8486F0801D269E47001C84CB /* AKIObservableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F07E1D269E47001C84CB /* AKIObservableObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8486F0831D26C444001C84CB /* AKIWashCarSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0821D26C444001C84CB /* AKIWashCarSpec.m */; };
@@ -128,8 +126,6 @@
 		847EE0AE1D1EB6D100561955 /* AKICreatureTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICreatureTest.m; sourceTree = "<group>"; };
 		847EE0DE1D1EE59A00561955 /* AKIAlphabetSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIAlphabetSpec.m; sourceTree = "<group>"; };
 		8486F06E1D25534D001C84CB /* AKIDelegatingObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIDelegatingObjectSpec.m; sourceTree = "<group>"; };
-		8486F0741D255722001C84CB /* AKIDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIDelegate.h; sourceTree = "<group>"; };
-		8486F0751D255722001C84CB /* AKIDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIDelegate.m; sourceTree = "<group>"; };
 		8486F07D1D269E47001C84CB /* AKIObservableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIObservableObject.h; sourceTree = "<group>"; };
 		8486F07E1D269E47001C84CB /* AKIObservableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIObservableObject.m; sourceTree = "<group>"; };
 		8486F0811D26B402001C84CB /* AKIWorkerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKIWorkerDelegate.h; sourceTree = "<group>"; };
@@ -211,7 +207,6 @@
 		847EE0781D1EB6D100561955 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				8486F0671D254D03001C84CB /* Classes */,
 				847EE0791D1EB6D100561955 /* AKIAlphabet */,
 				847EE0831D1EB6D100561955 /* AKICarWash */,
 				847EE09D1D1EB6D100561955 /* AKICreatures */,
@@ -377,23 +372,6 @@
 				8486F0821D26C444001C84CB /* AKIWashCarSpec.m */,
 			);
 			path = Specs;
-			sourceTree = "<group>";
-		};
-		8486F0671D254D03001C84CB /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				8486F0681D254D1B001C84CB /* AKIDelegatingObject */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		8486F0681D254D1B001C84CB /* AKIDelegatingObject */ = {
-			isa = PBXGroup;
-			children = (
-				8486F0741D255722001C84CB /* AKIDelegate.h */,
-				8486F0751D255722001C84CB /* AKIDelegate.m */,
-			);
-			path = AKIDelegatingObject;
 			sourceTree = "<group>";
 		};
 		8486F0701D255423001C84CB /* Test Objects */ = {
@@ -617,7 +595,6 @@
 				847EE0CD1D1EB6D100561955 /* AKIDirector.m in Sources */,
 				847EE0B51D1EB6D100561955 /* AKIAlphabet.m in Sources */,
 				847EE0CF1D1EB6D100561955 /* AKIWasher.m in Sources */,
-				8486F0761D255722001C84CB /* AKIDelegate.m in Sources */,
 				847EE0CB1D1EB6D100561955 /* AKIAccountant.m in Sources */,
 				847EE0D51D1EB6D100561955 /* AKICreatureMale.m in Sources */,
 				847EE0C51D1EB6D100561955 /* AKICarWash.m in Sources */,
@@ -636,7 +613,6 @@
 				847EE0DC1D1EB6D100561955 /* AKICreatureTest.m in Sources */,
 				847EE0D21D1EB6D100561955 /* AKICreature.m in Sources */,
 				847EE0D81D1EB6D100561955 /* AKIRunApplication.m in Sources */,
-				8486F0771D255722001C84CB /* AKIDelegate.m in Sources */,
 				847EE0B01D1EB6D100561955 /* NSObject+AKIExtensions.m in Sources */,
 				847EE0C41D1EB6D100561955 /* AKICar.m in Sources */,
 				847EE0CA1D1EB6D100561955 /* AKIWorker.m in Sources */,

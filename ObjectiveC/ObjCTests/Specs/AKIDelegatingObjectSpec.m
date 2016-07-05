@@ -9,7 +9,7 @@
 #import "Kiwi.h"
 
 //#import "AKIDelegatingObject.h"
-#import "AKIDelegate.h"
+//#import "AKIDelegate.h"
 
 SPEC_BEGIN(AKIDelegatingObjectSpec)
 

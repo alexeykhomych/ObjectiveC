@@ -9,13 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @interface AKIObservableObject : NSObject
-@property (nonatomic, readonly) NSArray     *observers;
+@property (nonatomic, readonly) NSSet       *observers;
 @property (nonatomic, assign)   NSUInteger  state;
 
-- (void)addObservableObject:(id)object;
-- (void)removeObservableObject:(id)object;
-- (BOOL)isObservedByObject:(id)object;
+- (void)addObserver:(id)object;
+- (void)addObservers:(NSArray *)observers;
+- (void)removeObserver:(id)object;
+- (void)removeObservers;
+- (BOOL)containsObserver:(id)object;
 
 - (SEL)selectorForState:(NSUInteger) state;
+
+- (void)setState:(NSUInteger)state withObject:(id)object;
 
 @end

@@ -9,9 +9,11 @@
 #import "AKIObservableObject.h"
 
 @interface AKIObservableObject()
-@property (nonatomic, retain) NSMutableArray *mutableObservers;
+@property (nonatomic, retain) NSHashTable *observersTable;
 
 - (void)notifyObserverWithSelector:(SEL)selector;
+- (void)notifyObserverWithSelector:(SEL)selector object:(id)object;
+- (SEL)selectorForState:(NSUInteger)state;
 
 @end
 
@@ -23,14 +25,14 @@
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
-    self.mutableObservers = nil;
+    self.observersTable = nil;
     
     [super dealloc];
 }
 
 - (instancetype)init {
     self = [super init];
-    self.mutableObservers = [NSMutableArray new];
+    self.observersTable = [NSHashTable weakObjectsHashTable];
     
     return self;
 }
@@ -38,28 +40,56 @@
 #pragma mark -
 #pragma mark Accessors Methods
 
-- (NSArray *)observers {
-    return [[self.mutableObservers copy] autorelease];
+- (NSSet *)observers {
+    return self.observersTable.setRepresentation;
 }
 
-- (void)setState:(NSUInteger)state {
-    _state = state;
-    [self notifyObserverWithSelector:[self selectorForState:state]];
+- (void)setState:(NSUInteger)state withObject:(id)object {
+    if (_state != state) {
+        _state = state;
+        
+        [self notifyObserverWithSelector:[self selectorForState:state] object:object];
+    }
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
-- (void)addObservableObject:(id)object {
-    [self.mutableObservers addObject:object];
+- (void)addObserver:(id)object {
+    if (object) {
+        [self.observersTable addObject:object];
+    }
 }
 
-- (void)removeObservableObject:(id)object {
-    [self.mutableObservers removeObject:object];
+- (void)addObservers:(NSArray *)observers {
+    for (id observer in observers) {
+        [self addObserver:observer];
+    }
 }
 
-- (BOOL)isObjectObservable:(id)object {
-    return [self.mutableObservers containsObject:object];
+- (void)removeObserver:(id)object {
+    [self.observersTable removeObject:object];
+}
+
+- (void)removeObservers {
+    self.observersTable = nil;
+}
+
+- (BOOL)containsObserver:(id)object {
+    return [self.observersTable containsObject:object];
+}
+
+- (void)setState:(NSUInteger)state {
+    [self setState:state withObject:self];
+}
+
+- (void)notifyOfState:(NSUInteger)state {
+    [self notifyOfState:state WithObject:self];
+}
+
+- (void)notifyOfState:(NSUInteger)state WithObject:(id)object {
+    SEL selector = [self selectorForState:state];
+    [self notifyObserverWithSelector:selector object:object];
 }
 
 #pragma mark -
@@ -68,7 +98,7 @@
 - (SEL)selectorForState:(NSUInteger)state {
     [self doesNotRecognizeSelector:_cmd];
     
-    return nil;
+    return nil;	
 }
 
 - (void)notifyObserverWithSelector:(SEL)selector {
@@ -76,9 +106,11 @@
 }
 
 - (void)notifyObserverWithSelector:(SEL)selector object:(id)object {
-    for (id object in self.mutableObservers) {
-        if ([object respondsToSelector:selector]) {
-            [object performSelector:selector withObject:object];
+    NSHashTable *observers = self.observersTable;
+    
+    for (id observer in observers) {
+        if ([observer respondsToSelector:selector]) {
+            [observer performSelector:selector withObject:object];
         }
     }
 }

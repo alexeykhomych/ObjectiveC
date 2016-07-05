@@ -10,27 +10,32 @@
 
 #import "AKIMoney.h"
 #import "AKIObservableObject.h"
+#import "AKIWorkerDelegate.h"
 
 @class AKIWorker;
 
 typedef NS_ENUM(NSUInteger, AKIWorkerState) {
     AKIWorkerBusy,
+    AKIWorkerPending,
     AKIWorkerFree
 };
 
 @protocol AKIMWorkerObserver <NSObject>
-@optional
 
-- (void)workerDidBecomeBusy:(AKIWorker *)worker;
-- (void)workerDidBecomeFree:(AKIWorker *)worker;
+@optional
+- (void)workerDidBecomeBusy:(id)worker;
+- (void)workerDidBecomePending:(id)worker;
+- (void)workerDidBecomeFree:(id)worker;
 
 @end
 
 @interface AKIWorker : AKIObservableObject <AKIMoney>
-@property (nonatomic, assign)                   NSUInteger  salary;
-@property (nonatomic, assign)                   NSUInteger  experience;
-@property (nonatomic, assign, getter=isFree)    BOOL        free;
+@property (nonatomic, assign) NSUInteger            salary;
+@property (nonatomic, assign) NSUInteger            experience;
+@property (nonatomic, assign) id<AKIWorkerDelegate> delegate;
 
 - (void)processObject:(id)object;
+- (void)finishProcessing;
+- (void)performWorkWithObject:(id)object;
 
 @end

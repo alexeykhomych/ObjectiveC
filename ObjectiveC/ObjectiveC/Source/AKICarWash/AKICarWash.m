@@ -21,6 +21,8 @@
 
 #import "AKIObservableObject.h"
 
+static NSUInteger const kAKIMaxWasherCount = 20;
+
 @interface AKICarWash()
 @property (nonatomic, retain)   AKIBuilding     *adminBuilding;
 @property (nonatomic, retain)   AKIBuilding     *carWashBuilding;
@@ -65,7 +67,7 @@
     AKIOffice *office = [AKIOffice object];
     AKIBox *box = [AKIBox object];
     
-    AKIWasher *washer = [AKIWasher object];
+    
     AKIAccountant *accountant = [AKIAccountant object];
     AKIDirector *director = [AKIDirector object];
     
@@ -73,7 +75,13 @@
     
     [office addWorker:director];
     [office addWorker:accountant];
-    [box addWorker:washer];
+    [accountant addObserver:director];
+    
+    for (NSUInteger i = 0; i < kAKIMaxWasherCount; i++) {
+        AKIWasher *washer = [AKIWasher object];
+        [box addWorker:washer];
+        [washer addObservers:@[accountant, self]];
+    }
     
     [adminBuilding addOffice:office];
     [carWashBuilding addOffice:box];
@@ -103,21 +111,16 @@
         AKIBox *box = [self.carWashBuilding freeOffice];
         
         AKIWasher *washer = [self workerWithClass:[AKIWasher class]];
-        AKIAccountant *accountant = [self workerWithClass:[AKIAccountant class]];
-        AKIDirector *director = [self workerWithClass:[AKIDirector class]];
         
         [box addCar:car];
         
-        [washer performSelector:@selector(processObject:) withObject:car];
+        [washer processObject:car];
         
         [box removeCar:car];
         
         if (!car.clean) {
             [self.queue enqueueObject:car];
         }
-        
-        [accountant performSelector:@selector(processObject:) withObject:washer];
-        [director performSelector:@selector(processObject:) withObject:accountant];
     }
 }
 
@@ -128,7 +131,7 @@
 - (id)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building {
     NSArray *workers = [building workerWithClass:cls];
     for (AKIWorker *worker in workers) {
-        if (worker.free) {
+        if (worker.state == AKIWorkerFree) {
             return worker;
         }
     }
@@ -142,6 +145,21 @@
     }
     
     return self.adminBuilding;
+}
+
+- (NSArray *)allWorkers {
+    NSMutableArray *workers = [NSMutableArray object];
+    [workers addObjectsFromArray:[self.adminBuilding workerWithClass:[AKIDirector class]]];
+    [workers addObjectsFromArray:[self.adminBuilding workerWithClass:[AKIAccountant class]]];
+    [workers addObjectsFromArray:[self.adminBuilding workerWithClass:[AKIWasher class]]];
+
+    return [[workers copy] autorelease];
+}
+
+- (void)removeWorkersObservers {
+    for (AKIWorker *observer in [self allWorkers]) {
+        [observer removeObservers];
+    }
 }
 
 @end

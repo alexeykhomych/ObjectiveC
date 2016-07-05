@@ -8,6 +8,7 @@
 
 #import "Kiwi.h"
 #import "AKICarWash.h"
+#import "NSObject+AKIExtensions.h"
 
 SPEC_BEGIN(AKICarWashSpec)
 
@@ -19,10 +20,10 @@ describe(@"AKICarWash", ^{
     });
     
     context(@"when initialized", ^{
-        beforeAll(^{
-            carWash = [AKICarWash new];
-        });
+        carWash = [AKICarWash new];
         
+        carWash = [AKICarWash object];
+        [carWash addCarToQueue:[AKICar object]];
         
     });
 });

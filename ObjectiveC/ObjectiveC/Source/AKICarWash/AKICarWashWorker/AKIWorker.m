@@ -27,7 +27,7 @@
     
     self.salary = arc4random_uniform(100);
     self.experience = arc4random_uniform(10);
-    self.free = YES;
+    self.state = AKIWorkerFree;
     
     return self;
 }
@@ -36,11 +36,10 @@
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    if (AKIWorkerFree == self.state) {
-        [self takeMoneyFromObject:object];
-    } else {
-        
-    }
+    self.state = AKIWorkerBusy;
+    [self performWorkWithObject:object];
+    self.state = AKIWorkerPending;
+    [self finishProcessing];
 }
 
 - (void)receiveMoney:(NSUInteger)money {
@@ -57,6 +56,14 @@
     [self receiveMoney:money];
 }
 
+- (void)finishProcessing {
+    self.state = AKIWorkerFree;
+}
+
+- (void)performWorkWithObject:(id)object {
+    
+}
+
 #pragma mark -
 #pragma mark Overload Methods
 
@@ -64,6 +71,9 @@
     switch (state) {
         case AKIWorkerBusy:
             return @selector(workerDidBecomeBusy:);
+            
+        case AKIWorkerPending:
+            return @selector(workerDidBecomePending:);
 
         case AKIWorkerFree:
             return @selector(workerDidBecomeFree:);
