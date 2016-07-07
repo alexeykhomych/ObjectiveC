@@ -14,7 +14,7 @@
 - (void)addOffice:(id)office;
 - (void)removeOffice:(id)office;
 
-- (id)freeWorkerWithClass:(Class)cls;
+- (id)workerWithClass:(Class)cls;
 - (id)freeOffice;
 
 @end

@@ -10,6 +10,8 @@
 #import "NSObject+AKIExtensions.h"
 #import "AKIWorker.h"
 
+#import "AKIWorkerDelegate.h"
+
 @interface AKIWorker()
 @property (nonatomic, assign) NSUInteger money;
 
@@ -25,7 +27,7 @@
     
     self.salary = arc4random_uniform(100);
     self.experience = arc4random_uniform(10);
-    self.free = YES;
+    self.state = AKIWorkerFree;
     
     return self;
 }
@@ -34,9 +36,8 @@
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    self.free = NO;
-    [self takeMoneyFromObject:object];
-    self.free = YES;
+    [self performWorkWithObject:object];
+    self.state = AKIWorkerBusy;
 }
 
 - (void)receiveMoney:(NSUInteger)money {
@@ -51,6 +52,45 @@
     NSUInteger money = object.money;
     [object giveMoney:money];
     [self receiveMoney:money];
+}
+
+- (void)finishProcessing {
+    
+}
+
+- (void)performWorkWithObject:(id)object {
+    
+}
+
+#pragma mark -
+#pragma mark Overload Methods
+
+- (SEL)selectorForState:(NSUInteger)state {
+    switch (state) {
+        case AKIWorkerBusy:
+            return @selector(workerDidBecomeBusy:);
+            
+        case AKIWorkerPending:
+            return @selector(workerDidBecomePending:);
+
+        case AKIWorkerFree:
+            return @selector(workerDidBecomeFree:);
+        
+        default:
+            return [super selectorForState:state];
+    }
+}
+
+#pragma mark -
+#pragma mark AKIWorkerDelegate
+
+- (void)workerDidBecomeBusy:(id)worker {
+    [self workerDidFinishProccesingObject:worker];
+}
+
+- (void)workerDidFinishProccesingObject:(AKIWorker *)worker {
+    [self processObject:worker];
+    worker.state = AKIWorkerFree;
 }
 
 @end

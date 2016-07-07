@@ -50,11 +50,11 @@
     [self.mutableOffices removeObject:office];
 }
 
-- (NSMutableArray *)freeWorkerWithClass:(Class)cls {
+- (NSMutableArray *)workerWithClass:(Class)cls {
     NSMutableArray *workers = [NSMutableArray object];
     
     for (AKIOffice *office in self.offices) {
-        [workers addObjectsFromArray:[office freeWorkerWithClass:cls]];
+        [workers addObjectsFromArray:[office workerWithClass:cls]];
     }
     
     return [[workers copy] autorelease];
