@@ -32,7 +32,6 @@ typedef NS_ENUM(NSUInteger, AKIWorkerState) {
 @interface AKIWorker : AKIObservableObject <AKIMoney>
 @property (nonatomic, assign) NSUInteger            salary;
 @property (nonatomic, assign) NSUInteger            experience;
-@property (nonatomic, assign) id<AKIWorkerDelegate> delegate;
 
 - (void)processObject:(id)object;
 - (void)finishProcessing;

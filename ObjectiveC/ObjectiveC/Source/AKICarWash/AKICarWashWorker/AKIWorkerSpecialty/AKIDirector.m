@@ -23,7 +23,7 @@
 #pragma mark Private Methods
 
 - (void)makeRevenue {
-    NSLog(@"profit");
+    NSLog(@"Director make profit");
 }
 
 @end

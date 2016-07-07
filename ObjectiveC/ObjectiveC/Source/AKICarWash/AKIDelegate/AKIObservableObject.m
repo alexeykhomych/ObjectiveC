@@ -19,6 +19,7 @@
 
 @implementation AKIObservableObject
 
+@dynamic observers;
 @synthesize state = _state;
 
 #pragma mark -
@@ -44,11 +45,15 @@
     return self.observersTable.setRepresentation;
 }
 
+- (void)setState:(NSUInteger)state {
+    [self setState:state withObject:self];
+}
+
 - (void)setState:(NSUInteger)state withObject:(id)object {
     if (_state != state) {
         _state = state;
         
-        [self notifyObserverWithSelector:[self selectorForState:state] object:object];
+        [self notifyOfState:state WithObject:object];
     }
 }
 
@@ -72,15 +77,11 @@
 }
 
 - (void)removeObservers {
-    self.observersTable = nil;
+    [self.observersTable removeAllObjects];
 }
 
 - (BOOL)containsObserver:(id)object {
     return [self.observersTable containsObject:object];
-}
-
-- (void)setState:(NSUInteger)state {
-    [self setState:state withObject:self];
 }
 
 - (void)notifyOfState:(NSUInteger)state {
@@ -88,8 +89,7 @@
 }
 
 - (void)notifyOfState:(NSUInteger)state WithObject:(id)object {
-    SEL selector = [self selectorForState:state];
-    [self notifyObserverWithSelector:selector object:object];
+    [self notifyObserverWithSelector:[self selectorForState:state]];
 }
 
 #pragma mark -
@@ -110,7 +110,7 @@
     
     for (id observer in observers) {
         if ([observer respondsToSelector:selector]) {
-            [observer performSelector:selector withObject:object];
+            [observer performSelector:selector withObject:self withObject:object];
         }
     }
 }

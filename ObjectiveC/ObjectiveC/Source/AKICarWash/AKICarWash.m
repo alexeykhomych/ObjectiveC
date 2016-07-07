@@ -9,6 +9,7 @@
 #import "AKICarWash.h"
 
 #import "NSObject+AKIExtensions.h"
+#import "NSArray+NSArray_AKIExtensions.h"
 
 #import "AKIWasher.h"
 #import "AKIDirector.h"
@@ -21,7 +22,7 @@
 
 #import "AKIObservableObject.h"
 
-static NSUInteger const kAKIMaxWasherCount = 20;
+static NSUInteger const kAKIMaxWasherCount = 1;
 
 @interface AKICarWash()
 @property (nonatomic, retain)   AKIBuilding     *adminBuilding;
@@ -35,6 +36,12 @@ static NSUInteger const kAKIMaxWasherCount = 20;
 - (id)workerWithClass:(Class)cls;
 - (id)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building;
 - (AKIBuilding *)workerWorkPlace:(Class)cls;
+
+- (id)reservedWasher;
+- (id)reservedAccountant;
+- (id)reservedDirector;
+- (NSArray *)reservedFreeWorkerWithClass:(Class)cls;
+- (id)freeWorkerPredicate;
 
 @end
 
@@ -57,6 +64,7 @@ static NSUInteger const kAKIMaxWasherCount = 20;
     self = [super init];
     
     [self initCarWash];
+    self.queue = [AKIQueue object];
     
     return self;
 }
@@ -67,11 +75,8 @@ static NSUInteger const kAKIMaxWasherCount = 20;
     AKIOffice *office = [AKIOffice object];
     AKIBox *box = [AKIBox object];
     
-    
     AKIAccountant *accountant = [AKIAccountant object];
     AKIDirector *director = [AKIDirector object];
-    
-    AKIQueue *queue = [AKIQueue object];
     
     [office addWorker:director];
     [office addWorker:accountant];
@@ -90,7 +95,6 @@ static NSUInteger const kAKIMaxWasherCount = 20;
     self.carWashBuilding = carWashBuilding;
     self.office = office;
     self.box = box;
-    self.queue = queue;
 }
 
 #pragma mark -
@@ -110,7 +114,7 @@ static NSUInteger const kAKIMaxWasherCount = 20;
     while ((car = [self.queue dequeueObject])) {
         AKIBox *box = [self.carWashBuilding freeOffice];
         
-        AKIWasher *washer = [self workerWithClass:[AKIWasher class]];
+        AKIWasher *washer = [self reservedWasher];
         
         [box addCar:car];
         
@@ -128,17 +132,6 @@ static NSUInteger const kAKIMaxWasherCount = 20;
     return [self freeWorkerWithClass:cls building:[self workerWorkPlace:cls]];
 }
 
-- (id)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building {
-    NSArray *workers = [building workerWithClass:cls];
-    for (AKIWorker *worker in workers) {
-        if (worker.state == AKIWorkerFree) {
-            return worker;
-        }
-    }
-    
-    return nil;
-}
-
 - (AKIBuilding *)workerWorkPlace:(Class)cls {
     if ([cls isSubclassOfClass:[AKIWasher class]]) {
         return self.carWashBuilding;
@@ -147,19 +140,30 @@ static NSUInteger const kAKIMaxWasherCount = 20;
     return self.adminBuilding;
 }
 
-- (NSArray *)allWorkers {
-    NSMutableArray *workers = [NSMutableArray object];
-    [workers addObjectsFromArray:[self.adminBuilding workerWithClass:[AKIDirector class]]];
-    [workers addObjectsFromArray:[self.adminBuilding workerWithClass:[AKIAccountant class]]];
-    [workers addObjectsFromArray:[self.adminBuilding workerWithClass:[AKIWasher class]]];
-
-    return [[workers copy] autorelease];
+- (id)reservedWasher {
+    return [self reservedFreeWorkerWithClass:[AKIWasher class]];
+}
+- (id)reservedAccountant {
+    return [self reservedFreeWorkerWithClass:[AKIAccountant class]];
 }
 
-- (void)removeWorkersObservers {
-    for (AKIWorker *observer in [self allWorkers]) {
-        [observer removeObservers];
-    }
+- (id)reservedDirector {
+    return [self reservedFreeWorkerWithClass:[AKIDirector class]];
+}
+
+- (id)reservedFreeWorkerWithClass:(Class)cls {
+    AKIWorker *worker = [[[self workerWorkPlace:cls] workerWithClass:cls] firstObject];
+    worker.state = AKIWorkerPending;
+    
+    return worker;
+}
+
+- (id)freeWorkerPredicate {
+    return [NSPredicate predicateWithBlock:^(AKIWorker *worker, NSDictionary *bindings) { return (BOOL)!AKIWorkerBusy; }];
+}
+
+- (NSArray *)freeWorkerWithClass:(Class)cls {
+    return [[self workerWithClass:cls] filterWithBlock:^BOOL(AKIWorker *worker) { return !AKIWorkerBusy; }];
 }
 
 @end

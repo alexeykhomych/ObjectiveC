@@ -11,6 +11,7 @@
 @interface AKIObservableObject : NSObject
 @property (nonatomic, readonly) NSSet       *observers;
 @property (nonatomic, assign)   NSUInteger  state;
+- (void)setState:(NSUInteger)state withObject:(id)object;
 
 - (void)addObserver:(id)object;
 - (void)addObservers:(NSArray *)observers;
@@ -19,7 +20,5 @@
 - (BOOL)containsObserver:(id)object;
 
 - (SEL)selectorForState:(NSUInteger) state;
-
-- (void)setState:(NSUInteger)state withObject:(id)object;
 
 @end

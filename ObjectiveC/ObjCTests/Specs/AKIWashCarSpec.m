@@ -20,11 +20,8 @@ describe(@"AKICarWash", ^{
     });
     
     context(@"when initialized", ^{
-        carWash = [AKICarWash new];
-        
         carWash = [AKICarWash object];
         [carWash addCarToQueue:[AKICar object]];
-        
     });
 });
 

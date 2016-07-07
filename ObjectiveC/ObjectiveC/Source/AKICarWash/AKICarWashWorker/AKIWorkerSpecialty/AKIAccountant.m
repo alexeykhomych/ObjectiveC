@@ -7,7 +7,6 @@
 //
 
 #import "AKIAccountant.h"
-#import "AKIWasher.h"
 
 @implementation AKIAccountant
 
@@ -23,7 +22,7 @@
 #pragma mark Private Methods
 
 - (void)calculateSalary:(AKIWorker *)worker {
-    
+    NSLog(@"Accountant had calculated salary");
 }
 
 @end
