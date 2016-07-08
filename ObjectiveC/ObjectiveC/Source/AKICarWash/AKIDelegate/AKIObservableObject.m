@@ -53,7 +53,7 @@
     if (_state != state) {
         _state = state;
         
-        [self notifyOfState:state WithObject:object];
+        [self notifyOfState:state withObject:object];
     }
 }
 
@@ -85,10 +85,10 @@
 }
 
 - (void)notifyOfState:(NSUInteger)state {
-    [self notifyOfState:state WithObject:self];
+    [self notifyOfState:state withObject:self];
 }
 
-- (void)notifyOfState:(NSUInteger)state WithObject:(id)object {
+- (void)notifyOfState:(NSUInteger)state withObject:(id)object {
     [self notifyObserverWithSelector:[self selectorForState:state]];
 }
 

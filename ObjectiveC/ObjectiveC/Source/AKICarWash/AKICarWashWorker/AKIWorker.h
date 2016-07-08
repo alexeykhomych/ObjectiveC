@@ -36,5 +36,6 @@ typedef NS_ENUM(NSUInteger, AKIWorkerState) {
 - (void)processObject:(id)object;
 - (void)finishProcessing;
 - (void)performWorkWithObject:(id)object;
+- (void)finishProcessingObject:(id)object;
 
 @end

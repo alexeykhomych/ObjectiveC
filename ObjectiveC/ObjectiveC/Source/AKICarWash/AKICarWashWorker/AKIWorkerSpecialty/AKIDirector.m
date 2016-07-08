@@ -17,6 +17,15 @@
 - (void)performWorkWithObject:(id)object {
     [self takeMoneyFromObject:object];
     [self makeRevenue];
+    [self finishProcessingObject:object];
+}
+
+- (void)finishProcessingObject:(AKIWorker *)worker {
+    worker.state = AKIWorkerFree;
+}
+
+- (void)finishProcessing {
+    self.state = AKIWorkerFree;
 }
 
 #pragma mark -

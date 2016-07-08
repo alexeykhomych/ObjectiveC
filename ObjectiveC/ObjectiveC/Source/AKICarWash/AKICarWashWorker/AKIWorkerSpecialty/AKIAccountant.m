@@ -7,6 +7,7 @@
 //
 
 #import "AKIAccountant.h"
+#import "AKIWasher.h"
 
 @implementation AKIAccountant
 
@@ -16,6 +17,11 @@
 - (void)performWorkWithObject:(id)object {
     [self takeMoneyFromObject:object];
     [self calculateSalary:object];
+    [self finishProcessingObject:object];
+}
+
+- (void)finishProcessingObject:(AKIWasher *)washer {
+    washer.state = AKIWorkerPending;
 }
 
 #pragma mark -

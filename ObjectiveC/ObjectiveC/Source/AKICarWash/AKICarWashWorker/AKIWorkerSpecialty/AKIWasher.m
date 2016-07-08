@@ -23,6 +23,15 @@
 - (void)performWorkWithObject:(id)car {
     [self washCar:car];
     [self takeMoneyFromObject:car];
+    [self finishProcessingObject:car];
+}
+
+- (void)finishProcessing {
+    
+}
+
+- (void)finishProcessingObject:(AKICar *)car {
+    car.clean = YES;
 }
 
 #pragma mark -
@@ -30,7 +39,6 @@
 
 - (void)washCar:(AKICar *)car {
     NSLog(@"%@ wash a car", self.className);
-    car.clean = YES;
 }
 
 @end

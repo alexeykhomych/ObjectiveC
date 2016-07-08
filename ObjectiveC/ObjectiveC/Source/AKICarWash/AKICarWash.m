@@ -9,7 +9,7 @@
 #import "AKICarWash.h"
 
 #import "NSObject+AKIExtensions.h"
-#import "NSArray+NSArray_AKIExtensions.h"
+#import "NSArray+AKIExtensions.h"
 
 #import "AKIWasher.h"
 #import "AKIDirector.h"
@@ -34,14 +34,12 @@ static NSUInteger const kAKIMaxWasherCount = 1;
 - (void)addCarToQueue:(AKICar *)car;
 
 - (id)workerWithClass:(Class)cls;
-- (id)freeWorkerWithClass:(Class)cls building:(AKIBuilding *)building;
 - (AKIBuilding *)workerWorkPlace:(Class)cls;
 
 - (id)reservedWasher;
-- (id)reservedAccountant;
-- (id)reservedDirector;
-- (NSArray *)reservedFreeWorkerWithClass:(Class)cls;
+- (id)reservedFreeWorkersWithClass:(Class)cls;
 - (id)freeWorkerPredicate;
+- (NSArray *)freeWorkersWithClass:(Class)cls;
 
 @end
 
@@ -128,8 +126,18 @@ static NSUInteger const kAKIMaxWasherCount = 1;
     }
 }
 
-- (id)workerWithClass:(Class)cls {
-    return [self freeWorkerWithClass:cls building:[self workerWorkPlace:cls]];
+- (id)reservedWasher {
+    return [self reservedFreeWorkerWithClass:[AKIWasher class]];
+}
+
+- (id)reservedFreeWorkerWithClass:(Class)cls {
+    return [[self freeWorkersWithClass:cls] firstObject];
+}
+
+- (NSArray *)freeWorkersWithClass:(Class)cls {
+//    AKIBuilding *building = [self workerWorkPlace:cls];
+    
+    return [[[self workerWorkPlace:cls] workerWithClass:cls] filterWithBlock:^BOOL(AKIWorker *worker) { return worker.state != AKIWorkerBusy; }];
 }
 
 - (AKIBuilding *)workerWorkPlace:(Class)cls {
@@ -138,32 +146,6 @@ static NSUInteger const kAKIMaxWasherCount = 1;
     }
     
     return self.adminBuilding;
-}
-
-- (id)reservedWasher {
-    return [self reservedFreeWorkerWithClass:[AKIWasher class]];
-}
-- (id)reservedAccountant {
-    return [self reservedFreeWorkerWithClass:[AKIAccountant class]];
-}
-
-- (id)reservedDirector {
-    return [self reservedFreeWorkerWithClass:[AKIDirector class]];
-}
-
-- (id)reservedFreeWorkerWithClass:(Class)cls {
-    AKIWorker *worker = [[[self workerWorkPlace:cls] workerWithClass:cls] firstObject];
-    worker.state = AKIWorkerPending;
-    
-    return worker;
-}
-
-- (id)freeWorkerPredicate {
-    return [NSPredicate predicateWithBlock:^(AKIWorker *worker, NSDictionary *bindings) { return (BOOL)!AKIWorkerBusy; }];
-}
-
-- (NSArray *)freeWorkerWithClass:(Class)cls {
-    return [[self workerWithClass:cls] filterWithBlock:^BOOL(AKIWorker *worker) { return !AKIWorkerBusy; }];
 }
 
 @end

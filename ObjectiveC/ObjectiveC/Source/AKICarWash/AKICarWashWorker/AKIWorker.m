@@ -36,8 +36,10 @@
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    [self performWorkWithObject:object];
     self.state = AKIWorkerBusy;
+    
+    [self performWorkWithObject:object];
+    [self finishProcessing];
 }
 
 - (void)receiveMoney:(NSUInteger)money {
@@ -55,11 +57,15 @@
 }
 
 - (void)finishProcessing {
-    
+    self.state = AKIWorkerPending;
 }
 
 - (void)performWorkWithObject:(id)object {
-    
+    [self doesNotRecognizeSelector:_cmd];
+}
+
+- (void)finishProcessingObject:(id)object {
+    [self doesNotRecognizeSelector:_cmd];
 }
 
 #pragma mark -
@@ -84,13 +90,12 @@
 #pragma mark -
 #pragma mark AKIWorkerDelegate
 
-- (void)workerDidBecomeBusy:(id)worker {
+- (void)workerDidBecomePending:(id)worker {
     [self workerDidFinishProccesingObject:worker];
 }
 
 - (void)workerDidFinishProccesingObject:(AKIWorker *)worker {
     [self processObject:worker];
-    worker.state = AKIWorkerFree;
 }
 
 @end

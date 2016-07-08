@@ -1,16 +1,16 @@
 //
-//  NSArray+NSArray_AKIExtensions.m
+//  NSArray+AKIExtensions.m
 //  ObjectiveC
 //
 //  Created by Alexey Khomych on 07.07.16.
 //  Copyright © 2016 Alexey Khomych. All rights reserved.
 //
 
-#import "NSArray+NSArray_AKIExtensions.h"
+#import "NSArray+AKIExtensions.h"
 
-@implementation NSArray (NSArray_AKIExtensions)
+@implementation NSArray (AKIExtensions)
 
-- (NSArray *)filterWithBlock:(ArrayFilterBlock)block {
+- (NSArray *)filterWithBlock:(AKIArrayFilterBlock)block {
     if (!block) {
         return self;
     }
