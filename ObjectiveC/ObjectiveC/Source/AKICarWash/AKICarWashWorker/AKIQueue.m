@@ -7,7 +7,6 @@
 //
 
 #import "AKIQueue.h"
-#import "AKIBuilding.h"
 #import "AKIWorker.h"
 
 @interface AKIQueue()
@@ -37,22 +36,28 @@
 #pragma mark Accessors Methods
 
 - (NSArray *)queue {
-    return [[self.mutableQueue copy] autorelease];
+    @synchronized (self) {
+        return [[self.mutableQueue copy] autorelease];
+    }
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
 - (void)enqueueObject:(id)object {
-    [self.mutableQueue addObject:object];
+    @synchronized (self) {
+        [self.mutableQueue addObject:object];
+    }
 }
 
 - (id)dequeueObject {
-    NSMutableArray *array = self.mutableQueue;
-    id object = [[[array firstObject] retain] autorelease];
-    [array removeObject:object];
-    
-    return object;
+    @synchronized (self) {
+        NSMutableArray *array = self.mutableQueue;
+        id object = [[[array firstObject] retain] autorelease];
+        [array removeObject:object];
+        
+        return object;
+    }
 }
 
 @end

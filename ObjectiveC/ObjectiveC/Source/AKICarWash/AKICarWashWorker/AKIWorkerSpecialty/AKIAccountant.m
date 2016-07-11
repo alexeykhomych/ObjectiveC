@@ -15,20 +15,19 @@
 #pragma mark Public Methods
 
 - (void)performWorkWithObject:(id)object {
-    [self takeMoneyFromObject:object];
-    [self calculateSalary:object];
-    [self finishProcessingObject:object];
-}
-
-- (void)finishProcessingObject:(AKIWasher *)washer {
-    washer.state = AKIWorkerPending;
+    @synchronized (self) {
+        [self takeMoneyFromObject:object];
+        [self calculateSalary:object];
+    }
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
 - (void)calculateSalary:(AKIWorker *)worker {
-    NSLog(@"Accountant had calculated salary");
+    @synchronized (self) {
+        NSLog(@"Accountant had calculated salary");
+    }
 }
 
 @end

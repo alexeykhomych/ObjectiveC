@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKIBuilding.h"
 #import "AKIWasher.h"
 #import "AKICar.h"
 

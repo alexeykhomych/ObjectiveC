@@ -1,5 +1,9 @@
 #Kiwi -> docs
 
+target 'ObjectiveC' do
+
+end
+
 target 'ObjCTests' do
 	pod 'Kiwi', '~> 2.3'
 end

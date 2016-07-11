@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3027ADF0F312D872B757B60D /* libPods-ObjectiveC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 683B36314CD3A77C39D3520B /* libPods-ObjectiveC.a */; };
 		847EE0AF1D1EB6D100561955 /* NSObject+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0741D1EB6D100561955 /* NSObject+AKIExtensions.m */; };
 		847EE0B01D1EB6D100561955 /* NSObject+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0741D1EB6D100561955 /* NSObject+AKIExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		847EE0B11D1EB6D100561955 /* NSString+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0761D1EB6D100561955 /* NSString+AKIExtensions.m */; };
@@ -20,12 +21,6 @@
 		847EE0BA1D1EB6D100561955 /* AKIRangeAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0801D1EB6D100561955 /* AKIRangeAlphabet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		847EE0BB1D1EB6D100561955 /* AKIStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0821D1EB6D100561955 /* AKIStringsAlphabet.m */; };
 		847EE0BC1D1EB6D100561955 /* AKIStringsAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0821D1EB6D100561955 /* AKIStringsAlphabet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		847EE0BD1D1EB6D100561955 /* AKIBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0861D1EB6D100561955 /* AKIBuilding.m */; };
-		847EE0BE1D1EB6D100561955 /* AKIBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0861D1EB6D100561955 /* AKIBuilding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		847EE0BF1D1EB6D100561955 /* AKIBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0891D1EB6D100561955 /* AKIBox.m */; };
-		847EE0C01D1EB6D100561955 /* AKIBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0891D1EB6D100561955 /* AKIBox.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		847EE0C11D1EB6D100561955 /* AKIOffice.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE08B1D1EB6D100561955 /* AKIOffice.m */; };
-		847EE0C21D1EB6D100561955 /* AKIOffice.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE08B1D1EB6D100561955 /* AKIOffice.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		847EE0C31D1EB6D100561955 /* AKICar.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE08E1D1EB6D100561955 /* AKICar.m */; };
 		847EE0C41D1EB6D100561955 /* AKICar.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE08E1D1EB6D100561955 /* AKICar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		847EE0C51D1EB6D100561955 /* AKICarWash.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0901D1EB6D100561955 /* AKICarWash.m */; };
@@ -53,13 +48,13 @@
 		847EE0DB1D1EB6D100561955 /* AKICreatureTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0AE1D1EB6D100561955 /* AKICreatureTest.m */; };
 		847EE0DC1D1EB6D100561955 /* AKICreatureTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0AE1D1EB6D100561955 /* AKICreatureTest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		847EE0DF1D1EE59A00561955 /* AKIAlphabetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EE0DE1D1EE59A00561955 /* AKIAlphabetSpec.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		8486F06F1D25534D001C84CB /* AKIDelegatingObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F06E1D25534D001C84CB /* AKIDelegatingObjectSpec.m */; };
+		8486F06F1D25534D001C84CB /* AKIDelegatingObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F06E1D25534D001C84CB /* AKIDelegatingObjectSpec.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8486F07F1D269E47001C84CB /* AKIObservableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F07E1D269E47001C84CB /* AKIObservableObject.m */; };
 		8486F0801D269E47001C84CB /* AKIObservableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F07E1D269E47001C84CB /* AKIObservableObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8486F0831D26C444001C84CB /* AKIWashCarSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0821D26C444001C84CB /* AKIWashCarSpec.m */; };
 		8486F0891D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; };
 		8486F08A1D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; };
-		A5E6F799363753A9B52DB123 /* libPods-ObjCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49468D8C24C74BCE00B98A03 /* libPods-ObjCTests.a */; };
+		E9D243FA129AA8B311B06943 /* libPods-ObjCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49468D8C24C74BCE00B98A03 /* libPods-ObjCTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,8 +70,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00BA0606FC0D66E21C7A4963 /* Pods-ObjectiveC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveC/Pods-ObjectiveC.debug.xcconfig"; sourceTree = "<group>"; };
+		362532E9F6DCD51036826739 /* Pods-ObjCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCTests/Pods-ObjCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		49468D8C24C74BCE00B98A03 /* libPods-ObjCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6ED110C10E63D04D7178356C /* Pods-ObjCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCTests/Pods-ObjCTests.debug.xcconfig"; sourceTree = "<group>"; };
+		625FD6F2B492A817920DE364 /* Pods-ObjectiveC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveC.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectiveC/Pods-ObjectiveC.release.xcconfig"; sourceTree = "<group>"; };
+		683B36314CD3A77C39D3520B /* libPods-ObjectiveC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F4FDFC95D9FE668581CC657 /* Pods-ObjCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCTests/Pods-ObjCTests.release.xcconfig"; sourceTree = "<group>"; };
 		8453D6711D03102000C61D72 /* ObjectiveC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ObjectiveC; sourceTree = BUILT_PRODUCTS_DIR; };
 		847EE0121D1EB53600561955 /* ObjCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		847EE0161D1EB53700561955 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,12 +93,6 @@
 		847EE0801D1EB6D100561955 /* AKIRangeAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIRangeAlphabet.m; sourceTree = "<group>"; };
 		847EE0811D1EB6D100561955 /* AKIStringsAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIStringsAlphabet.h; sourceTree = "<group>"; };
 		847EE0821D1EB6D100561955 /* AKIStringsAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIStringsAlphabet.m; sourceTree = "<group>"; };
-		847EE0851D1EB6D100561955 /* AKIBuilding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIBuilding.h; sourceTree = "<group>"; };
-		847EE0861D1EB6D100561955 /* AKIBuilding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIBuilding.m; sourceTree = "<group>"; };
-		847EE0881D1EB6D100561955 /* AKIBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIBox.h; sourceTree = "<group>"; };
-		847EE0891D1EB6D100561955 /* AKIBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIBox.m; sourceTree = "<group>"; };
-		847EE08A1D1EB6D100561955 /* AKIOffice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIOffice.h; sourceTree = "<group>"; };
-		847EE08B1D1EB6D100561955 /* AKIOffice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIOffice.m; sourceTree = "<group>"; };
 		847EE08D1D1EB6D100561955 /* AKICar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKICar.h; sourceTree = "<group>"; };
 		847EE08E1D1EB6D100561955 /* AKICar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKICar.m; sourceTree = "<group>"; };
 		847EE08F1D1EB6D100561955 /* AKICarWash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKICarWash.h; path = AKICarWash/AKICarWash.h; sourceTree = "<group>"; };
@@ -134,7 +127,6 @@
 		8486F0821D26C444001C84CB /* AKIWashCarSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIWashCarSpec.m; sourceTree = "<group>"; };
 		8486F0871D2E9369001C84CB /* NSArray+AKIExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AKIExtensions.h"; sourceTree = "<group>"; };
 		8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AKIExtensions.m"; sourceTree = "<group>"; };
-		BDB226545FD32522FC6FFEFC /* Pods-ObjCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCTests/Pods-ObjCTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3027ADF0F312D872B757B60D /* libPods-ObjectiveC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,7 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5E6F799363753A9B52DB123 /* libPods-ObjCTests.a in Frameworks */,
+				E9D243FA129AA8B311B06943 /* libPods-ObjCTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,32 +245,10 @@
 			isa = PBXGroup;
 			children = (
 				8486F0781D269B71001C84CB /* AKIDelegate */,
-				847EE0841D1EB6D100561955 /* AKIBuilding */,
 				847EE08C1D1EB6D100561955 /* AKICar */,
 				847EE0911D1EB6D100561955 /* AKICarWashWorker */,
 			);
 			path = AKICarWash;
-			sourceTree = "<group>";
-		};
-		847EE0841D1EB6D100561955 /* AKIBuilding */ = {
-			isa = PBXGroup;
-			children = (
-				847EE0851D1EB6D100561955 /* AKIBuilding.h */,
-				847EE0861D1EB6D100561955 /* AKIBuilding.m */,
-				847EE0871D1EB6D100561955 /* AKIBuildingOffice */,
-			);
-			path = AKIBuilding;
-			sourceTree = "<group>";
-		};
-		847EE0871D1EB6D100561955 /* AKIBuildingOffice */ = {
-			isa = PBXGroup;
-			children = (
-				847EE0881D1EB6D100561955 /* AKIBox.h */,
-				847EE0891D1EB6D100561955 /* AKIBox.m */,
-				847EE08A1D1EB6D100561955 /* AKIOffice.h */,
-				847EE08B1D1EB6D100561955 /* AKIOffice.m */,
-			);
-			path = AKIBuildingOffice;
 			sourceTree = "<group>";
 		};
 		847EE08C1D1EB6D100561955 /* AKICar */ = {
@@ -401,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				49468D8C24C74BCE00B98A03 /* libPods-ObjCTests.a */,
+				683B36314CD3A77C39D3520B /* libPods-ObjectiveC.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -408,8 +380,10 @@
 		FB62AB1F53E8FE0F24F5959E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6ED110C10E63D04D7178356C /* Pods-ObjCTests.debug.xcconfig */,
-				BDB226545FD32522FC6FFEFC /* Pods-ObjCTests.release.xcconfig */,
+				362532E9F6DCD51036826739 /* Pods-ObjCTests.debug.xcconfig */,
+				6F4FDFC95D9FE668581CC657 /* Pods-ObjCTests.release.xcconfig */,
+				00BA0606FC0D66E21C7A4963 /* Pods-ObjectiveC.debug.xcconfig */,
+				625FD6F2B492A817920DE364 /* Pods-ObjectiveC.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -595,10 +569,7 @@
 				847EE0C91D1EB6D100561955 /* AKIWorker.m in Sources */,
 				847EE0BB1D1EB6D100561955 /* AKIStringsAlphabet.m in Sources */,
 				847EE0D31D1EB6D100561955 /* AKICreatureFemale.m in Sources */,
-				847EE0BD1D1EB6D100561955 /* AKIBuilding.m in Sources */,
 				847EE0B91D1EB6D100561955 /* AKIRangeAlphabet.m in Sources */,
-				847EE0C11D1EB6D100561955 /* AKIOffice.m in Sources */,
-				847EE0BF1D1EB6D100561955 /* AKIBox.m in Sources */,
 				847EE0CD1D1EB6D100561955 /* AKIDirector.m in Sources */,
 				847EE0B51D1EB6D100561955 /* AKIAlphabet.m in Sources */,
 				847EE0CF1D1EB6D100561955 /* AKIWasher.m in Sources */,
@@ -626,10 +597,7 @@
 				847EE0BC1D1EB6D100561955 /* AKIStringsAlphabet.m in Sources */,
 				847EE0D41D1EB6D100561955 /* AKICreatureFemale.m in Sources */,
 				8486F0801D269E47001C84CB /* AKIObservableObject.m in Sources */,
-				847EE0BE1D1EB6D100561955 /* AKIBuilding.m in Sources */,
 				847EE0BA1D1EB6D100561955 /* AKIRangeAlphabet.m in Sources */,
-				847EE0C21D1EB6D100561955 /* AKIOffice.m in Sources */,
-				847EE0C01D1EB6D100561955 /* AKIBox.m in Sources */,
 				847EE0CE1D1EB6D100561955 /* AKIDirector.m in Sources */,
 				847EE0B61D1EB6D100561955 /* AKIAlphabet.m in Sources */,
 				847EE0D01D1EB6D100561955 /* AKIWasher.m in Sources */,
@@ -732,6 +700,7 @@
 		};
 		8453D6791D03102000C61D72 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00BA0606FC0D66E21C7A4963 /* Pods-ObjectiveC.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -741,6 +710,7 @@
 		};
 		8453D67A1D03102000C61D72 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 625FD6F2B492A817920DE364 /* Pods-ObjectiveC.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -750,7 +720,7 @@
 		};
 		847EE0171D1EB53700561955 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6ED110C10E63D04D7178356C /* Pods-ObjCTests.debug.xcconfig */;
+			baseConfigurationReference = 362532E9F6DCD51036826739 /* Pods-ObjCTests.debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ObjCTests/Info.plist;
@@ -762,7 +732,7 @@
 		};
 		847EE0181D1EB53700561955 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BDB226545FD32522FC6FFEFC /* Pods-ObjCTests.release.xcconfig */;
+			baseConfigurationReference = 6F4FDFC95D9FE668581CC657 /* Pods-ObjCTests.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ObjCTests/Info.plist;

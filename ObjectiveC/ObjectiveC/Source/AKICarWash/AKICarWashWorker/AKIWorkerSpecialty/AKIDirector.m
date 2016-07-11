@@ -15,24 +15,20 @@
 #pragma mark Public Methods
 
 - (void)performWorkWithObject:(id)object {
-    [self takeMoneyFromObject:object];
-    [self makeRevenue];
-    [self finishProcessingObject:object];
-}
-
-- (void)finishProcessingObject:(AKIWorker *)worker {
-    worker.state = AKIWorkerFree;
-}
-
-- (void)finishProcessing {
-    self.state = AKIWorkerFree;
+    @synchronized (self) {
+        [self takeMoneyFromObject:object];
+        [self makeRevenue];
+        [self finishProcessingObject:object];
+    }
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
 - (void)makeRevenue {
-    NSLog(@"Director make profit");
+    @synchronized (self) {
+        NSLog(@"Director make profit");
+    }
 }
 
 @end

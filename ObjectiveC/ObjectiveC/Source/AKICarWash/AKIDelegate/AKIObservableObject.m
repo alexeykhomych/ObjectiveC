@@ -19,8 +19,9 @@
 
 @implementation AKIObservableObject
 
-@dynamic observers;
 @synthesize state = _state;
+
+@dynamic observers;
 
 #pragma mark -
 #pragma mark Initializations and Dealocations
@@ -42,18 +43,24 @@
 #pragma mark Accessors Methods
 
 - (NSSet *)observers {
-    return self.observersTable.setRepresentation;
+    @synchronized (self) {
+        return self.observersTable.setRepresentation;
+    }
 }
 
 - (void)setState:(NSUInteger)state {
-    [self setState:state withObject:self];
+    @synchronized (self) {
+        [self setState:state withObject:self];
+    }
 }
 
 - (void)setState:(NSUInteger)state withObject:(id)object {
-    if (_state != state) {
-        _state = state;
-        
-        [self notifyOfState:state withObject:object];
+    @synchronized (self) {
+        if (_state != state) {
+            _state = state;
+            
+            [self notifyOfState:state withObject:object];
+        }
     }
 }
 
@@ -61,56 +68,72 @@
 #pragma mark Public Methods
 
 - (void)addObserver:(id)object {
-    if (object) {
-        [self.observersTable addObject:object];
+    @synchronized (self) {
+        if (object) {
+            [self.observersTable addObject:object];
+        }
     }
 }
 
 - (void)addObservers:(NSArray *)observers {
-    for (id observer in observers) {
-        [self addObserver:observer];
+    @synchronized (self) {
+        for (id observer in observers) {
+            [self addObserver:observer];
+        }
     }
 }
 
 - (void)removeObserver:(id)object {
-    [self.observersTable removeObject:object];
+    @synchronized (self) {
+        [self.observersTable removeObject:object];
+    }
 }
 
 - (void)removeObservers {
-    [self.observersTable removeAllObjects];
+    @synchronized (self) {
+        [self.observersTable removeAllObjects];
+    }
 }
 
 - (BOOL)containsObserver:(id)object {
-    return [self.observersTable containsObject:object];
+    @synchronized (self) {
+        return [self.observersTable containsObject:object];
+    }
 }
 
 - (void)notifyOfState:(NSUInteger)state {
-    [self notifyOfState:state withObject:self];
+    @synchronized (self) {
+        [self notifyOfState:state withObject:self];
+    }
 }
 
 - (void)notifyOfState:(NSUInteger)state withObject:(id)object {
-    [self notifyObserverWithSelector:[self selectorForState:state]];
+    @synchronized (self) {
+        [self notifyObserverWithSelector:[self selectorForState:state]];
+    }
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
 - (SEL)selectorForState:(NSUInteger)state {
-    [self doesNotRecognizeSelector:_cmd];
-    
-    return nil;	
+    return NULL;
 }
 
 - (void)notifyObserverWithSelector:(SEL)selector {
-    [self notifyObserverWithSelector:selector object:self];
+    @synchronized (self) {
+        [self notifyObserverWithSelector:selector object:nil];
+    }
 }
 
 - (void)notifyObserverWithSelector:(SEL)selector object:(id)object {
-    NSHashTable *observers = self.observersTable;
+    @synchronized (self) {
+        NSHashTable *observers = self.observersTable;
     
-    for (id observer in observers) {
-        if ([observer respondsToSelector:selector]) {
-            [observer performSelector:selector withObject:self withObject:object];
+        for (id observer in observers) {
+            if ([observer respondsToSelector:selector]) {
+                [observer performSelector:selector withObject:self withObject:object];
+            }
         }
     }
 }

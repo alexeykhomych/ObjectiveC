@@ -36,36 +36,49 @@
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    self.state = AKIWorkerBusy;
-    
-    [self performWorkWithObject:object];
-    [self finishProcessing];
+    @synchronized (self) {
+        self.state = AKIWorkerBusy;
+        
+        [self performWorkWithObject:object];
+        [self finishProcessingObject:object];
+        [self finishProcessing];
+    }
 }
 
 - (void)receiveMoney:(NSUInteger)money {
-    self.money += money;
+    @synchronized (self) {
+        self.money += money;
+    }
 }
 
 - (void)giveMoney:(NSUInteger)money {
-    self.money -= money;
+    @synchronized (self) {
+        self.money -= money;
+    }
 }
 
 - (void)takeMoneyFromObject:(id<AKIMoney>)object {
-    NSUInteger money = object.money;
-    [object giveMoney:money];
-    [self receiveMoney:money];
+    @synchronized (self) {
+        NSUInteger money = object.money;
+        [object giveMoney:money];
+        [self receiveMoney:money];
+    }
 }
 
 - (void)finishProcessing {
-    self.state = AKIWorkerPending;
+    @synchronized (self) {
+        self.state = AKIWorkerPending;
+    }
 }
 
 - (void)performWorkWithObject:(id)object {
     [self doesNotRecognizeSelector:_cmd];
 }
 
-- (void)finishProcessingObject:(id)object {
-    [self doesNotRecognizeSelector:_cmd];
+- (void)finishProcessingObject:(AKIWorker *)worker {
+    @synchronized (self) {
+        worker.state = AKIWorkerFree;
+    }
 }
 
 #pragma mark -
@@ -91,11 +104,15 @@
 #pragma mark AKIWorkerDelegate
 
 - (void)workerDidBecomePending:(id)worker {
-    [self workerDidFinishProccesingObject:worker];
+    @synchronized (self) {
+        [self workerDidFinishProccesingObject:worker];
+    }
 }
 
 - (void)workerDidFinishProccesingObject:(AKIWorker *)worker {
-    [self processObject:worker];
+    @synchronized (self) {
+        [self processObject:worker];
+    }
 }
 
 @end

@@ -34,11 +34,15 @@ static NSUInteger const kAKIMoney = 10;
 #pragma mark Public Methods
 
 - (void)giveMoney:(NSUInteger)money {
-    self.money -= money;
+    @synchronized (self) {
+        self.money -= money;
+    }
 }
 
 - (void)receiveMoney:(NSUInteger)money {
-    self.money += money;
+    @synchronized (self) {
+        self.money += money;
+    }
 }
 
 @end
