@@ -53,6 +53,7 @@ static NSUInteger const kAKIMaxWasherCount = 20;
 
     self.carQueue = [AKIQueue object];
     self.washers = [NSMutableArray array];
+    self.washerQueue = [AKIQueue object];
 
     [self initCarWash];
     
@@ -64,11 +65,12 @@ static NSUInteger const kAKIMaxWasherCount = 20;
     AKIDirector *director = [AKIDirector object];
     
     [accountant addObserver:director];
+    NSArray *observers = @[accountant, self];
     
     for (NSUInteger i = 0; i < kAKIMaxWasherCount; i++) {
         AKIWasher *washer = [AKIWasher object];
         [self.washers addObject:washer];
-        [washer addObservers:@[accountant, self]];
+        [washer addObservers:observers];
     }
 
     self.director = director;
@@ -89,19 +91,22 @@ static NSUInteger const kAKIMaxWasherCount = 20;
 - (void)washCar{
     @synchronized (self) {
         AKICar *car = nil;
+        AKIWasher *washer = [self reservedWasher];
         
-        while ((car = [self.carQueue dequeueObject])) {
-            AKIWasher *washer = [self reservedWasher];
+        while ((car = [washer.objectsQueue dequeueObject])) {
             [washer processObject:car];
             
-            if (washer.money) {
-                [self.washerQueue enqueueObject:washer];
-            }
-            
             if (!car.clean) {
-                [self.carQueue enqueueObject:car];
+                [washer.objectsQueue enqueueObject:car];
             }
         }
+    }
+}
+
+- (void)fuckWasher {
+    @synchronized (self) {
+        AKIAccountant *accountant = self.accountant;
+        [accountant processObject:[accountant.objectsQueue dequeueObject]];
     }
 }
 

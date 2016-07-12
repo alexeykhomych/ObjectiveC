@@ -51,6 +51,7 @@
 - (void)setState:(NSUInteger)state {
     @synchronized (self) {
         [self setState:state withObject:self];
+        NSLog(@"%@ поменял состояние на %lu", self, state);
     }
 }
 

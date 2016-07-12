@@ -26,7 +26,8 @@
 
 - (void)calculateSalary:(AKIWorker *)worker {
     @synchronized (self) {
-        NSLog(@"Accountant had calculated salary");
+        NSLog(@"%@ посчитал зарплату", self);
+        sleep(5);
     }
 }
 

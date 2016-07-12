@@ -27,7 +27,7 @@
 
 - (void)makeRevenue {
     @synchronized (self) {
-        NSLog(@"Director make profit");
+        NSLog(@"%@ сделал профит", self);
     }
 }
 

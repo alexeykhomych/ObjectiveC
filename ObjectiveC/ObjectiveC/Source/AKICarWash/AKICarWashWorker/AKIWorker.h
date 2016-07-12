@@ -11,6 +11,7 @@
 #import "AKIMoney.h"
 #import "AKIObservableObject.h"
 #import "AKIWorkerDelegate.h"
+#import "AKIQueue.h"
 
 @class AKIWorker;
 
@@ -30,12 +31,14 @@ typedef NS_ENUM(NSUInteger, AKIWorkerState) {
 @end
 
 @interface AKIWorker : AKIObservableObject <AKIMoney>
-@property (nonatomic, assign) NSUInteger            salary;
-@property (nonatomic, assign) NSUInteger            experience;
+@property (nonatomic, assign) NSUInteger    salary;
+@property (nonatomic, assign) NSUInteger    experience;
+@property (nonatomic, retain) AKIQueue      *objectsQueue;
 
 - (void)processObject:(id)object;
 - (void)finishProcessing;
 - (void)performWorkWithObject:(id)object;
 - (void)finishProcessingObject:(id)object;
+- (void)addObjectToQueue:(id)object;
 
 @end

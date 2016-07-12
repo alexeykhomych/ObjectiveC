@@ -30,6 +30,7 @@
 - (void)finishProcessingObject:(AKICar *)car {
     @synchronized (self) {
         car.clean = YES;
+        NSLog(@"%@ машина чистая", car);
     }
 }
 
@@ -38,7 +39,7 @@
 
 - (void)washCar:(AKICar *)car {
     @synchronized (self) {
-        NSLog(@"%@ wash a car", self.className);
+        NSLog(@"%@ помыл машину", self.className);
     }
 }
 
