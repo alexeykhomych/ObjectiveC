@@ -47,8 +47,8 @@
 - (void)processObject:(id)object {
     @synchronized (self) {
         if (self.state == AKIWorkerFree) {
-            self.state = AKIWorkerBusy;
             [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
+            [self finishProcessing];
         } else {
             [self.objectsQueue enqueueObject:object];
         }
@@ -83,7 +83,7 @@
 - (void)performWorkInBackgroundWithObject:(id)object {
     [self performWorkWithObject:object];
     [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
-    [self finishProcessingOnMainQueueWithObject:object];
+    [self finishProcessingObject:object];
 }
 
 - (void)performWorkWithObject:(id)object {
@@ -92,21 +92,22 @@
 
 - (void)finishProcessingObject:(AKIWorker *)worker {
     @synchronized (worker) {
-        worker.state = AKIWorkerFree;
         NSLog(@"%@ change state on Free", self);
+        worker.state = AKIWorkerFree;
     }
 }
 
 - (void)finishProcessing {
     @synchronized (self) {
-        self.state = AKIWorkerPending;
         NSLog(@"%@ change state on Pending", self);
+        self.state = AKIWorkerPending;
     }
 }
 
 - (void)finishProcessingOnMainQueueWithObject:(id)object {
     @synchronized (self) {
-        if (self.objectsQueue.count) {
+        NSUInteger count = [self.objectsQueue countOfQueue:self.objectsQueue];
+        if (count) {
             [self performWorkInBackgroundWithObject:object];
         } else {
             [self finishProcessing];

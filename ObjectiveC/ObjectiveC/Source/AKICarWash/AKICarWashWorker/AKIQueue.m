@@ -47,7 +47,6 @@
 - (void)enqueueObject:(id)object {
     @synchronized (self) {
         [self.mutableQueue addObject:object];
-        self.count += 1;
     }
 }
 
@@ -58,6 +57,12 @@
         [array removeObject:object];
         
         return object;
+    }
+}
+
+- (NSUInteger)countOfQueue:(NSMutableArray *)queue {
+    @synchronized (self) {
+        return [queue count];
     }
 }
 
