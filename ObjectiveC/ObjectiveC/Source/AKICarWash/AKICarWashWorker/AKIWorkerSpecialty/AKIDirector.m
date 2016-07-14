@@ -31,4 +31,11 @@
     }
 }
 
+- (void)finishProcessing {
+    @synchronized (self) {
+        self.state = AKIWorkerFree;
+        NSLog(@"%@ chg state on Free", self);
+    }
+}
+
 @end

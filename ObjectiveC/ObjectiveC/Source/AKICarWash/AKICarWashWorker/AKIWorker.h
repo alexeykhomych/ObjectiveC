@@ -36,9 +36,9 @@ typedef NS_ENUM(NSUInteger, AKIWorkerState) {
 @property (nonatomic, retain) AKIQueue      *objectsQueue;
 
 - (void)processObject:(id)object;
+- (void)processObjects;
 - (void)finishProcessing;
 - (void)performWorkWithObject:(id)object;
 - (void)finishProcessingObject:(id)object;
-- (void)addObjectToQueue:(id)object;
 
 @end

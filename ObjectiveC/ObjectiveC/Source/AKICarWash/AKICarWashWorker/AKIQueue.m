@@ -47,6 +47,7 @@
 - (void)enqueueObject:(id)object {
     @synchronized (self) {
         [self.mutableQueue addObject:object];
+        self.count += 1;
     }
 }
 

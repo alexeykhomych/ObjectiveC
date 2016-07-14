@@ -10,13 +10,11 @@
 #import "NSObject+AKIExtensions.h"
 #import "AKIWorker.h"
 
-#import "AKIWorkerDelegate.h"
-
 @interface AKIWorker()
 @property (nonatomic, assign) NSUInteger money;
 
 - (void)performWorkInBackgroundWithObject:(id)object;
-- (void)performProcessQueueObjects;
+- (void)finishProcessingOnMainQueueWithObject:(id)object;
 
 @end
 
@@ -25,12 +23,19 @@
 #pragma mark -
 #pragma mark Init/dealloc
 
+- (void)dealloc {
+    self.objectsQueue = nil;
+    
+    [super dealloc];
+}
+
 - (instancetype)init {
     self = [super init];
     
     self.salary = arc4random_uniform(100);
     self.experience = arc4random_uniform(10);
     self.state = AKIWorkerFree;
+    self.objectsQueue = [AKIQueue object];
     
     return self;
 }
@@ -40,11 +45,21 @@
 
 - (void)processObject:(id)object {
     @synchronized (self) {
-        self.state = AKIWorkerBusy;
-        [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
-        
-//        [self finishProcessingObject:object];
-//        [self finishProcessing];
+        if (self.state == AKIWorkerFree) {
+            self.state = AKIWorkerBusy;
+            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
+        } else {
+            [self.objectsQueue enqueueObject:object];
+        }
+    }
+}
+
+- (void)processObjects {
+    id object = nil;
+    AKIQueue *queue = self.objectsQueue;
+    
+    while ((object = [queue dequeueObject])) {
+        [self processObject:object];
     }
 }
 
@@ -66,30 +81,8 @@
     @synchronized (self) {
         NSUInteger money = object.money;
         [object giveMoney:money];
-        NSLog(@"%@ отдал бабло %@", object, self);
         [self receiveMoney:money];
-        NSLog(@"%@ получил бабло %@", object, self);
     }
-}
-
-- (void)finishProcessing {
-    self.state = AKIWorkerPending;
-}
-
-- (void)performWorkWithObject:(id)object {
-    [self doesNotRecognizeSelector:_cmd];
-}
-
-- (void)finishProcessingObject:(AKIWorker *)worker {
-    worker.state = AKIWorkerFree;
-}
-
-- (void)addObjectToQueue:(id)object {
-    [self.objectsQueue enqueueObject:object];
-}
-
-- (id)objectFromQueue {
-    return [self.objectsQueue dequeueObject];
 }
 
 #pragma mark -
@@ -98,15 +91,41 @@
 - (void)performWorkInBackgroundWithObject:(id)object {
     [self performWorkWithObject:object];
     [self performSelectorOnMainThread:@selector(finishProcessingObject:) withObject:object waitUntilDone:NO];
+    [self finishProcessingOnMainQueueWithObject:object];
 }
 
-- (void)performProcessQueueObjects {
-    id object = nil;
-    
+- (void)performWorkWithObject:(id)object {
+    [self doesNotRecognizeSelector:_cmd];
+}
+
+- (void)finishProcessingObject:(AKIWorker *)worker {
     @synchronized (self) {
-        while ((object = [self.objectsQueue dequeueObject])) {
-            [self processObject:object];
+        worker.state = AKIWorkerFree;
+        [self processObjects];
+        [self finishProcessing];
+    }
+}
+
+- (void)finishProcessing {
+    @synchronized (self) {
+        self.state = AKIWorkerPending;
+        NSLog(@"%@ change state on Pending", self);
+    }
+}
+
+- (void)finishProcessingOnMainQueueWithObject:(id)object {
+    @synchronized (self) {
+        if (self.objectsQueue.count) {
+            [self performWorkInBackgroundWithObject:object];
+        } else {
+            [self finishProcessing];
         }
+    }
+}
+
+- (void)workerDidFinishProccesingObject:(AKIWorker *)worker {
+    @synchronized (self) {
+        [self processObject:worker];
     }
 }
 
@@ -114,18 +133,20 @@
 #pragma mark Overload Methods
 
 - (SEL)selectorForState:(NSUInteger)state {
-    switch (state) {
-        case AKIWorkerBusy:
-            return @selector(workerDidBecomeBusy:);
-            
-        case AKIWorkerPending:
-            return @selector(workerDidBecomePending:);
-
-        case AKIWorkerFree:
-            return @selector(workerDidBecomeFree:);
-        
-        default:
-            return [super selectorForState:state];
+    @synchronized (self) {
+        switch (state) {
+            case AKIWorkerBusy:
+                return @selector(workerDidBecomeBusy:);
+                
+            case AKIWorkerPending:
+                return @selector(workerDidBecomePending:);
+                
+            case AKIWorkerFree:
+                return @selector(workerDidBecomeFree:);
+                
+            default:
+                return [super selectorForState:state];
+        }
     }
 }
 
@@ -135,12 +156,6 @@
 - (void)workerDidBecomePending:(id)worker {
     @synchronized (self) {
         [self workerDidFinishProccesingObject:worker];
-    }
-}
-
-- (void)workerDidFinishProccesingObject:(AKIWorker *)worker {
-    @synchronized (self) {
-        [self processObject:worker];
     }
 }
 

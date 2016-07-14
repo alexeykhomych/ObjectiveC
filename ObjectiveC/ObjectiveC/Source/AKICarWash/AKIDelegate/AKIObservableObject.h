@@ -16,7 +16,7 @@
 - (void)addObserver:(id)object;
 - (void)addObservers:(NSArray *)observers;
 - (void)removeObserver:(id)object;
-- (void)removeObservers;
+- (void)removeObservers:(NSArray *)observers;
 - (BOOL)containsObserver:(id)object;
 
 - (SEL)selectorForState:(NSUInteger) state;

@@ -43,16 +43,11 @@
 #pragma mark Accessors Methods
 
 - (NSSet *)observers {
-    @synchronized (self) {
-        return self.observersTable.setRepresentation;
-    }
+    return self.observersTable.setRepresentation;
 }
 
 - (void)setState:(NSUInteger)state {
-    @synchronized (self) {
-        [self setState:state withObject:self];
-        NSLog(@"%@ поменял состояние на %lu", self, state);
-    }
+    [self setState:state withObject:self];
 }
 
 - (void)setState:(NSUInteger)state withObject:(id)object {
@@ -90,28 +85,22 @@
     }
 }
 
-- (void)removeObservers {
+- (void)removeObservers:(NSArray *)observers {
     @synchronized (self) {
-        [self.observersTable removeAllObjects];
+        [self.observersTable removeObject:observers];
     }
 }
 
 - (BOOL)containsObserver:(id)object {
-    @synchronized (self) {
-        return [self.observersTable containsObject:object];
-    }
+    return [self.observersTable containsObject:object];
 }
 
 - (void)notifyOfState:(NSUInteger)state {
-    @synchronized (self) {
-        [self notifyOfState:state withObject:self];
-    }
+    [self notifyOfState:state withObject:self];
 }
 
 - (void)notifyOfState:(NSUInteger)state withObject:(id)object {
-    @synchronized (self) {
-        [self notifyObserverWithSelector:[self selectorForState:state]];
-    }
+    [self notifyObserverWithSelector:[self selectorForState:state]];
 }
 
 #pragma mark -
@@ -122,9 +111,7 @@
 }
 
 - (void)notifyObserverWithSelector:(SEL)selector {
-    @synchronized (self) {
-        [self notifyObserverWithSelector:selector object:nil];
-    }
+    [self notifyObserverWithSelector:selector object:nil];
 }
 
 - (void)notifyObserverWithSelector:(SEL)selector object:(id)object {

@@ -19,7 +19,7 @@
 
 #import "AKIObservableObject.h"
 
-static NSUInteger const kAKIMaxWasherCount = 20;
+static NSUInteger const kAKIMaxWasherCount = 5;
 
 @interface AKICarWash()
 @property (nonatomic, retain) NSMutableArray *washers;
@@ -33,6 +33,7 @@ static NSUInteger const kAKIMaxWasherCount = 20;
 
 - (id)reservedWasher;
 - (NSArray *)freeWorkersWithClass:(Class)cls;
+- (void)removeWorkerObservers:(id)worker;
 
 @end
 
@@ -67,9 +68,11 @@ static NSUInteger const kAKIMaxWasherCount = 20;
     [accountant addObserver:director];
     NSArray *observers = @[accountant, self];
     
+    id washers = self.washers;
+    
     for (NSUInteger i = 0; i < kAKIMaxWasherCount; i++) {
         AKIWasher *washer = [AKIWasher object];
-        [self.washers addObject:washer];
+        [washers addObject:washer];
         [washer addObservers:observers];
     }
 
@@ -81,6 +84,14 @@ static NSUInteger const kAKIMaxWasherCount = 20;
 #pragma mark Public Methods
 
 - (void)addCarToQueue:(AKICar *)car {
+    AKIAccountant *accountant = self.accountant;
+    
+    @synchronized (accountant) {
+        if (accountant.objectsQueue.count) {
+            [accountant processObjects];
+        }
+    }
+    
     [self.carQueue enqueueObject:car];
     [self washCar];
 }
@@ -90,23 +101,13 @@ static NSUInteger const kAKIMaxWasherCount = 20;
 
 - (void)washCar{
     @synchronized (self) {
-        AKICar *car = nil;
         AKIWasher *washer = [self reservedWasher];
-        
-        while ((car = [washer.objectsQueue dequeueObject])) {
-            [washer processObject:car];
-            
-            if (!car.clean) {
-                [washer.objectsQueue enqueueObject:car];
-            }
+        AKICar *car = [self.carQueue dequeueObject];
+        if (washer) {
+            [self washerProcessObject:washer];
+        } else {
+            [self.carQueue enqueueObject:car];
         }
-    }
-}
-
-- (void)fuckWasher {
-    @synchronized (self) {
-        AKIAccountant *accountant = self.accountant;
-        [accountant processObject:[accountant.objectsQueue dequeueObject]];
     }
 }
 
@@ -125,6 +126,28 @@ static NSUInteger const kAKIMaxWasherCount = 20;
 - (NSArray *)freeWorkersWithClass:(Class)cls {
     @synchronized (self) {
         return [self.washers filterWithBlock:^BOOL(AKIWorker *worker) { return worker.state != AKIWorkerBusy; }];
+    }
+}
+
+- (void)removeWorkerObservers:(id)worker {
+    if ([worker isKindOfClass:[AKIWasher class]]) {
+        NSArray *observers = @[self.accountant, self];
+        [worker removeObservers:observers];
+    } else {
+        [worker removeObserver:self.director];
+    }
+}
+
+- (void)washerProcessObject:(AKIWasher *)washer {
+    [washer processObject:[self.carQueue dequeueObject]];
+}
+
+#pragma mark -
+#pragma mark Observer Protocol
+
+- (void)workerDidBecomeFree:(id)worker {
+    if (self.carQueue.count) {
+        [self washerProcessObject:worker];
     }
 }
 

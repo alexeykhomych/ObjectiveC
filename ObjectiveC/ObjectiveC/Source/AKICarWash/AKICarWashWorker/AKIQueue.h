@@ -11,7 +11,8 @@
 #import "AKICar.h"
 
 @interface AKIQueue : NSObject
-@property (nonatomic, readonly) NSArray *queue;
+@property (nonatomic, readonly) NSArray     *queue;
+@property (nonatomic, assign)   NSUInteger  count;
 
 - (void)enqueueObject:(id)object;
 - (id)dequeueObject;
