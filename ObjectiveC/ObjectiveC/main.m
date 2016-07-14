@@ -8,17 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKIRunApplication.h"
 #import "AKICarWash.h"
 #import "NSObject+AKIExtensions.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-//        AKIRunApplication();
         AKICarWash *carWash = [AKICarWash object];
         for (NSUInteger i = 0; i < 10; i++) {
             [carWash performSelectorInBackground:@selector(addCarToQueue:) withObject:[AKICar object]];
         }
+        
+        [[NSRunLoop mainRunLoop] run];
     }
     return 0;
 }

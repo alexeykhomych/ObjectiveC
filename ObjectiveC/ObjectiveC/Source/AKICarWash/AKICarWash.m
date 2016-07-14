@@ -68,6 +68,7 @@ static NSUInteger const kAKIMaxWasherCount = 5;
     [accountant addObserver:director];
     NSArray *observers = @[accountant, self];
     
+    //array
     id washers = self.washers;
     
     for (NSUInteger i = 0; i < kAKIMaxWasherCount; i++) {
@@ -84,13 +85,14 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 #pragma mark Public Methods
 
 - (void)addCarToQueue:(AKICar *)car {
-    AKIAccountant *accountant = self.accountant;
-    
-    @synchronized (accountant) {
-        if (accountant.objectsQueue.count) {
-            [accountant processObjects];
-        }
-    }
+//    передумать
+//    AKIAccountant *accountant = self.accountant;
+//    
+//    @synchronized (accountant) {
+//        if (accountant.objectsQueue.count) {
+//            [accountant processObjects];
+//        }
+//    }
     
     [self.carQueue enqueueObject:car];
     [self washCar];
@@ -104,7 +106,7 @@ static NSUInteger const kAKIMaxWasherCount = 5;
         AKIWasher *washer = [self reservedWasher];
         AKICar *car = [self.carQueue dequeueObject];
         if (washer) {
-            [self washerProcessObject:washer];
+//            [self washerProcessObject:washer];
         } else {
             [self.carQueue enqueueObject:car];
         }
@@ -119,7 +121,7 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 
 - (id)reservedFreeWorkerWithClass:(Class)cls {
     @synchronized (self) {
-        return [[self freeWorkersWithClass:cls] firstObject];
+        return [[self freeWorkersWithClass:cls] firstObject];   //после вызова воркер вернется бизи. тогда будет резервирован
     }
 }
 
@@ -130,6 +132,7 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 }
 
 - (void)removeWorkerObservers:(id)worker {
+    //отдельно работает со всеми
     if ([worker isKindOfClass:[AKIWasher class]]) {
         NSArray *observers = @[self.accountant, self];
         [worker removeObservers:observers];
@@ -138,16 +141,12 @@ static NSUInteger const kAKIMaxWasherCount = 5;
     }
 }
 
-- (void)washerProcessObject:(AKIWasher *)washer {
-    [washer processObject:[self.carQueue dequeueObject]];
-}
-
 #pragma mark -
 #pragma mark Observer Protocol
 
 - (void)workerDidBecomeFree:(id)worker {
     if (self.carQueue.count) {
-        [self washerProcessObject:worker];
+//        [self washerProcessObject:worker];
     }
 }
 

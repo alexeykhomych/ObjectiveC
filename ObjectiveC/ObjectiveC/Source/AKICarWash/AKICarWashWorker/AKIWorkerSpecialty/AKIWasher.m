@@ -21,10 +21,8 @@
 #pragma mark Public Methods
 
 - (void)performWorkWithObject:(id)car {
-    @synchronized (self) {
-        [self washCar:car];
-        [self takeMoneyFromObject:car];
-    }
+    [self washCar:car];
+    [self takeMoneyFromObject:car];
 }
 
 - (void)finishProcessingObject:(AKICar *)car {
@@ -38,9 +36,7 @@
 #pragma mark Private Methods
 
 - (void)washCar:(AKICar *)car {
-    @synchronized (self) {
-        NSLog(@"%@ помыл машину", self.className);
-    }
+    NSLog(@"%@ помыл машину", self.className);
 }
 
 @end

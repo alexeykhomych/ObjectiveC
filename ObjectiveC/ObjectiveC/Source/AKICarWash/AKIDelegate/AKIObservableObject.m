@@ -11,7 +11,6 @@
 @interface AKIObservableObject()
 @property (nonatomic, retain) NSHashTable *observersTable;
 
-- (void)notifyObserverWithSelector:(SEL)selector;
 - (void)notifyObserverWithSelector:(SEL)selector object:(id)object;
 - (SEL)selectorForState:(NSUInteger)state;
 
@@ -87,16 +86,16 @@
 
 - (void)removeObservers:(NSArray *)observers {
     @synchronized (self) {
-        [self.observersTable removeObject:observers];
+        for (id object in observers) {
+            [self removeObserver:object];
+        }
     }
 }
 
 - (BOOL)containsObserver:(id)object {
-    return [self.observersTable containsObject:object];
-}
-
-- (void)notifyOfState:(NSUInteger)state {
-    [self notifyOfState:state withObject:self];
+    @synchronized (self) {
+        return [self.observersTable containsObject:object];
+    }
 }
 
 - (void)notifyOfState:(NSUInteger)state withObject:(id)object {

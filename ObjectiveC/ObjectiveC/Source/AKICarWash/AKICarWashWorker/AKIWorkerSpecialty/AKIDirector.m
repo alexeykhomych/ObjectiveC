@@ -15,20 +15,15 @@
 #pragma mark Public Methods
 
 - (void)performWorkWithObject:(id)object {
-    @synchronized (self) {
-        [self takeMoneyFromObject:object];
-        [self makeRevenue];
-        [self finishProcessingObject:object];
-    }
+    [self takeMoneyFromObject:object];
+    [self makeRevenue];
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
 - (void)makeRevenue {
-    @synchronized (self) {
-        NSLog(@"%@ сделал профит", self);
-    }
+    NSLog(@"%@ сделал профит", self);
 }
 
 - (void)finishProcessing {

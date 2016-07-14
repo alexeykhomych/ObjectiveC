@@ -15,20 +15,15 @@
 #pragma mark Public Methods
 
 - (void)performWorkWithObject:(id)object {
-    @synchronized (self) {
-        [self takeMoneyFromObject:object];
-        [self calculateSalary:object];
-    }
+    [self takeMoneyFromObject:object];
+    [self calculateSalary:object];
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
 - (void)calculateSalary:(AKIWorker *)worker {
-    @synchronized (self) {
-        NSLog(@"%@ посчитал зарплату", self);
-        sleep(5);
-    }
+    NSLog(@"%@ посчитал зарплату", self);
 }
 
 @end

@@ -43,6 +43,7 @@
 #pragma mark -
 #pragma mark Public methods
 
+//не рабочий
 - (void)processObject:(id)object {
     @synchronized (self) {
         if (self.state == AKIWorkerFree) {
@@ -51,15 +52,6 @@
         } else {
             [self.objectsQueue enqueueObject:object];
         }
-    }
-}
-
-- (void)processObjects {
-    id object = nil;
-    AKIQueue *queue = self.objectsQueue;
-    
-    while ((object = [queue dequeueObject])) {
-        [self processObject:object];
     }
 }
 
@@ -90,7 +82,7 @@
 
 - (void)performWorkInBackgroundWithObject:(id)object {
     [self performWorkWithObject:object];
-    [self performSelectorOnMainThread:@selector(finishProcessingObject:) withObject:object waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
     [self finishProcessingOnMainQueueWithObject:object];
 }
 
@@ -99,10 +91,9 @@
 }
 
 - (void)finishProcessingObject:(AKIWorker *)worker {
-    @synchronized (self) {
+    @synchronized (worker) {
         worker.state = AKIWorkerFree;
-        [self processObjects];
-        [self finishProcessing];
+        NSLog(@"%@ change state on Free", self);
     }
 }
 
