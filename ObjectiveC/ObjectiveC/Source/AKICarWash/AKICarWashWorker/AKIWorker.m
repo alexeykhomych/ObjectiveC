@@ -43,13 +43,11 @@
 #pragma mark -
 #pragma mark Public methods
 
-//не рабочий
 - (void)processObject:(id)object {
     @synchronized (self) {
         if (self.state == AKIWorkerFree) {
             self.state = AKIWorkerBusy;
-//            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
-            [self performWorkInBackgroundWithObject:object];
+            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
         } else {
             [self.objectsQueue enqueueObject:object];
             NSLog(@"%@ добавил в очередь %@", self, object);
@@ -84,8 +82,7 @@
 
 - (void)performWorkInBackgroundWithObject:(id)object {
     [self performWorkWithObject:object];
-//    [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
-    [self finishProcessingOnMainQueueWithObject:object];
+    [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
 }
 
 - (void)performWorkWithObject:(id)object {
@@ -102,31 +99,27 @@
 - (void)finishProcessingOnMainQueueWithObject:(id)object {
     @synchronized (object) {
         [self finishProcessingObject:object];
-        [self finishProcessing];
     }
     
     @synchronized (self) {
         NSUInteger count = [self.objectsQueue objectsCount];
         
         if (count) {
-            [self performWorkInBackgroundWithObject:[self.objectsQueue dequeueObject]];
+            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[self.objectsQueue dequeueObject]];
         } else {
-
+            [self finishProcessing];
         }
     }
 }
 
 - (void)finishProcessing {
     @synchronized (self) {
-        NSLog(@"%@ change state on Pending", self);
         self.state = AKIWorkerPending;
     }
 }
 
 - (void)workerDidFinishProccesingObject:(AKIWorker *)worker {
-    @synchronized (self) {
-        [self processObject:worker];
-    }
+    [self processObject:worker];
 }
 
 #pragma mark -
@@ -154,9 +147,7 @@
 #pragma mark AKIWorkerDelegate
 
 - (void)workerDidBecomePending:(id)worker {
-    @synchronized (self) {
-        [self workerDidFinishProccesingObject:worker];
-    }
+    [self workerDidFinishProccesingObject:worker];
 }
 
 @end

@@ -36,7 +36,7 @@
 #pragma mark Private Methods
 
 - (void)washCar:(AKICar *)car {
-    NSLog(@"%@ помыл машину", self.className);
+    NSLog(@"%@ помыл машину", self);
 }
 
 @end

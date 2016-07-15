@@ -29,6 +29,7 @@
 - (void)finishProcessing {
     @synchronized (self) {
         self.state = AKIWorkerFree;
+        NSLog(@"%@ change state on Free", self);
     }
 }
 
