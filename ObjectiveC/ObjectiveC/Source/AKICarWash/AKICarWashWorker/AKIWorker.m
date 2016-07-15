@@ -102,7 +102,7 @@
     }
     
     @synchronized (self) {
-        NSUInteger count = [self.objectsQueue objectsCount];
+        NSUInteger count = self.objectsQueue.count;
         
         if (count) {
             [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[self.objectsQueue dequeueObject]];

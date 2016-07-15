@@ -146,8 +146,8 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 #pragma mark -
 #pragma mark Observer Protocol
 
-- (void)workerDidBecomeFree:(id)worker {
-    NSUInteger count = [self.carQueue objectsCount];
+- (void)workerDidBecomeFree:(AKIWorker *)worker {
+    NSUInteger count = worker.objectsQueue.count;
     
     if (count) {
         [worker processObject:[self.carQueue dequeueObject]];

@@ -10,7 +10,8 @@
 #import "AKIWorker.h"
 
 @interface AKIQueue()
-@property (nonatomic, retain) NSMutableArray *mutableQueue;
+@property (nonatomic, retain) NSMutableArray    *mutableQueue;
+@property (nonatomic, assign) NSUInteger        count;
 
 @end
 
@@ -47,6 +48,7 @@
 - (void)enqueueObject:(id)object {
     @synchronized (self) {
         [self.mutableQueue addObject:object];
+        self.count += 1;
     }
 }
 
@@ -55,14 +57,9 @@
         NSMutableArray *array = self.mutableQueue;
         id object = [[[array firstObject] retain] autorelease];
         [array removeObject:object];
+        self.count -= 1;
         
         return object;
-    }
-}
-
-- (NSUInteger)objectsCount {
-    @synchronized (self) {
-        return self.queue.count;
     }
 }
 
