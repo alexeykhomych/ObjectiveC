@@ -98,6 +98,10 @@
     }
 }
 
+- (void)notifyOfState:(NSUInteger)state {
+    [self notifyOfState:state withObject:nil];
+}
+
 - (void)notifyOfState:(NSUInteger)state withObject:(id)object {
     [self notifyObserverWithSelector:[self selectorForState:state]];
 }
