@@ -15,11 +15,11 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         AKICarWash *carWash = [AKICarWash object];
         for (NSUInteger i = 0; i < 10; i++) {
-//            [carWash performSelectorInBackground:@selector(addCarToQueue:) withObject:[AKICar object]];
-            [carWash addCarToQueue:[AKICar object]];
+            [carWash performSelectorInBackground:@selector(addCarToQueue:) withObject:[AKICar object]];
+//            [carWash addCarToQueue:[AKICar object]];
         }
         
-//        [[NSRunLoop mainRunLoop] run];
+        [[NSRunLoop mainRunLoop] run];
     }
     
     return 0;

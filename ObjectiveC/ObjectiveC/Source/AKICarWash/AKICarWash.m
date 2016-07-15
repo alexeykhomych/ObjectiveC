@@ -108,7 +108,7 @@ static NSUInteger const kAKIMaxWasherCount = 5;
         if (washer) {
             [washer processObject:car];
         } else {
-            [self.carQueue enqueueObject:car];
+            [washer.objectsQueue enqueueObject:car];
         }
     }
 }
@@ -121,10 +121,7 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 
 - (id)reservedFreeWorkerWithClass:(Class)cls {
     @synchronized (self) {
-        AKIWorker *worker = [[self freeWorkersWithClass:cls] firstObject];
-        worker.state = AKIWorkerBusy;
-        
-        return worker;   //после вызова воркер вернется бизи. тогда будет резервирован
+        return [[self freeWorkersWithClass:cls] firstObject];
     }
 }
 
@@ -135,12 +132,13 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 }
 
 - (void)removeWorkerObservers:(id)worker {
-    //отдельно работает со всеми
-    if ([worker isKindOfClass:[AKIWasher class]]) {
-        NSArray *observers = @[self.accountant, self];
-        [worker removeObservers:observers];
-    } else {
-        [worker removeObserver:self.director];
+    AKIAccountant *accountant = self.accountant;
+    [accountant removeObserver:self.director];
+    
+    NSArray *observers = @[accountant, self];
+    
+    for (AKIWasher *washer in self.washers) {
+        [washer removeObservers:observers];
     }
 }
 
@@ -148,7 +146,8 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 #pragma mark Observer Protocol
 
 - (void)workerDidBecomeFree:(id)worker {
-    NSUInteger count = [self.carQueue countOfQueue:self.carQueue];
+    NSUInteger count = [self.carQueue objectsCount];
+    
     if (count) {
         [worker processObject:[self.carQueue dequeueObject]];
     }

@@ -60,9 +60,9 @@
     }
 }
 
-- (NSUInteger)countOfQueue:(NSMutableArray *)queue {
+- (NSUInteger)objectsCount {
     @synchronized (self) {
-        return [queue count];
+        return self.queue.count;
     }
 }
 

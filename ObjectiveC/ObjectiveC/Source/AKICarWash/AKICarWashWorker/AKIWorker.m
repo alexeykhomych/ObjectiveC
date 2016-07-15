@@ -47,10 +47,12 @@
 - (void)processObject:(id)object {
     @synchronized (self) {
         if (self.state == AKIWorkerFree) {
+            self.state = AKIWorkerBusy;
             [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
-            [self finishProcessing];
+//            [self performWorkInBackgroundWithObject:object];
         } else {
             [self.objectsQueue enqueueObject:object];
+            NSLog(@"%@ добавил в очередь %@", self, object);
         }
     }
 }
@@ -83,7 +85,8 @@
 - (void)performWorkInBackgroundWithObject:(id)object {
     [self performWorkWithObject:object];
     [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
-    [self finishProcessingObject:object];
+//    [self finishProcessingOnMainQueueWithObject:object];
+//    [self finishProcessingObject:object];
 }
 
 - (void)performWorkWithObject:(id)object {
@@ -92,26 +95,31 @@
 
 - (void)finishProcessingObject:(AKIWorker *)worker {
     @synchronized (worker) {
-        NSLog(@"%@ change state on Free", self);
+        NSLog(@"%@ change state on Free", worker);
         worker.state = AKIWorkerFree;
     }
+}
+
+- (void)finishProcessingOnMainQueueWithObject:(id)object {
+    @synchronized (self) {
+        NSUInteger count = [self.objectsQueue objectsCount];
+        
+        if (count) {
+            [self performWorkInBackgroundWithObject:object];
+        } else {
+            [self finishProcessingObject:object];
+            [self finishProcessing];
+        }
+    }
+    
+//    [self finishProcessingObject:object];
+//    [self finishProcessing];
 }
 
 - (void)finishProcessing {
     @synchronized (self) {
         NSLog(@"%@ change state on Pending", self);
         self.state = AKIWorkerPending;
-    }
-}
-
-- (void)finishProcessingOnMainQueueWithObject:(id)object {
-    @synchronized (self) {
-        NSUInteger count = [self.objectsQueue countOfQueue:self.objectsQueue];
-        if (count) {
-            [self performWorkInBackgroundWithObject:object];
-        } else {
-            [self finishProcessing];
-        }
     }
 }
 
