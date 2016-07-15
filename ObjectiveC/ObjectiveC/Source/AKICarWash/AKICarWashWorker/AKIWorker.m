@@ -48,8 +48,8 @@
     @synchronized (self) {
         if (self.state == AKIWorkerFree) {
             self.state = AKIWorkerBusy;
-            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
-//            [self performWorkInBackgroundWithObject:object];
+//            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
+            [self performWorkInBackgroundWithObject:object];
         } else {
             [self.objectsQueue enqueueObject:object];
             NSLog(@"%@ добавил в очередь %@", self, object);
@@ -84,9 +84,8 @@
 
 - (void)performWorkInBackgroundWithObject:(id)object {
     [self performWorkWithObject:object];
-    [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
-//    [self finishProcessingOnMainQueueWithObject:object];
-//    [self finishProcessingObject:object];
+//    [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
+    [self finishProcessingOnMainQueueWithObject:object];
 }
 
 - (void)performWorkWithObject:(id)object {
@@ -101,19 +100,20 @@
 }
 
 - (void)finishProcessingOnMainQueueWithObject:(id)object {
+    @synchronized (object) {
+        [self finishProcessingObject:object];
+        [self finishProcessing];
+    }
+    
     @synchronized (self) {
         NSUInteger count = [self.objectsQueue objectsCount];
         
         if (count) {
-            [self performWorkInBackgroundWithObject:object];
+            [self performWorkInBackgroundWithObject:[self.objectsQueue dequeueObject]];
         } else {
-            [self finishProcessingObject:object];
-            [self finishProcessing];
+
         }
     }
-    
-//    [self finishProcessingObject:object];
-//    [self finishProcessing];
 }
 
 - (void)finishProcessing {

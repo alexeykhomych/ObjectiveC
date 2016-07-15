@@ -28,6 +28,7 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 @property (nonatomic, retain) AKIQueue      *washerQueue;
 @property (nonatomic, retain) AKIDirector   *director;
 @property (nonatomic, retain) AKIAccountant *accountant;
+@property (nonatomic, assign) BOOL flag;
 
 - (void)addCarToQueue:(AKICar *)car;
 
@@ -104,11 +105,13 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 - (void)washCar{
     @synchronized (self) {
         AKIWasher *washer = [self reservedWasher];
+        NSLog(@"washer id %@ ", washer);
         AKICar *car = [self.carQueue dequeueObject];
-        if (washer) {
+        if (washer && self.flag) {
             [washer processObject:car];
         } else {
             [washer.objectsQueue enqueueObject:car];
+            self.flag = YES;
         }
     }
 }
