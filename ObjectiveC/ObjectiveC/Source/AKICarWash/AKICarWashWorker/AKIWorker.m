@@ -90,22 +90,23 @@
 }
 
 - (void)finishProcessingObject:(AKIWorker *)worker {
-    @synchronized (worker) {
-        NSLog(@"%@ change state on Free", worker);
-        worker.state = AKIWorkerFree;
+    NSLog(@"%@ change state on Free", worker);
+    worker.state = AKIWorkerFree;
+    
+    if (worker.objectsQueue.count > 0) {
+        NSLog(@"PIZDEC");
     }
 }
 
 - (void)finishProcessingOnMainQueueWithObject:(id)object {
-    @synchronized (object) {
-        [self finishProcessingObject:object];
-    }
-    
+    [self finishProcessingObject:object];
+
     @synchronized (self) {
-        NSUInteger count = self.objectsQueue.count;
+        AKIQueue *queue = self.objectsQueue;
+        NSUInteger count = queue.count;
         
         if (count) {
-            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[self.objectsQueue dequeueObject]];
+            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[queue dequeueObject]];
         } else {
             [self finishProcessing];
         }
@@ -118,28 +119,22 @@
     }
 }
 
-- (void)workerDidFinishProccesingObject:(AKIWorker *)worker {
-    [self processObject:worker];
-}
-
 #pragma mark -
 #pragma mark Overload Methods
 
 - (SEL)selectorForState:(NSUInteger)state {
-    @synchronized (self) {
-        switch (state) {
-            case AKIWorkerBusy:
-                return @selector(workerDidBecomeBusy:);
-                
-            case AKIWorkerPending:
-                return @selector(workerDidBecomePending:);
-                
-            case AKIWorkerFree:
-                return @selector(workerDidBecomeFree:);
-                
-            default:
-                return [super selectorForState:state];
-        }
+    switch (state) {
+        case AKIWorkerBusy:
+            return @selector(workerDidBecomeBusy:);
+            
+        case AKIWorkerPending:
+            return @selector(workerDidBecomePending:);
+            
+        case AKIWorkerFree:
+            return @selector(workerDidBecomeFree:);
+            
+        default:
+            return [super selectorForState:state];
     }
 }
 
@@ -147,7 +142,7 @@
 #pragma mark AKIWorkerDelegate
 
 - (void)workerDidBecomePending:(id)worker {
-    [self workerDidFinishProccesingObject:worker];
+    [self processObject:worker];
 }
 
 @end

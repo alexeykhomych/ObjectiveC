@@ -10,7 +10,6 @@
 
 #import "AKIMoney.h"
 #import "AKIObservableObject.h"
-#import "AKIWorkerDelegate.h"
 #import "AKIQueue.h"
 
 @class AKIWorker;

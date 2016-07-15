@@ -19,7 +19,7 @@
 
 #import "AKIObservableObject.h"
 
-static NSUInteger const kAKIMaxWasherCount = 5;
+static NSUInteger const kAKIMaxWasherCount = 1000;
 
 @interface AKICarWash()
 @property (nonatomic, retain) NSMutableArray *washers;
@@ -68,8 +68,8 @@ static NSUInteger const kAKIMaxWasherCount = 5;
     [accountant addObserver:director];
     NSArray *observers = @[accountant, self];
     
-    //array
-    id washers = self.washers;
+
+    NSMutableArray *washers = self.washers;
     
     for (NSUInteger i = 0; i < kAKIMaxWasherCount; i++) {
         AKIWasher *washer = [AKIWasher object];
@@ -103,27 +103,24 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 
 - (void)washCar{
     @synchronized (self) {
+        AKIQueue *carQueue = self.carQueue;
         AKIWasher *washer = [self reservedWasher];
-        AKICar *car = [self.carQueue dequeueObject];
+        AKICar *car = [carQueue dequeueObject];
         
         if (washer) {
             [washer processObject:car];
         } else {
-            [self.carQueue enqueueObject:car];
+            [carQueue enqueueObject:car];
         }
     }
 }
 
 - (id)reservedWasher {
-    @synchronized (self) {
-        return [self reservedFreeWorkerWithClass:[AKIWasher class]];
-    }
+    return [self reservedFreeWorkerWithClass:[AKIWasher class]];
 }
 
 - (id)reservedFreeWorkerWithClass:(Class)cls {
-    @synchronized (self) {
-        return [[self freeWorkersWithClass:cls] firstObject];
-    }
+    return [[self freeWorkersWithClass:cls] firstObject];
 }
 
 - (NSArray *)freeWorkersWithClass:(Class)cls {
@@ -137,8 +134,9 @@ static NSUInteger const kAKIMaxWasherCount = 5;
     [accountant removeObserver:self.director];
     
     NSArray *observers = @[accountant, self];
+    NSMutableArray *washers = self.washers;
     
-    for (AKIWasher *washer in self.washers) {
+    for (AKIWasher *washer in washers) {
         [washer removeObservers:observers];
     }
 }
@@ -147,10 +145,12 @@ static NSUInteger const kAKIMaxWasherCount = 5;
 #pragma mark Observer Protocol
 
 - (void)workerDidBecomeFree:(AKIWorker *)worker {
-    NSUInteger count = worker.objectsQueue.count;
-    
-    if (count) {
-        [worker processObject:[self.carQueue dequeueObject]];
+    @synchronized (worker) {
+        NSUInteger count = self.carQueue.count;
+        
+        if (count) {
+            [worker processObject:[self.carQueue dequeueObject]];
+        }
     }
 }
 

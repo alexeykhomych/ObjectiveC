@@ -77,7 +77,6 @@
 		8486F06E1D25534D001C84CB /* AKIDelegatingObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIDelegatingObjectSpec.m; sourceTree = "<group>"; };
 		8486F07D1D269E47001C84CB /* AKIObservableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIObservableObject.h; sourceTree = "<group>"; };
 		8486F07E1D269E47001C84CB /* AKIObservableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIObservableObject.m; sourceTree = "<group>"; };
-		8486F0811D26B402001C84CB /* AKIWorkerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKIWorkerDelegate.h; sourceTree = "<group>"; };
 		8486F0821D26C444001C84CB /* AKIWashCarSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIWashCarSpec.m; sourceTree = "<group>"; };
 		8486F0871D2E9369001C84CB /* NSArray+AKIExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AKIExtensions.h"; sourceTree = "<group>"; };
 		8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AKIExtensions.m"; sourceTree = "<group>"; };
@@ -230,7 +229,6 @@
 			children = (
 				8486F07D1D269E47001C84CB /* AKIObservableObject.h */,
 				8486F07E1D269E47001C84CB /* AKIObservableObject.m */,
-				8486F0811D26B402001C84CB /* AKIWorkerDelegate.h */,
 			);
 			path = AKIDelegate;
 			sourceTree = "<group>";

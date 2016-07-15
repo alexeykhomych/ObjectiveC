@@ -42,7 +42,9 @@
 #pragma mark Accessors Methods
 
 - (NSSet *)observers {
-    return self.observersTable.setRepresentation;
+    @synchronized (self) {
+        return self.observersTable.setRepresentation;
+    }
 }
 
 - (void)setState:(NSUInteger)state {
