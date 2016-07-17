@@ -14,7 +14,7 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         AKICarWash *carWash = [AKICarWash object];
-        for (NSUInteger i = 0; i < 3000; i++) {
+        for (NSUInteger i = 0; i < 1000; i++) {
             [carWash performSelectorInBackground:@selector(addCarToQueue:) withObject:[AKICar object]];
         }
         

@@ -19,7 +19,7 @@
 
 #import "AKIObservableObject.h"
 
-static NSUInteger const kAKIMaxWasherCount = 1000;
+static NSUInteger const kAKIMaxWasherCount = 10;
 
 @interface AKICarWash()
 @property (nonatomic, retain) NSMutableArray *washers;
@@ -67,7 +67,6 @@ static NSUInteger const kAKIMaxWasherCount = 1000;
     
     [accountant addObserver:director];
     NSArray *observers = @[accountant, self];
-    
 
     NSMutableArray *washers = self.washers;
     
@@ -85,15 +84,6 @@ static NSUInteger const kAKIMaxWasherCount = 1000;
 #pragma mark Public Methods
 
 - (void)addCarToQueue:(AKICar *)car {
-//    передумать
-//    AKIAccountant *accountant = self.accountant;
-//    
-//    @synchronized (accountant) {
-//        if (accountant.objectsQueue.count) {
-//            [accountant processObjects];
-//        }
-//    }
-    
     [self.carQueue enqueueObject:car];
     [self washCar];
 }
@@ -116,7 +106,10 @@ static NSUInteger const kAKIMaxWasherCount = 1000;
 }
 
 - (id)reservedWasher {
-    return [self reservedFreeWorkerWithClass:[AKIWasher class]];
+    AKIWorker *worker = [self reservedFreeWorkerWithClass:[AKIWasher class]];
+    worker.state = AKIWorkerBusy;
+    
+    return worker;
 }
 
 - (id)reservedFreeWorkerWithClass:(Class)cls {

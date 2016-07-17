@@ -45,13 +45,7 @@
 
 - (void)processObject:(id)object {
     @synchronized (self) {
-        if (self.state == AKIWorkerFree) {
-            self.state = AKIWorkerBusy;
-            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
-        } else {
-            [self.objectsQueue enqueueObject:object];
-            NSLog(@"%@ добавил в очередь %@", self, object);
-        }
+        [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
     }
 }
 
