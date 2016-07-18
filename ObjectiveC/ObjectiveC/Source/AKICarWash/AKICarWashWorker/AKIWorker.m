@@ -43,12 +43,6 @@
 #pragma mark -
 #pragma mark Public methods
 
-- (void)processObject:(id)object {
-    @synchronized (self) {
-        [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
-    }
-}
-
 - (void)receiveMoney:(NSUInteger)money {
     @synchronized (self) {
         self.money += money;
@@ -130,13 +124,6 @@
         default:
             return [super selectorForState:state];
     }
-}
-
-#pragma mark -
-#pragma mark AKIWorkerDelegate
-
-- (void)workerDidBecomePending:(id)worker {
-    [self processObject:worker];
 }
 
 @end
