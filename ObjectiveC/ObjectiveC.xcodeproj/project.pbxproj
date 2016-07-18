@@ -31,6 +31,9 @@
 		8486F0831D26C444001C84CB /* AKIWashCarSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0821D26C444001C84CB /* AKIWashCarSpec.m */; };
 		8486F0891D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; };
 		8486F08A1D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; };
+		84FC6DE91D3D09B200867082 /* AKIDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DE81D3D09B200867082 /* AKIDispatcher.m */; };
+		84FC6DEB1D3D11DC00867082 /* AKIDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DE81D3D09B200867082 /* AKIDispatcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		84FC6DEE1D3D2D8000867082 /* AKIComplexDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DED1D3D2D8000867082 /* AKIComplexDispatcher.m */; };
 		E9D243FA129AA8B311B06943 /* libPods-ObjCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49468D8C24C74BCE00B98A03 /* libPods-ObjCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +83,10 @@
 		8486F0821D26C444001C84CB /* AKIWashCarSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIWashCarSpec.m; sourceTree = "<group>"; };
 		8486F0871D2E9369001C84CB /* NSArray+AKIExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AKIExtensions.h"; sourceTree = "<group>"; };
 		8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AKIExtensions.m"; sourceTree = "<group>"; };
+		84FC6DE71D3D09B200867082 /* AKIDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIDispatcher.h; sourceTree = "<group>"; };
+		84FC6DE81D3D09B200867082 /* AKIDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIDispatcher.m; sourceTree = "<group>"; };
+		84FC6DEC1D3D2D8000867082 /* AKIComplexDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIComplexDispatcher.h; sourceTree = "<group>"; };
+		84FC6DED1D3D2D8000867082 /* AKIComplexDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIComplexDispatcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +174,7 @@
 		847EE0831D1EB6D100561955 /* AKICarWash */ = {
 			isa = PBXGroup;
 			children = (
+				84FC6DE61D3D099100867082 /* AKIDispatcher */,
 				8486F0781D269B71001C84CB /* AKIDelegate */,
 				847EE08C1D1EB6D100561955 /* AKICar */,
 				847EE0911D1EB6D100561955 /* AKICarWashWorker */,
@@ -231,6 +239,17 @@
 				8486F07E1D269E47001C84CB /* AKIObservableObject.m */,
 			);
 			path = AKIDelegate;
+			sourceTree = "<group>";
+		};
+		84FC6DE61D3D099100867082 /* AKIDispatcher */ = {
+			isa = PBXGroup;
+			children = (
+				84FC6DE71D3D09B200867082 /* AKIDispatcher.h */,
+				84FC6DE81D3D09B200867082 /* AKIDispatcher.m */,
+				84FC6DEC1D3D2D8000867082 /* AKIComplexDispatcher.h */,
+				84FC6DED1D3D2D8000867082 /* AKIComplexDispatcher.m */,
+			);
+			path = AKIDispatcher;
 			sourceTree = "<group>";
 		};
 		E44045C324D908EC6D307FC0 /* Frameworks */ = {
@@ -426,6 +445,7 @@
 				8486F07F1D269E47001C84CB /* AKIObservableObject.m in Sources */,
 				847EE0AF1D1EB6D100561955 /* NSObject+AKIExtensions.m in Sources */,
 				847EE0C31D1EB6D100561955 /* AKICar.m in Sources */,
+				84FC6DEE1D3D2D8000867082 /* AKIComplexDispatcher.m in Sources */,
 				847EE0B31D1EB6D100561955 /* main.m in Sources */,
 				8486F0891D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */,
 				847EE0C91D1EB6D100561955 /* AKIWorker.m in Sources */,
@@ -433,6 +453,7 @@
 				847EE0CF1D1EB6D100561955 /* AKIWasher.m in Sources */,
 				847EE0CB1D1EB6D100561955 /* AKIAccountant.m in Sources */,
 				847EE0C51D1EB6D100561955 /* AKICarWash.m in Sources */,
+				84FC6DE91D3D09B200867082 /* AKIDispatcher.m in Sources */,
 				847EE0C71D1EB6D100561955 /* AKIQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +462,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84FC6DEB1D3D11DC00867082 /* AKIDispatcher.m in Sources */,
 				8486F0831D26C444001C84CB /* AKIWashCarSpec.m in Sources */,
 				847EE0B01D1EB6D100561955 /* NSObject+AKIExtensions.m in Sources */,
 				847EE0C41D1EB6D100561955 /* AKICar.m in Sources */,
