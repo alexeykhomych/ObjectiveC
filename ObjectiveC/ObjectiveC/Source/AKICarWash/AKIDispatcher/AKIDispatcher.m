@@ -12,8 +12,8 @@
 #import "AKIWorker.h"
 
 @interface AKIDispatcher()
-@property (nonatomic, retain) NSMutableArray *mutableProcessors;
-@property (nonatomic, retain) AKIQueue *processingObjects;
+@property (nonatomic, retain) NSMutableArray    *mutableProcessors;
+@property (nonatomic, retain) AKIQueue          *processingObjects;
 
 - (BOOL)containsProcessor:(id)processor;
 - (id)reservedWorker;
@@ -55,6 +55,14 @@
 #pragma mark -
 #pragma mark Public Methods
 
+- (void)addProcessor:(id)processor {
+    [self.mutableProcessors addObject:processor];
+}
+
+- (void)removeProcessor:(id)processor {
+    [self.mutableProcessors removeObject:processor];
+}
+
 - (void)addProcessors:(NSArray *)processors {
     for (id processor in processors) {
         [self addProcessor:processor];
@@ -67,14 +75,6 @@
     }
 }
 
-- (void)addProcessor:(id)processor {
-    [self.mutableProcessors addObject:processor];
-}
-
-- (void)removeProcessor:(id)processor {
-    [self.mutableProcessors removeObject:processor];
-}
-
 - (void)processObject:(id)object {
     AKIQueue *queue = self.processingObjects;
     [queue enqueueObject:object];
@@ -84,6 +84,23 @@
 
 #pragma mark -
 #pragma mark Private Methods
+
+- (void)processing {
+    AKIQueue *queue = self.processingObjects;
+    id processedObject = [queue dequeueObject];
+    
+    if (!processedObject) {
+        return;
+    }
+    
+    id processor = [self reservedWorker];
+    
+    if (processor) {
+        [processor processObject:processedObject];
+    } else {
+        [queue enqueueObject:processedObject];
+    }
+}
 
 - (BOOL)containsProcessor:(id)processor {
     return [self.mutableProcessors containsObject:processor];
@@ -99,21 +116,6 @@
 - (NSArray *)freeWorkers {
     @synchronized (self) {
         return [self.mutableProcessors filterWithBlock:^BOOL(AKIWorker *worker) { return worker.state != AKIWorkerBusy; }];
-    }
-}
-
-- (void)processing {
-    AKIQueue *queue = self.processingObjects;
-    id processedObject = [queue dequeueObject];
-    
-    if (processedObject) {
-        id processor = [self reservedWorker];
-        
-        if (processor) {
-            [processor processObject:processedObject];
-        } else {
-            [queue enqueueObject:processedObject];
-        }
     }
 }
 

@@ -10,11 +10,17 @@
 #import "NSObject+AKIExtensions.h"
 #import "AKIWorker.h"
 
+static const NSUInteger kAKISalary = 100;
+static const NSUInteger kAKIExperience = 10;
+
 @interface AKIWorker()
 @property (nonatomic, assign) NSUInteger money;
 
 - (void)performWorkInBackgroundWithObject:(id)object;
 - (void)finishProcessingOnMainQueueWithObject:(id)object;
+- (void)finishProcessing;
+- (void)performWorkWithObject:(id)object;
+- (void)finishProcessingObject:(id)object;
 
 @end
 
@@ -32,8 +38,8 @@
 - (instancetype)init {
     self = [super init];
     
-    self.salary = arc4random_uniform(100);
-    self.experience = arc4random_uniform(10);
+    self.salary = arc4random_uniform(kAKISalary);
+    self.experience = arc4random_uniform(kAKIExperience);
     self.state = AKIWorkerFree;
     self.objectsQueue = [AKIQueue object];
     
@@ -80,10 +86,6 @@
 - (void)finishProcessingObject:(AKIWorker *)worker {
     NSLog(@"%@ change state on Free", worker);
     worker.state = AKIWorkerFree;
-    
-    if (worker.objectsQueue.count > 0) {
-        NSLog(@"PIZDEC");
-    }
 }
 
 - (void)finishProcessingOnMainQueueWithObject:(id)object {

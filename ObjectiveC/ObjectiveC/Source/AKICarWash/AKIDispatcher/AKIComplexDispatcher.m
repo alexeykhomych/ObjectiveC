@@ -32,7 +32,7 @@ static const NSUInteger kAKIMaxCarCount = 500;
 
 - (instancetype)initWithComplex:(AKICarWash *)complex {
     self = [super init];
-    self.carWash = [AKICarWash object];
+    self.carWash = complex;
     
     return self;
 }
@@ -78,7 +78,7 @@ static const NSUInteger kAKIMaxCarCount = 500;
 - (void)initTimer {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kAKITimer
                                                   target:self
-                                                    selector:@selector(conveyCars)
+                                                    selector:@selector(transferCars)
                                                     userInfo:nil
                                                     repeats:YES];
 }

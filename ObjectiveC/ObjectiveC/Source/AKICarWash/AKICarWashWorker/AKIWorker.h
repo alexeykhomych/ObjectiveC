@@ -34,9 +34,4 @@ typedef NS_ENUM(NSUInteger, AKIWorkerState) {
 @property (nonatomic, assign) NSUInteger    experience;
 @property (nonatomic, retain) AKIQueue      *objectsQueue;
 
-- (void)processObject:(id)object;
-- (void)finishProcessing;
-- (void)performWorkWithObject:(id)object;
-- (void)finishProcessingObject:(id)object;
-
 @end
