@@ -18,7 +18,6 @@
 - (BOOL)containsProcessor:(id)processor;
 - (id)reservedWorker;
 - (NSArray *)freeWorkers;
-- (void)processing;
 
 @end
 
@@ -26,6 +25,10 @@
 
 #pragma mark -
 #pragma mark Class Methods
+
++ (instancetype)initDispatcherWithProcessor:(NSArray *)processors {
+    return [[[self alloc] initWithProcessors:processors] autorelease];
+}
 
 #pragma mark -
 #pragma mark Initializations and Dealocations
@@ -37,10 +40,12 @@
     [super dealloc];
 }
 
-- (instancetype)init {
+- (instancetype)initWithProcessors:(NSArray *)processors {
     self = [super init];
     self.mutableProcessors = [NSMutableArray new];
     self.processingObjects = [AKIQueue object];
+    
+    [self addProcessors:processors];
     
     return self;
 }
@@ -49,18 +54,24 @@
 #pragma mark Accessors Methods
 
 - (NSArray *)processors {
-    return [[self.mutableProcessors copy] autorelease];
+    @synchronized (self) {
+        return [[self.mutableProcessors copy] autorelease];
+    }
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
 - (void)addProcessor:(id)processor {
-    [self.mutableProcessors addObject:processor];
+    @synchronized (self) {
+        [self.mutableProcessors addObject:processor];
+    }
 }
 
 - (void)removeProcessor:(id)processor {
-    [self.mutableProcessors removeObject:processor];
+    @synchronized (self) {
+        [self.mutableProcessors removeObject:processor];
+    }
 }
 
 - (void)addProcessors:(NSArray *)processors {
@@ -76,41 +87,30 @@
 }
 
 - (void)processObject:(id)object {
-    AKIQueue *queue = self.processingObjects;
-    [queue enqueueObject:object];
-    
-    [self performSelectorInBackground:@selector(processing) withObject:nil];
+    @synchronized (self) {
+        if (object) {
+            AKIWorker *worker = [self reservedWorker];
+            [worker processObject:object];
+        }
+    }
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
-- (void)processing {
-    AKIQueue *queue = self.processingObjects;
-    id processedObject = [queue dequeueObject];
-    
-    if (!processedObject) {
-        return;
-    }
-    
-    id processor = [self reservedWorker];
-    
-    if (processor) {
-        [processor processObject:processedObject];
-    } else {
-        [queue enqueueObject:processedObject];
-    }
-}
-
 - (BOOL)containsProcessor:(id)processor {
-    return [self.mutableProcessors containsObject:processor];
+    @synchronized (self) {
+        return [self.mutableProcessors containsObject:processor];
+    }
 }
 
 - (id)reservedWorker{
-    AKIWorker *worker = [[self freeWorkers] firstObject];
-    worker.state = AKIWorkerBusy;
-    
-    return worker;
+    @synchronized (self) {
+        AKIWorker *worker = [[self freeWorkers] firstObject];
+        worker.state = AKIWorkerBusy;
+        
+        return worker;
+    }
 }
 
 - (NSArray *)freeWorkers {
@@ -123,16 +123,16 @@
 #pragma mark Observer Methods
 
 - (void)workerDidBecomePending:(id)worker {
-    if (![self containsProcessor:worker]) {
-        [self processObject:worker];
+    @synchronized (self) {
+        if (![self containsProcessor:worker]) {
+            [self processObject:worker];
+        }
     }
 }
 
 - (void)workerDidBecomeFree:(AKIWorker *)worker {
-    @synchronized (worker) {
-        if ([self containsProcessor:worker]) {
-            [self performSelectorInBackground:@selector(processing) withObject:nil];
-        }
+    if ([self containsProcessor:worker]) {
+        [self performSelectorInBackground:@selector(processObject:) withObject:worker];
     }
 }
 

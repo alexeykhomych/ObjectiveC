@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AKIQueue.h"
+@class AKIQueue;
 
 @interface AKIDispatcher : NSObject
-@property (nonatomic, readonly) AKIQueue    *processingObjects;
 @property (nonatomic, readonly) NSArray     *processors;
-@property (nonatomic, readonly) NSString    *name;
 
-- (instancetype)init;
++ (instancetype)initDispatcherWithProcessor:(NSArray *)processors;
+
+- (instancetype)initWithProcessors:(NSArray *)processors;
 
 - (void)processObject:(id)object;
 
