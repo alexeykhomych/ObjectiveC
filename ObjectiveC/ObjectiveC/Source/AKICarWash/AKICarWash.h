@@ -13,7 +13,6 @@
 
 @interface AKICarWash : NSObject
 
-- (void)addCarToQueue:(AKICar *)car;
-- (void)washCar;
+- (void)washCar:(id)car;
 
 @end

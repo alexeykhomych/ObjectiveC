@@ -17,23 +17,22 @@
 
 #import "AKIQueue.h"
 
-#import "AKIObservableObject.h"
+#import "AKIDispatcher.h"
 
-static NSUInteger const kAKIMaxWasherCount = 10;
+static NSUInteger const kAKIWasherCount = 10;
+static NSUInteger const kAKIAccoutantCount = 3;
+static NSUInteger const kAKIDirectorCount = 1;
+
+typedef NSArray *(^AKIWorkersFactory)(Class class, NSUInteger count, id observer);;
 
 @interface AKICarWash()
-@property (nonatomic, retain) NSMutableArray *washers;
+@property (nonatomic, retain) AKIDispatcher     *directorsDispatcher;
+@property (nonatomic, retain) AKIDispatcher     *accountantsDispatcher;
+@property (nonatomic, retain) AKIDispatcher     *washersDispatcher;
 
-@property (nonatomic, retain) AKIQueue      *carQueue;
-@property (nonatomic, retain) AKIQueue      *washerQueue;
-@property (nonatomic, retain) AKIDirector   *director;
-@property (nonatomic, retain) AKIAccountant *accountant;
+- (void)removeWorkerObservers;
 
-- (void)addCarToQueue:(AKICar *)car;
-
-- (id)reservedWasher;
-- (NSArray *)freeWorkersWithClass:(Class)cls;
-- (void)removeWorkerObservers:(id)worker;
+- (void)initDispatcher;
 
 @end
 
@@ -43,108 +42,71 @@ static NSUInteger const kAKIMaxWasherCount = 10;
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
-    self.washers = nil;
-    self.carQueue = nil;
+    [self removeWorkerObservers];
+    
+    self.directorsDispatcher = nil;
+    self.accountantsDispatcher = nil;
+    self.washersDispatcher = nil;
     
     [super dealloc];
 }
 
 - (instancetype)init {
     self = [super init];
-
-    self.carQueue = [AKIQueue object];
-    self.washers = [NSMutableArray array];
-    self.washerQueue = [AKIQueue object];
-
-    [self initCarWash];
+    [self initDispatcher];
     
     return self;
 }
 
 - (void)initCarWash {
-    AKIAccountant *accountant = [AKIAccountant object];
-    AKIDirector *director = [AKIDirector object];
-    
-    [accountant addObserver:director];
-    NSArray *observers = @[accountant, self];
+    self.directorsDispatcher = [AKIDispatcher object];
+    self.accountantsDispatcher = [AKIDispatcher object];
+    self.washersDispatcher = [AKIDispatcher object];
+}
 
-    NSMutableArray *washers = self.washers;
+- (void)initDispatcher {
+    AKIWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observers) {
+        return [NSArray objectsWithCount:count block:^ {
+            AKIWorker *worker = [class object];
+            [worker addObserver:observers];
+            
+            return worker;
+        }];
+    };
     
-    for (NSUInteger i = 0; i < kAKIMaxWasherCount; i++) {
-        AKIWasher *washer = [AKIWasher object];
-        [washers addObject:washer];
-        [washer addObservers:observers];
-    }
-
-    self.director = director;
-    self.accountant = accountant;
+    [self.directorsDispatcher initWithProcessors:workersFactory([AKIDirector class],
+                                                                kAKIDirectorCount,
+                                                                nil)];
+    [self.accountantsDispatcher initWithProcessors:workersFactory([AKIAccountant class],
+                                                                  kAKIAccoutantCount,
+                                                                  [NSArray arrayWithObject:self.directorsDispatcher])];
+    [self.washersDispatcher initWithProcessors:workersFactory([AKIWasher class],
+                                                              kAKIWasherCount,
+                                                              [NSArray arrayWithObject:self.accountantsDispatcher])];
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
-- (void)addCarToQueue:(AKICar *)car {
-    [self.carQueue enqueueObject:car];
-    [self washCar];
+- (void)washCar:(id)car {
+    if (car) {
+        [self.washersDispatcher processObject:car];
+    }
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
-- (void)washCar{
-    @synchronized (self) {
-        AKIQueue *carQueue = self.carQueue;
-        AKIWasher *washer = [self reservedWasher];
-        AKICar *car = [carQueue dequeueObject];
-        
-        if (washer) {
-            [washer processObject:car];
-        } else {
-            [carQueue enqueueObject:car];
+- (void)removeWorkerObservers {
+    void (^AKIRemoveObservers)(id collection, id observer) = ^(id collection, id observer) {
+        for (AKIWorker *worker in collection) {
+            [worker removeObserver:observer];
         }
-    }
-}
-
-- (id)reservedWasher {
-    AKIWorker *worker = [self reservedFreeWorkerWithClass:[AKIWasher class]];
-    worker.state = AKIWorkerBusy;
+    };
     
-    return worker;
-}
-
-- (id)reservedFreeWorkerWithClass:(Class)cls {
-    return [[self freeWorkersWithClass:cls] firstObject];
-}
-
-- (NSArray *)freeWorkersWithClass:(Class)cls {
-    @synchronized (self) {
-        return [self.washers filterWithBlock:^BOOL(AKIWorker *worker) { return worker.state != AKIWorkerBusy; }];
-    }
-}
-
-- (void)removeWorkerObservers:(id)worker {
-    AKIAccountant *accountant = self.accountant;
-    [accountant removeObserver:self.director];
-    
-    NSArray *observers = @[accountant, self];
-    NSMutableArray *washers = self.washers;
-    
-    for (AKIWasher *washer in washers) {
-        [washer removeObservers:observers];
-    }
-}
-
-#pragma mark -
-#pragma mark Observer Protocol
-
-- (void)workerDidBecomeFree:(AKIWorker *)worker {
-    @synchronized (worker) {
-        NSUInteger count = self.carQueue.count;
-        
-        if (count) {
-            [worker processObject:[self.carQueue dequeueObject]];
-        }
-    }
+    AKIDispatcher *accountantsDispatcher = self.accountantsDispatcher;
+    AKIRemoveObservers(accountantsDispatcher.processors, @[self.directorsDispatcher]);
+    AKIRemoveObservers(self.washersDispatcher.processors, @[accountantsDispatcher]);
 }
 
 @end
