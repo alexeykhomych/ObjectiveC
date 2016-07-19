@@ -49,6 +49,10 @@ static const NSUInteger kAKIExperience = 10;
 #pragma mark -
 #pragma mark Public methods
 
+- (void)processObject:(id)object {
+    [self performSelectorInBackground:@selector(performWorkWithObject:) withObject:object];
+}
+
 - (void)receiveMoney:(NSUInteger)money {
     @synchronized (self) {
         self.money += money;
