@@ -10,13 +10,13 @@
 
 #import "AKICarWash.h"
 #import "NSObject+AKIExtensions.h"
+#import "AKIComplexDispatcher.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        AKICarWash *carWash = [AKICarWash object];
-        for (NSUInteger i = 0; i < 1000; i++) {
-            [carWash performSelectorInBackground:@selector(addCarToQueue:) withObject:[AKICar object]];
-        }
+        AKIComplexDispatcher *complexDispatcher = [AKIComplexDispatcher initWithComplex:[AKICarWash object]];
+        [complexDispatcher washCar];
+        [complexDispatcher setRunning:YES];
         
         [[NSRunLoop mainRunLoop] run];
     }
