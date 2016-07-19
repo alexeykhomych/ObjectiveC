@@ -21,6 +21,13 @@ static const NSUInteger kAKIMaxCarCount = 500;
 @implementation AKIComplexDispatcher
 
 #pragma mark -
+#pragma mark Class Methods
+
++ (instancetype)initWithComplex:(AKICarWash *)complex {
+    return [[[self alloc] initWithComplex:complex] autorelease];
+}
+
+#pragma mark -
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
@@ -41,19 +48,23 @@ static const NSUInteger kAKIMaxCarCount = 500;
 #pragma mark Accessors Methods
 
 - (void)setTimer:(NSTimer *)timer {
-    if (_timer != timer) {
-        [_timer invalidate];
-        _timer = timer;
+    @synchronized (self) {
+        if (_timer != timer) {
+            [_timer invalidate];
+            _timer = timer;
+        }
     }
 }
 
 - (void)setRunning:(BOOL)running {
-    if (_running != running) {
-        _running = running;
-        if (running) {
-            [self performSelectorOnMainThread:@selector(initTimer) withObject:nil waitUntilDone:YES];
-        } else {
-            [self.timer performSelectorOnMainThread:@selector(invalidate) withObject:nil waitUntilDone:YES];
+    @synchronized (self) {
+        if (_running != running) {
+            _running = running;
+            if (running) {
+                [self performSelectorOnMainThread:@selector(initTimer) withObject:nil waitUntilDone:YES];
+            } else {
+                [self.timer performSelectorOnMainThread:@selector(invalidate) withObject:nil waitUntilDone:YES];
+            }
         }
     }
 }
@@ -61,26 +72,26 @@ static const NSUInteger kAKIMaxCarCount = 500;
 #pragma mark -
 #pragma mark Public Methods
 
-- (void)transferCars {
-    NSArray *cars = [self cars];
-    for (AKICar *car in cars) {
-        [self.carWash performSelectorInBackground:@selector(addCarToQueue:) withObject:car];
+- (void)washCar {
+    @synchronized (self) {
+        AKICarWash *complex = self.carWash;
+        for (NSUInteger i = 0; i < kAKIMaxCarCount; i++) {
+            [complex performSelectorInBackground:@selector(washCar:) withObject:[AKICar object]];
+        }
     }
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
-- (NSArray *)cars {
-    return nil;
-}
-
 - (void)initTimer {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:kAKITimer
-                                                  target:self
-                                                    selector:@selector(transferCars)
+    @synchronized (self) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:kAKITimer
+                                                      target:self
+                                                    selector:@selector(washCar)
                                                     userInfo:nil
-                                                    repeats:YES];
+                                                     repeats:YES];
+    }
 }
 
 @end

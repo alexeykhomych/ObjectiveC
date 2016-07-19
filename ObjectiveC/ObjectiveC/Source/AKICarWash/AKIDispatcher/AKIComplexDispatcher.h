@@ -13,8 +13,10 @@
 @property (nonatomic, assign, getter=isRunning) BOOL        running;
 @property (nonatomic, readonly)                 AKICarWash  *carWash;
 
++ (instancetype)initWithComplex:(AKICarWash *)complex;
+
 - (instancetype)initWithComplex:(AKICarWash *)complex;
 
-- (void)transferCars;
+- (void)washCar;
 
 @end
