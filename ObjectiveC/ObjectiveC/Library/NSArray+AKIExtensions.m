@@ -7,8 +7,23 @@
 //
 
 #import "NSArray+AKIExtensions.h"
+#import "NSObject+AKIExtensions.h"
 
 @implementation NSArray (AKIExtensions)
+
++ (instancetype)objectsWithCount:(NSUInteger)count block:(id(^)())block {
+    if (!block) {
+        return nil;
+    }
+    
+    NSMutableArray *objects = [NSMutableArray object];
+    
+    for (NSUInteger i = 0; i < count; i++) {
+        [objects addObject:block()];
+    }
+    
+    return [self arrayWithArray:objects];
+}
 
 - (NSArray *)filterWithBlock:(AKIArrayFilterBlock)block {
     if (!block) {

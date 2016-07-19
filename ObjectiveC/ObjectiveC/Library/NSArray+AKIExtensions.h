@@ -13,5 +13,6 @@ typedef BOOL(^AKIArrayFilterBlock)(id object);
 @interface NSArray (AKIExtensions)
 
 - (NSArray *)filterWithBlock:(AKIArrayFilterBlock)block;
++ (instancetype)objectsWithCount:(NSUInteger)count block:(id(^)())block;
 
 @end
