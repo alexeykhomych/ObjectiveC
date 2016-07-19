@@ -86,10 +86,6 @@
 - (void)finishProcessingObject:(AKIWorker *)worker {
     NSLog(@"%@ change state on Free", worker);
     worker.state = AKIWorkerFree;
-    
-    if (worker.objectsQueue.count > 0) {
-        NSLog(@"PIZDEC");
-    }
 }
 
 - (void)finishProcessingOnMainQueueWithObject:(id)object {
@@ -97,7 +93,7 @@
 
     @synchronized (self) {
         AKIQueue *queue = self.objectsQueue;
-        NSUInteger count = queue.count;
+        NSUInteger count = [queue objectsCount];
         
         if (count) {
             [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[queue dequeueObject]];

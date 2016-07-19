@@ -11,10 +11,12 @@
 #import "AKICarWash.h"
 #import "NSObject+AKIExtensions.h"
 
+static const NSUInteger kAKIMaxIterationCount = 1000;
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         AKICarWash *carWash = [AKICarWash object];
-        for (NSUInteger i = 0; i < 1000; i++) {
+        for (NSUInteger i = 0; i < kAKIMaxIterationCount; i++) {
             [carWash performSelectorInBackground:@selector(addCarToQueue:) withObject:[AKICar object]];
         }
         

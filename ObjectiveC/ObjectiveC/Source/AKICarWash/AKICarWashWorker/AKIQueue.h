@@ -12,9 +12,10 @@
 
 @interface AKIQueue : NSObject
 @property (nonatomic, readonly) NSArray    *queue;
-@property (nonatomic, readonly) NSUInteger count;
 
 - (void)enqueueObject:(id)object;
 - (id)dequeueObject;
+
+- (NSUInteger)objectsCount;
 
 @end
