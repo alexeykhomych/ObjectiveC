@@ -17,4 +17,6 @@
 - (void)enqueueObject:(id)object;
 - (id)dequeueObject;
 
+- (NSUInteger)objectsCount;
+
 @end

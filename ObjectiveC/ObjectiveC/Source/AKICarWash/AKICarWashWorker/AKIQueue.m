@@ -63,4 +63,10 @@
     }
 }
 
+- (NSUInteger)objectsCount {
+    @synchronized (self) {
+        return self.mutableQueue.count;
+    }
+}
+
 @end

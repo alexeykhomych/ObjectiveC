@@ -32,7 +32,8 @@ typedef NSArray *(^AKIWorkersFactory)(Class class, NSUInteger count, id observer
 
 - (void)removeWorkerObservers;
 
-- (void)initDispatcher;
+- (void)initDispatcherWithProcessor;
+- (void)initDispatcer;
 
 @end
 
@@ -53,18 +54,19 @@ typedef NSArray *(^AKIWorkersFactory)(Class class, NSUInteger count, id observer
 
 - (instancetype)init {
     self = [super init];
-    [self initDispatcher];
-    
+    [self initDispatcer];
+    [self initDispatcherWithProcessor];
+
     return self;
 }
 
-- (void)initCarWash {
+- (void)initDispatcer {
     self.directorsDispatcher = [AKIDispatcher object];
     self.accountantsDispatcher = [AKIDispatcher object];
     self.washersDispatcher = [AKIDispatcher object];
 }
 
-- (void)initDispatcher {
+- (void)initDispatcherWithProcessor {
     AKIWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observers) {
         return [NSArray objectsWithCount:count block:^ {
             AKIWorker *worker = [class object];
@@ -79,10 +81,10 @@ typedef NSArray *(^AKIWorkersFactory)(Class class, NSUInteger count, id observer
                                                                 nil)];
     [self.accountantsDispatcher initWithProcessors:workersFactory([AKIAccountant class],
                                                                   kAKIAccoutantCount,
-                                                                  [NSArray arrayWithObject:self.directorsDispatcher])];
+                                                                  self.directorsDispatcher)];
     [self.washersDispatcher initWithProcessors:workersFactory([AKIWasher class],
                                                               kAKIWasherCount,
-                                                              [NSArray arrayWithObject:self.accountantsDispatcher])];
+                                                                self.accountantsDispatcher)];
 }
 
 #pragma mark -

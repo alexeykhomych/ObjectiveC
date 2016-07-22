@@ -14,6 +14,7 @@
 @interface AKIDispatcher()
 @property (nonatomic, retain) NSMutableArray    *mutableProcessors;
 @property (nonatomic, retain) AKIQueue          *processingObjects;
+@property (nonatomic, retain) AKIQueue          *freeProcessors;
 
 - (BOOL)containsProcessor:(id)processor;
 - (id)reservedWorker;
@@ -87,11 +88,9 @@
 }
 
 - (void)processObject:(id)object {
-    @synchronized (self) {
-        if (object) {
-            AKIWorker *worker = [self reservedWorker];
-            [worker processObject:object];
-        }
+    if (object) {
+        AKIWorker *worker = [self reservedWorker];
+        [worker processObject:object];
     }
 }
 
@@ -122,15 +121,19 @@
 #pragma mark -
 #pragma mark Observer Methods
 
-- (void)workerDidBecomePending:(id)worker {
+- (void)workerDidBecomePending:(id)object {
     @synchronized (self) {
+        AKIWorker *worker = object;
+        
         if (![self containsProcessor:worker]) {
             [self processObject:worker];
         }
     }
 }
 
-- (void)workerDidBecomeFree:(AKIWorker *)worker {
+- (void)workerDidBecomeFree:(id)object {
+    AKIWorker *worker = object;
+    
     if ([self containsProcessor:worker]) {
         [self performSelectorInBackground:@selector(processObject:) withObject:worker];
     }

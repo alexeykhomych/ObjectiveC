@@ -50,7 +50,7 @@ static const NSUInteger kAKIExperience = 10;
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    [self performSelectorInBackground:@selector(performWorkWithObject:) withObject:object];
+    [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
 }
 
 - (void)receiveMoney:(NSUInteger)money {
@@ -94,10 +94,10 @@ static const NSUInteger kAKIExperience = 10;
 
 - (void)finishProcessingOnMainQueueWithObject:(id)object {
     [self finishProcessingObject:object];
-
+    
     @synchronized (self) {
         AKIQueue *queue = self.objectsQueue;
-        NSUInteger count = queue.count;
+        NSUInteger count = [queue objectsCount];
         
         if (count) {
             [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[queue dequeueObject]];

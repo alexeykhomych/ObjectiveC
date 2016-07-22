@@ -60,11 +60,9 @@ static const NSUInteger kAKIMaxCarCount = 500;
     @synchronized (self) {
         if (_running != running) {
             _running = running;
-            if (running) {
-                [self performSelectorOnMainThread:@selector(initTimer) withObject:nil waitUntilDone:YES];
-            } else {
-                [self.timer performSelectorOnMainThread:@selector(invalidate) withObject:nil waitUntilDone:YES];
-            }
+            SEL selector = running ? @selector(initTimer) : @selector(invalidate);
+            
+            [self performSelectorOnMainThread:selector withObject:nil waitUntilDone:NO];
         }
     }
 }
