@@ -17,8 +17,6 @@ static const NSUInteger kAKIExperience = 10;
 @interface AKIWorker()
 @property (nonatomic, assign) NSUInteger money;
 
-- (void)performWorkInBackgroundWithObject:(id)object;
-- (void)finishProcessingOnMainQueueWithObject:(id)object;
 - (void)finishProcessing;
 - (void)performWorkWithObject:(id)object;
 - (void)finishProcessingObject:(id)object;
@@ -86,14 +84,6 @@ static const NSUInteger kAKIExperience = 10;
 #pragma mark -
 #pragma mark Private Methods
 
-- (void)performWorkInBackgroundWithObject:(id)object {
-    [self performWorkWithObject:object];
-//    [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [self performSelector:@selector(finishProcessingObject:) withObject:object];
-    });
-}
-
 - (void)performWorkWithObject:(id)object {
     [self doesNotRecognizeSelector:_cmd];
 }
@@ -103,28 +93,8 @@ static const NSUInteger kAKIExperience = 10;
     worker.state = AKIWorkerFree;
 }
 
-- (void)finishProcessingOnMainQueueWithObject:(id)object {
-    [self finishProcessingObject:object];
-    
-    @synchronized (self) {
-        AKIQueue *queue = self.objectsQueue;
-        NSUInteger count = [queue objectsCount];
-        
-        if (count) {
-//            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[queue dequeueObject]];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                [self performSelector:@selector(performWorkWithObject:) withObject:[queue dequeueObject]];
-            });
-        } else {
-            [self finishProcessing];
-        }
-    }
-}
-
 - (void)finishProcessing {
-    @synchronized (self) {
-        self.state = AKIWorkerPending;
-    }
+    self.state = AKIWorkerPending;
 }
 
 #pragma mark -

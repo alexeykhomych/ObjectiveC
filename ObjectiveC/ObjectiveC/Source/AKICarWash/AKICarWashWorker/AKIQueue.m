@@ -37,36 +37,28 @@
 #pragma mark Accessors Methods
 
 - (NSArray *)queue {
-    @synchronized (self) {
-        return [[self.mutableQueue copy] autorelease];
-    }
+    return [[self.mutableQueue copy] autorelease];
 }
 
 #pragma mark -
 #pragma mark Public Methods
 
 - (void)enqueueObject:(id)object {
-    @synchronized (self) {
-        [self.mutableQueue addObject:object];
-        self.count += 1;
-    }
+    [self.mutableQueue addObject:object];
+    self.count += 1;
 }
 
 - (id)dequeueObject {
-    @synchronized (self) {
-        NSMutableArray *array = self.mutableQueue;
-        id object = [[[array firstObject] retain] autorelease];
-        [array removeObject:object];
-        self.count -= 1;
-        
-        return object;
-    }
+    NSMutableArray *array = self.mutableQueue;
+    id object = [[[array firstObject] retain] autorelease];
+    [array removeObject:object];
+    self.count -= 1;
+    
+    return object;
 }
 
 - (NSUInteger)objectsCount {
-    @synchronized (self) {
-        return self.mutableQueue.count;
-    }
+    return self.mutableQueue.count;
 }
 
 @end
