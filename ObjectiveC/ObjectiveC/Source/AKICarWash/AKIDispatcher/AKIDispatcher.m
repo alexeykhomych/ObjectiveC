@@ -9,7 +9,9 @@
 #import "AKIDispatcher.h"
 #import "NSObject+AKIExtensions.h"
 #import "NSArray+AKIExtensions.h"
+#import "AKIQueue.h"
 #import "AKIWorker.h"
+#import "AKIGCD.h"
 
 @interface AKIDispatcher()
 @property (nonatomic, retain) NSMutableArray    *mutableProcessors;
@@ -104,30 +106,26 @@
 }
 
 - (id)reservedWorker{
-    @synchronized (self) {
-        AKIWorker *worker = [[self freeWorkers] firstObject];
-        worker.state = AKIWorkerBusy;
-        
-        return worker;
-    }
+    AKIWorker *worker = [[self freeWorkers] firstObject];
+    worker.state = AKIWorkerBusy;
+    
+    return worker;
 }
 
 - (NSArray *)freeWorkers {
-    @synchronized (self) {
-        return [self.mutableProcessors filterWithBlock:^BOOL(AKIWorker *worker) { return worker.state != AKIWorkerBusy; }];
-    }
+    return [self.mutableProcessors filterWithBlock:^BOOL(AKIWorker *worker) { return worker.state != AKIWorkerBusy; }];
 }
 
 #pragma mark -
 #pragma mark Observer Methods
 
 - (void)workerDidBecomePending:(id)object {
-    @synchronized (self) {
-        AKIWorker *worker = object;
-        
-        if (![self containsProcessor:worker]) {
+    AKIWorker *worker = object;
+    
+    if (![self containsProcessor:worker]) {
+        AKISyncPerformInBackground(^{
             [self processObject:worker];
-        }
+        });
     }
 }
 
@@ -135,7 +133,7 @@
     AKIWorker *worker = object;
     
     if ([self containsProcessor:worker]) {
-        [self performSelectorInBackground:@selector(processObject:) withObject:worker];
+        [self processObject:object];
     }
 }
 

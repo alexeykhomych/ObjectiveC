@@ -8,9 +8,10 @@
 
 #import "AKIComplexDispatcher.h"
 #import "NSObject+AKIExtensions.h"
+#import "AKIGCD.h"
 
 static const NSUInteger kAKITimer = 3;
-static const NSUInteger kAKIMaxCarCount = 500;
+static const size_t kAKIMaxCarCount = 5;
 
 @interface AKIComplexDispatcher()
 @property (nonatomic, assign) NSTimer       *timer;
@@ -48,22 +49,17 @@ static const NSUInteger kAKIMaxCarCount = 500;
 #pragma mark Accessors Methods
 
 - (void)setTimer:(NSTimer *)timer {
-    @synchronized (self) {
-        if (_timer != timer) {
-            [_timer invalidate];
-            _timer = timer;
-        }
+    if (_timer != timer) {
+        [_timer invalidate];
+        _timer = timer;
     }
 }
 
 - (void)setRunning:(BOOL)running {
-    @synchronized (self) {
-        if (_running != running) {
-            _running = running;
-            SEL selector = running ? @selector(initTimer) : @selector(invalidate);
-            
-            [self performSelectorOnMainThread:selector withObject:nil waitUntilDone:NO];
-        }
+    if (_running != running) {
+        _running = running;
+        SEL selector = running ? @selector(initTimer) : @selector(invalidate);
+        [self performSelector:selector];
     }
 }
 
@@ -71,25 +67,25 @@ static const NSUInteger kAKIMaxCarCount = 500;
 #pragma mark Public Methods
 
 - (void)washCar {
-    @synchronized (self) {
-        AKICarWash *complex = self.carWash;
-        for (NSUInteger i = 0; i < kAKIMaxCarCount; i++) {
-            [complex performSelectorInBackground:@selector(washCar:) withObject:[AKICar object]];
-        }
-    }
+    AKICarWash *complex = self.carWash;
+
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_apply(kAKIMaxCarCount, queue, ^(size_t count) {
+        AKIAsyncPefrormInBackground(^{
+            [complex washCar:[AKICar object]];
+        });
+    });
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
 - (void)initTimer {
-    @synchronized (self) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:kAKITimer
-                                                      target:self
-                                                    selector:@selector(washCar)
-                                                    userInfo:nil
-                                                     repeats:YES];
-    }
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:kAKITimer
+                                                  target:self
+                                                selector:@selector(washCar)
+                                                userInfo:nil
+                                                 repeats:YES];
 }
 
 @end

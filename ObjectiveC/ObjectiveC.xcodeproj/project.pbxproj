@@ -30,7 +30,8 @@
 		8486F0801D269E47001C84CB /* AKIObservableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F07E1D269E47001C84CB /* AKIObservableObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8486F0831D26C444001C84CB /* AKIWashCarSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0821D26C444001C84CB /* AKIWashCarSpec.m */; };
 		8486F0891D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; };
-		8486F08A1D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; };
+		8486F08A1D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		848EE6301D47EEB700B7F780 /* AKIGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE62F1D47EEB700B7F780 /* AKIGCD.m */; };
 		84FC6DE91D3D09B200867082 /* AKIDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DE81D3D09B200867082 /* AKIDispatcher.m */; };
 		84FC6DEB1D3D11DC00867082 /* AKIDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DE81D3D09B200867082 /* AKIDispatcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		84FC6DEE1D3D2D8000867082 /* AKIComplexDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DED1D3D2D8000867082 /* AKIComplexDispatcher.m */; };
@@ -83,6 +84,8 @@
 		8486F0821D26C444001C84CB /* AKIWashCarSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIWashCarSpec.m; sourceTree = "<group>"; };
 		8486F0871D2E9369001C84CB /* NSArray+AKIExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AKIExtensions.h"; sourceTree = "<group>"; };
 		8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AKIExtensions.m"; sourceTree = "<group>"; };
+		848EE62E1D47EEB700B7F780 /* AKIGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIGCD.h; sourceTree = "<group>"; };
+		848EE62F1D47EEB700B7F780 /* AKIGCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIGCD.m; sourceTree = "<group>"; };
 		84FC6DE71D3D09B200867082 /* AKIDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIDispatcher.h; sourceTree = "<group>"; };
 		84FC6DE81D3D09B200867082 /* AKIDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIDispatcher.m; sourceTree = "<group>"; };
 		84FC6DEC1D3D2D8000867082 /* AKIComplexDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIComplexDispatcher.h; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				847EE0741D1EB6D100561955 /* NSObject+AKIExtensions.m */,
 				8486F0871D2E9369001C84CB /* NSArray+AKIExtensions.h */,
 				8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */,
+				848EE62E1D47EEB700B7F780 /* AKIGCD.h */,
+				848EE62F1D47EEB700B7F780 /* AKIGCD.m */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 				847EE0AF1D1EB6D100561955 /* NSObject+AKIExtensions.m in Sources */,
 				847EE0C31D1EB6D100561955 /* AKICar.m in Sources */,
 				84FC6DEE1D3D2D8000867082 /* AKIComplexDispatcher.m in Sources */,
+				848EE6301D47EEB700B7F780 /* AKIGCD.m in Sources */,
 				847EE0B31D1EB6D100561955 /* main.m in Sources */,
 				8486F0891D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */,
 				847EE0C91D1EB6D100561955 /* AKIWorker.m in Sources */,

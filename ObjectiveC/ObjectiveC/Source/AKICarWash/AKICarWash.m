@@ -19,7 +19,7 @@
 
 #import "AKIDispatcher.h"
 
-static NSUInteger const kAKIWasherCount = 10;
+static NSUInteger const kAKIWasherCount = 5;
 static NSUInteger const kAKIAccoutantCount = 3;
 static NSUInteger const kAKIDirectorCount = 1;
 

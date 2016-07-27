@@ -9,6 +9,7 @@
 
 #import "NSObject+AKIExtensions.h"
 #import "AKIWorker.h"
+#import "AKIGCD.h"
 
 static const NSUInteger kAKISalary = 100;
 static const NSUInteger kAKIExperience = 10;
@@ -50,7 +51,14 @@ static const NSUInteger kAKIExperience = 10;
 #pragma mark Public methods
 
 - (void)processObject:(id)object {
-    [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:object];
+    AKISyncPerformInBackground(^{
+        [self performWorkWithObject:object];
+        
+        AKIAsyncPeformInMainQueue(^{
+            [self finishProcessingObject:object];
+            [self finishProcessing];
+        });
+    });
 }
 
 - (void)receiveMoney:(NSUInteger)money {
@@ -80,7 +88,10 @@ static const NSUInteger kAKIExperience = 10;
 
 - (void)performWorkInBackgroundWithObject:(id)object {
     [self performWorkWithObject:object];
-    [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
+//    [self performSelectorOnMainThread:@selector(finishProcessingOnMainQueueWithObject:) withObject:object waitUntilDone:NO];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self performSelector:@selector(finishProcessingObject:) withObject:object];
+    });
 }
 
 - (void)performWorkWithObject:(id)object {
@@ -100,7 +111,10 @@ static const NSUInteger kAKIExperience = 10;
         NSUInteger count = [queue objectsCount];
         
         if (count) {
-            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[queue dequeueObject]];
+//            [self performSelectorInBackground:@selector(performWorkInBackgroundWithObject:) withObject:[queue dequeueObject]];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                [self performSelector:@selector(performWorkWithObject:) withObject:[queue dequeueObject]];
+            });
         } else {
             [self finishProcessing];
         }
