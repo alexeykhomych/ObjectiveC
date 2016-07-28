@@ -10,7 +10,6 @@
 #import "NSObject+AKIExtensions.h"
 #import "AKIGCD.h"
 
-static const NSUInteger kAKITimer = 3;
 static const size_t kAKIMaxCarCount = 5;
 
 @interface AKIComplexDispatcher()
@@ -32,7 +31,6 @@ static const size_t kAKIMaxCarCount = 5;
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
-    self.timer = nil;
     self.carWash = nil;
     
     [super dealloc];
@@ -43,24 +41,6 @@ static const size_t kAKIMaxCarCount = 5;
     self.carWash = complex;
     
     return self;
-}
-
-#pragma mark -
-#pragma mark Accessors Methods
-
-- (void)setTimer:(NSTimer *)timer {
-    if (_timer != timer) {
-        [_timer invalidate];
-        _timer = timer;
-    }
-}
-
-- (void)setRunning:(BOOL)running {
-    if (_running != running) {
-        _running = running;
-        SEL selector = running ? @selector(initTimer) : @selector(invalidate);
-        [self performSelector:selector];
-    }
 }
 
 #pragma mark -
@@ -75,17 +55,6 @@ static const size_t kAKIMaxCarCount = 5;
             [complex washCar:[AKICar object]];
         });
     });
-}
-
-#pragma mark -
-#pragma mark Private Methods
-
-- (void)initTimer {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:kAKITimer
-                                                  target:self
-                                                selector:@selector(washCar)
-                                                userInfo:nil
-                                                 repeats:YES];
 }
 
 @end
