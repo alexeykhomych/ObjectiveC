@@ -11,7 +11,6 @@
 
 @interface AKIQueue()
 @property (nonatomic, retain) NSMutableArray    *mutableQueue;
-@property (nonatomic, assign) NSUInteger        count;
 
 @end
 
@@ -45,19 +44,17 @@
 
 - (void)enqueueObject:(id)object {
     [self.mutableQueue addObject:object];
-    self.count += 1;
 }
 
 - (id)dequeueObject {
     NSMutableArray *array = self.mutableQueue;
     id object = [[[array firstObject] retain] autorelease];
     [array removeObject:object];
-    self.count -= 1;
     
     return object;
 }
 
-- (NSUInteger)objectsCount {
+- (NSUInteger)count {
     return self.mutableQueue.count;
 }
 
