@@ -16,7 +16,6 @@
 @interface AKIDispatcher()
 @property (nonatomic, retain) NSMutableArray    *mutableProcessors;
 @property (nonatomic, retain) AKIQueue          *processingObjects;
-@property (nonatomic, retain) AKIQueue          *freeProcessors;
 
 - (BOOL)containsProcessor:(id)processor;
 - (id)reservedWorker;
@@ -37,6 +36,8 @@
 #pragma mark Initializations and Dealocations
 
 - (void)dealloc {
+    [self removeProcessors:self.mutableProcessors];
+    
     self.mutableProcessors = nil;
     self.processingObjects = nil;
     
@@ -106,26 +107,32 @@
 }
 
 - (id)reservedWorker{
-    AKIWorker *worker = [[self freeWorkers] firstObject];
-    worker.state = AKIWorkerBusy;
-    
-    return worker;
+    @synchronized (self) {
+        AKIWorker *worker = [[self freeWorkers] firstObject];
+        worker.state = AKIWorkerBusy;
+        
+        return worker;
+    }
 }
 
 - (NSArray *)freeWorkers {
-    return [self.mutableProcessors filterWithBlock:^BOOL(AKIWorker *worker) { return worker.state != AKIWorkerBusy; }];
+    @synchronized (self) {
+        return [self.mutableProcessors filterWithBlock:^BOOL(AKIWorker *worker) { return worker.state != AKIWorkerBusy; }];
+    }
 }
 
 #pragma mark -
 #pragma mark Observer Methods
 
 - (void)workerDidBecomePending:(id)object {
-    AKIWorker *worker = object;
-    
-    if (![self containsProcessor:worker]) {
-        AKISyncPerformInBackground(^{
-            [self processObject:worker];
-        });
+    @synchronized (self) {
+        AKIWorker *worker = object;
+        
+        if (![self containsProcessor:worker]) {
+            AKISyncPerformInBackground(^{
+                [self processObject:worker];
+            });
+        }
     }
 }
 

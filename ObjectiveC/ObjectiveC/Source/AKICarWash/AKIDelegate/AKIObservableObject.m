@@ -42,7 +42,9 @@
 #pragma mark Accessors Methods
 
 - (NSSet *)observers {
-    return self.observersTable.setRepresentation;
+    @synchronized (self) {
+        return self.observersTable.setRepresentation;
+    }
 }
 
 - (void)setState:(NSUInteger)state {
@@ -50,10 +52,12 @@
 }
 
 - (void)setState:(NSUInteger)state withObject:(id)object {
-    if (_state != state) {
-        _state = state;
-        
-        [self notifyOfState:state withObject:object];
+    @synchronized (self) {
+        if (_state != state) {
+            _state = state;
+            
+            [self notifyOfState:state withObject:object];
+        }
     }
 }
 
@@ -61,29 +65,39 @@
 #pragma mark Public Methods
 
 - (void)addObserver:(id)object {
-    if (object) {
-        [self.observersTable addObject:object];
+    @synchronized (self) {
+        if (object) {
+            [self.observersTable addObject:object];
+        }
     }
 }
 
 - (void)addObservers:(NSArray *)observers {
-    for (id observer in observers) {
-        [self addObserver:observer];
+    @synchronized (self) {
+        for (id observer in observers) {
+            [self addObserver:observer];
+        }
     }
 }
 
 - (void)removeObserver:(id)object {
-    [self.observersTable removeObject:object];
+    @synchronized (self) {
+        [self.observersTable removeObject:object];
+    }
 }
 
 - (void)removeObservers:(NSArray *)observers {
-    for (id object in observers) {
-        [self removeObserver:object];
+    @synchronized (self) {
+        for (id object in observers) {
+            [self removeObserver:object];
+        }
     }
 }
 
 - (BOOL)containsObserver:(id)object {
-    return [self.observersTable containsObject:object];
+    @synchronized (self) {
+        return [self.observersTable containsObject:object];
+    }
 }
 
 - (void)notifyOfState:(NSUInteger)state {
@@ -106,11 +120,13 @@
 }
 
 - (void)notifyObserverWithSelector:(SEL)selector object:(id)object {
-    NSHashTable *observers = self.observersTable;
-
-    for (id observer in observers) {
-        if ([observer respondsToSelector:selector]) {
-            [observer performSelector:selector withObject:self withObject:object];
+    @synchronized (self) {
+        NSHashTable *observers = self.observersTable;
+    
+        for (id observer in observers) {
+            if ([observer respondsToSelector:selector]) {
+                [observer performSelector:selector withObject:self withObject:object];
+            }
         }
     }
 }
