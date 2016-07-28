@@ -32,6 +32,8 @@
 		8486F0891D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; };
 		8486F08A1D2E9369001C84CB /* NSArray+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		848EE6301D47EEB700B7F780 /* AKIGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE62F1D47EEB700B7F780 /* AKIGCD.m */; };
+		848EE7111D4A137000B7F780 /* NSTimer+AKIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE7101D4A137000B7F780 /* NSTimer+AKIExtensions.m */; };
+		848EE7141D4A431700B7F780 /* AKITimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 848EE7131D4A431700B7F780 /* AKITimer.m */; };
 		84FC6DE91D3D09B200867082 /* AKIDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DE81D3D09B200867082 /* AKIDispatcher.m */; };
 		84FC6DEB1D3D11DC00867082 /* AKIDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DE81D3D09B200867082 /* AKIDispatcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		84FC6DEE1D3D2D8000867082 /* AKIComplexDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FC6DED1D3D2D8000867082 /* AKIComplexDispatcher.m */; };
@@ -86,6 +88,10 @@
 		8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AKIExtensions.m"; sourceTree = "<group>"; };
 		848EE62E1D47EEB700B7F780 /* AKIGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIGCD.h; sourceTree = "<group>"; };
 		848EE62F1D47EEB700B7F780 /* AKIGCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIGCD.m; sourceTree = "<group>"; };
+		848EE70F1D4A137000B7F780 /* NSTimer+AKIExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+AKIExtensions.h"; sourceTree = "<group>"; };
+		848EE7101D4A137000B7F780 /* NSTimer+AKIExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+AKIExtensions.m"; sourceTree = "<group>"; };
+		848EE7121D4A431700B7F780 /* AKITimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKITimer.h; sourceTree = "<group>"; };
+		848EE7131D4A431700B7F780 /* AKITimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKITimer.m; sourceTree = "<group>"; };
 		84FC6DE71D3D09B200867082 /* AKIDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIDispatcher.h; sourceTree = "<group>"; };
 		84FC6DE81D3D09B200867082 /* AKIDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKIDispatcher.m; sourceTree = "<group>"; };
 		84FC6DEC1D3D2D8000867082 /* AKIComplexDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKIComplexDispatcher.h; sourceTree = "<group>"; };
@@ -162,6 +168,10 @@
 				8486F0881D2E9369001C84CB /* NSArray+AKIExtensions.m */,
 				848EE62E1D47EEB700B7F780 /* AKIGCD.h */,
 				848EE62F1D47EEB700B7F780 /* AKIGCD.m */,
+				848EE70F1D4A137000B7F780 /* NSTimer+AKIExtensions.h */,
+				848EE7101D4A137000B7F780 /* NSTimer+AKIExtensions.m */,
+				848EE7121D4A431700B7F780 /* AKITimer.h */,
+				848EE7131D4A431700B7F780 /* AKITimer.m */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -458,9 +468,11 @@
 				847EE0CD1D1EB6D100561955 /* AKIDirector.m in Sources */,
 				847EE0CF1D1EB6D100561955 /* AKIWasher.m in Sources */,
 				847EE0CB1D1EB6D100561955 /* AKIAccountant.m in Sources */,
+				848EE7141D4A431700B7F780 /* AKITimer.m in Sources */,
 				847EE0C51D1EB6D100561955 /* AKICarWash.m in Sources */,
 				84FC6DE91D3D09B200867082 /* AKIDispatcher.m in Sources */,
 				847EE0C71D1EB6D100561955 /* AKIQueue.m in Sources */,
+				848EE7111D4A137000B7F780 /* NSTimer+AKIExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,8 +32,8 @@ typedef NSArray *(^AKIWorkersFactory)(Class class, NSUInteger count, id observer
 
 - (void)removeWorkerObservers;
 
-- (void)initDispatcherWithProcessor;
-- (void)initDispatcer;
+- (void)initDispatcherProcessor;
+- (void)initDispatchers;
 
 @end
 
@@ -54,19 +54,20 @@ typedef NSArray *(^AKIWorkersFactory)(Class class, NSUInteger count, id observer
 
 - (instancetype)init {
     self = [super init];
-    [self initDispatcer];
-    [self initDispatcherWithProcessor];
+    [self initDispatchers];
 
     return self;
 }
 
-- (void)initDispatcer {
+- (void)initDispatchers {
     self.directorsDispatcher = [AKIDispatcher object];
     self.accountantsDispatcher = [AKIDispatcher object];
     self.washersDispatcher = [AKIDispatcher object];
+    
+    [self initDispatcherProcessor];
 }
 
-- (void)initDispatcherWithProcessor {
+- (void)initDispatcherProcessor {
     AKIWorkersFactory workersFactory = ^NSArray *(Class class, NSUInteger count, id observers) {
         return [NSArray objectsWithCount:count block:^ {
             AKIWorker *worker = [class object];
