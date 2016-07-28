@@ -21,7 +21,7 @@ void AKIAsyncPefrormInBackground(AKIGCDBlock block);
 void AKISyncPerformInBackground(AKIGCDBlock block);
 
 void AKIAsyncPefrormInQueue(AKIQueueType type, AKIGCDBlock block);
-void AKISyncPefrormInQUeue(AKIQueueType type, AKIGCDBlock block);
+void AKISyncPefrormInQueue(AKIQueueType type, AKIGCDBlock block);
 
 void AKIAsyncPeformInMainQueue(AKIGCDBlock block);
 void AKISyncPerformInMainQueue(AKIGCDBlock block);

@@ -9,25 +9,41 @@
 #import "AKIGCD.h"
 
 void AKIAsyncPefrormInBackground(AKIGCDBlock block) {
-    AKISyncPefrormInQUeue(AKIQueueTypeBackground, block);
+    AKIAsyncPefrormInQueue(AKIQueueTypeBackground, block);
 }
 
 void AKISyncPerformInBackground(AKIGCDBlock block) {
-    AKISyncPefrormInQUeue(AKIQueueTypeBackground, block);
+    AKISyncPefrormInQueue(AKIQueueTypeBackground, block);
 }
 
 void AKIAsyncPefrormInQueue(AKIQueueType type, AKIGCDBlock block) {
+    if (!block) {
+        return;
+    }
+    
     dispatch_async(AKIGetGlobalQueueWithType(type), block);
 }
-void AKISyncPefrormInQUeue(AKIQueueType type, AKIGCDBlock block) {
+void AKISyncPefrormInQueue(AKIQueueType type, AKIGCDBlock block) {
+    if (!block) {
+        return;
+    }
+    
     dispatch_sync(AKIGetGlobalQueueWithType(type), block);
 }
 
 void AKIAsyncPeformInMainQueue(AKIGCDBlock block) {
+    if (!block) {
+        return;
+    }
+    
     dispatch_async(dispatch_get_main_queue(), block);
 }
 
 void AKISyncPerformInMainQueue(AKIGCDBlock block) {
+    if (!block) {
+        return;
+    }
+    
     if ([NSThread isMainThread]) {
         block();
     } else {
